@@ -134,53 +134,95 @@ const ALL_PRODUCTS = [
     ratchet:{id:"bulletgriffon-r",name:"（內建於刀片）",protrusions:null,height:null,integrated:true},
     bit:{id:"hexa2",name:"Hexa（H）",type:"balance",desc:"六角形底，自動扶正平衡"} },
 
-  // ── CX Custom Line ──
+  // ── CX Custom Line（五部件：Lock Chip / Main Blade / Assist Blade / Ratchet / Bit）──
   { id:"CX-01", name:"龍勇閃", nameEn:"DranBrave", code:"CX-01", series:"CX",
-    blade:{id:"dranbrave",name:"龍勇閃",nameEn:"DranBrave",type:"attack",note:"CX系列"},
+    blade:{id:"dranbrave",name:"龍勇閃",nameEn:"DranBrave",type:"attack"},
+    lockChip:{id:"lc-dran",name:"Dran"},
+    mainBlade:{id:"mb-brave",name:"Brave"},
+    assistBlade:{id:"ab-slash",name:"Slash"},
     ratchet:{id:"6-60",name:"6-60",protrusions:6,height:60},
     bit:{id:"vortex",name:"Vortex（V）",type:"attack",desc:"渦流底，激進旋轉攻擊"} },
   { id:"CX-02", name:"巫師弧光", nameEn:"WizardArc", code:"CX-02", series:"CX",
-    blade:{id:"wizardarc",name:"巫師弧光",nameEn:"WizardArc",type:"stamina",note:"CX系列"},
+    blade:{id:"wizardarc",name:"巫師弧光",nameEn:"WizardArc",type:"stamina"},
+    lockChip:{id:"lc-wizard",name:"Wizard"},
+    mainBlade:{id:"mb-arc",name:"Arc"},
+    assistBlade:{id:"ab-round",name:"Round"},
     ratchet:{id:"4-55",name:"4-55",protrusions:4,height:55},
     bit:{id:"loworb",name:"Low Orb（LO）",type:"stamina",desc:"低球形底，低重心耐久"} },
   { id:"CX-03", name:"英雄暗影", nameEn:"PerseusDark", code:"CX-03", series:"CX",
-    blade:{id:"perseusdark",name:"英雄暗影",nameEn:"PerseusDark",type:"defense",note:"CX系列"},
+    blade:{id:"perseusdark",name:"英雄暗影",nameEn:"PerseusDark",type:"defense"},
+    lockChip:{id:"lc-perseus",name:"Perseus"},
+    mainBlade:{id:"mb-dark",name:"Dark"},
+    assistBlade:{id:"ab-bumper",name:"Bumper"},
     ratchet:{id:"6-80",name:"6-80",protrusions:6,height:80},
     bit:{id:"wall",name:"Wall（W）",type:"defense",desc:"牆形底，防守反彈型"} },
   { id:"CX-05", name:"地獄收割（隨機包Vol.6）", nameEn:"HellsReaper", code:"CX-05", series:"CX",
-    blade:{id:"hellsreaper",name:"地獄收割",nameEn:"HellsReaper",type:"attack",note:"CX系列"},
+    blade:{id:"hellsreaper",name:"地獄收割",nameEn:"HellsReaper",type:"attack"},
+    lockChip:{id:"lc-hells",name:"Hells"},
+    mainBlade:{id:"mb-reaper",name:"Reaper"},
+    assistBlade:{id:"ab-turn",name:"Turn"},
     ratchet:{id:"4-70",name:"4-70",protrusions:4,height:70},
     bit:{id:"kick",name:"Kick（K）",type:"balance",desc:"踢形底，攻守兼備"} },
   { id:"CX-07", name:"天馬爆擊", nameEn:"PegasusBlast", code:"CX-07", series:"CX",
-    blade:{id:"blast",name:"Blast（爆擊）",nameEn:"Blast",type:"attack",note:"CX系列，含Main+Assist刀片"},
+    blade:{id:"blast",name:"Blast（爆擊）",nameEn:"Blast",type:"attack"},
+    lockChip:{id:"lc-pegasus",name:"Pegasus"},
+    mainBlade:{id:"mb-blast",name:"Blast"},
+    assistBlade:{id:"ab-assault",name:"Assault"},
     ratchet:{id:"turbo",name:"Turbo（一體式）",protrusions:null,height:null,integrated:true},
     bit:{id:"turbo-bit",name:"Turbo（一體式）",type:"attack",desc:"棘輪+Bit合體，高速尖底耐久低速平面攻擊",integrated:true} },
   { id:"CX-09", name:"太陽蝕", nameEn:"SolEclipse", code:"CX-09", series:"CX",
-    blade:{id:"soleclipse",name:"太陽蝕",nameEn:"SolEclipse",type:"balance",note:"CX系列"},
+    blade:{id:"soleclipse",name:"太陽蝕",nameEn:"SolEclipse",type:"balance"},
+    lockChip:{id:"lc-sol",name:"Sol"},
+    mainBlade:{id:"mb-eclipse",name:"Eclipse"},
+    assistBlade:{id:"ab-dual",name:"Dual"},
     ratchet:{id:"5-70",name:"5-70",protrusions:5,height:70},
     bit:{id:"transtaper",name:"Trans Kick（TK）",type:"balance",desc:"變形底，可切換模式"} },
   { id:"CX-10", name:"狼獵（隨機包Vol.7）", nameEn:"WolfHunt", code:"CX-10", series:"CX",
-    blade:{id:"wolfhunt",name:"狼獵",nameEn:"WolfHunt",type:"attack",note:"CX系列"},
+    blade:{id:"wolfhunt",name:"狼獵",nameEn:"WolfHunt",type:"attack"},
+    lockChip:{id:"lc-wolf",name:"Wolf"},
+    mainBlade:{id:"mb-hunt",name:"Hunt"},
+    assistBlade:{id:"ab-fang",name:"Fang"},
     ratchet:{id:"0-60",name:"0-60",protrusions:0,height:60},
     bit:{id:"diskball2",name:"Disk Ball（DB）",type:"stamina",desc:"碟形球底，穩定耐久"} },
   { id:"CX-11", name:"皇帝強力套組", nameEn:"EmperorMight Deck Set", code:"CX-11", series:"CX",
-    blade:{id:"emperormight",name:"皇帝強力",nameEn:"EmperorMight",type:"defense",note:"CX系列"},
+    blade:{id:"emperormight",name:"皇帝強力",nameEn:"EmperorMight",type:"defense"},
+    lockChip:{id:"lc-emperor",name:"Emperor"},
+    mainBlade:{id:"mb-might",name:"Might"},
+    assistBlade:{id:"ab-shield",name:"Shield"},
     ratchet:{id:"7-70",name:"7-70",protrusions:7,height:70},
     bit:{id:"orbsuction",name:"Orb Suction（O）",type:"stamina",desc:"球形吸力底，耐久型"} },
   { id:"CX-12", name:"鳳凰烈焰", nameEn:"PhoenixFlare", code:"CX-12", series:"CX",
-    blade:{id:"phoenixflare",name:"鳳凰烈焰",nameEn:"PhoenixFlare",type:"attack",note:"CX系列"},
+    blade:{id:"phoenixflare",name:"鳳凰烈焰",nameEn:"PhoenixFlare",type:"attack"},
+    lockChip:{id:"lc-phoenix",name:"Phoenix"},
+    mainBlade:{id:"mb-flare",name:"Flare"},
+    assistBlade:{id:"ab-zillion",name:"Zillion"},
     ratchet:{id:"9-80",name:"9-80",protrusions:9,height:80},
     bit:{id:"wallwedge",name:"Wall Wedge（WW）",type:"defense",desc:"牆楔底，防守型"} },
   { id:"CX-13", name:"龍王閃擊", nameEn:"BahamutBlitz", code:"CX-13", series:"CX",
-    blade:{id:"bahamutblitz",name:"龍王閃擊",nameEn:"BahamutBlitz",type:"attack",note:"CX系列，含Main+Assist刀片"},
+    blade:{id:"bahamutblitz",name:"龍王閃擊",nameEn:"BahamutBlitz",type:"attack"},
+    lockChip:{id:"lc-bahamut",name:"Bahamut"},
+    overBlade:{id:"ob-break",name:"Break"},
+    mainBlade:{id:"mb-blitz",name:"Blitz（Metal）"},
+    assistBlade:{id:"ab-knuckle",name:"Knuckle"},
+    expandBlade:true,
     ratchet:{id:"1-50",name:"1-50",protrusions:1,height:50},
     bit:{id:"ignition",name:"Ignition（I）",type:"attack",desc:"大型圓筒底，強力抓地高速機動"} },
   { id:"CX-14", name:"騎士堡壘", nameEn:"KnightFortress", code:"CX-14", series:"CX",
-    blade:{id:"knightfortress",name:"騎士堡壘",nameEn:"KnightFortress",type:"defense",note:"CX系列"},
+    blade:{id:"knightfortress",name:"騎士堡壘",nameEn:"KnightFortress",type:"defense"},
+    lockChip:{id:"lc-knight2",name:"Knight"},
+    overBlade:{id:"ob-fortress",name:"Fortress"},
+    mainBlade:{id:"mb-guard",name:"Guard（Metal）"},
+    assistBlade:{id:"ab-wall2",name:"Wall"},
+    expandBlade:true,
     ratchet:{id:"8-70",name:"8-70",protrusions:8,height:70},
     bit:{id:"underneedle2",name:"Under Needle（UN）",type:"defense",desc:"超低針底，低重心防守"} },
   { id:"CX-15", name:"拉格納狂怒", nameEn:"RagnaRage", code:"CX-15", series:"CX",
-    blade:{id:"ragnarage",name:"拉格納狂怒",nameEn:"RagnaRage",type:"stamina",note:"CX系列Expand Blade"},
+    blade:{id:"ragnarage",name:"拉格納狂怒",nameEn:"RagnaRage",type:"stamina"},
+    lockChip:{id:"lc-ragna",name:"Ragna"},
+    overBlade:{id:"ob-flow",name:"Flow"},
+    mainBlade:{id:"mb-rage",name:"Rage（Metal）"},
+    assistBlade:{id:"ab-erase",name:"Erase"},
+    expandBlade:true,
     ratchet:{id:"4-55",name:"4-55",protrusions:4,height:55},
     bit:{id:"yielding",name:"Yielding（Y）",type:"stamina",desc:"讓力底，耐久減少衝擊"} },
 ];
@@ -329,19 +371,17 @@ function ComboCard({combo,index}){
   );
 }
 
+const DEFAULT_OWNED=new Set(["BX-01","BX-45","CX-07","CX-13","UX-14","UX-19"]);
+
 export default function App(){
   const [query,setQuery]=useState("");
   const [selectedProduct,setSelectedProduct]=useState(null);
-  const [ownedProducts,setOwnedProducts]=useState(()=>{
-    try {
-      const saved=localStorage.getItem("beyblade-owned");
-      return saved?new Set(JSON.parse(saved)):new Set();
-    } catch { return new Set(); }
-  });
+  const [ownedProducts,setOwnedProducts]=useState(DEFAULT_OWNED);
   const [tab,setTab]=useState("combo");
   const [partQuery,setPartQuery]=useState("");
   const [inventoryQuery,setInventoryQuery]=useState("");
   const [showOwnedOnly,setShowOwnedOnly]=useState(false);
+  const [useOwnedOnly,setUseOwnedOnly]=useState(false);
   const [seriesFilter,setSeriesFilter]=useState("ALL");
 
   const {blades,ratchets,bits}=getAllParts();
@@ -366,8 +406,10 @@ export default function App(){
 
   const combos=useMemo(()=>{
     if(!selectedProduct) return [];
-    return getRecommendedCombos(selectedProduct,ratchets,bits,ownedPartIds);
-  },[selectedProduct,ratchets,bits,ownedPartIds]);
+    const filteredRatchets=useOwnedOnly?ratchets.filter(r=>ownedPartIds.has(r.id)):ratchets;
+    const filteredBits=useOwnedOnly?bits.filter(b=>ownedPartIds.has(b.id)):bits;
+    return getRecommendedCombos(selectedProduct,filteredRatchets,filteredBits,ownedPartIds);
+  },[selectedProduct,ratchets,bits,ownedPartIds,useOwnedOnly]);
 
   const wishlist=useMemo(()=>{
     if(!selectedProduct) return [];
@@ -380,12 +422,7 @@ export default function App(){
   },[combos,selectedProduct]);
 
   const toggleOwned=(id)=>{
-    setOwnedProducts(prev=>{
-      const n=new Set(prev);
-      n.has(id)?n.delete(id):n.add(id);
-      try { localStorage.setItem("beyblade-owned",JSON.stringify([...n])); } catch {}
-      return n;
-    });
+    setOwnedProducts(prev=>{const n=new Set(prev);n.has(id)?n.delete(id):n.add(id);return n;});
   };
 
   const filteredProducts=useMemo(()=>
@@ -499,12 +536,26 @@ export default function App(){
 
           {selectedProduct&&combos.length>0&&(
             <>
-              <div style={{fontSize:13,color:"#fbbf24",fontWeight:700,marginBottom:4}}>
+              <div style={{fontSize:13,color:"#fbbf24",fontWeight:700,marginBottom:10}}>
                 {selectedProduct.name} 推薦組合
                 <SeriesBadge series={selectedProduct.series}/>
               </div>
-              <div style={{fontSize:11,color:"#555",marginBottom:16}}>
-                S → A → B → C　·　綠框 = 現有零件可直接組　·　✓已有 / ✕待收集
+              <div style={{marginBottom:14,display:"flex",alignItems:"center",gap:10,flexWrap:"wrap"}}>
+                <div onClick={()=>setUseOwnedOnly(v=>!v)}
+                  style={{display:"flex",alignItems:"center",gap:8,cursor:"pointer",padding:"7px 14px",borderRadius:99,
+                    background:useOwnedOnly?"rgba(34,197,94,0.15)":"rgba(255,255,255,0.06)",
+                    border:`1px solid ${useOwnedOnly?"rgba(34,197,94,0.5)":"rgba(255,255,255,0.12)"}`}}>
+                  <div style={{width:18,height:18,borderRadius:4,
+                    background:useOwnedOnly?"#34d399":"rgba(255,255,255,0.08)",
+                    border:`2px solid ${useOwnedOnly?"#34d399":"rgba(255,255,255,0.2)"}`,
+                    display:"flex",alignItems:"center",justifyContent:"center",color:"#000",fontWeight:900,fontSize:11,flexShrink:0}}>
+                    {useOwnedOnly?"✓":""}
+                  </div>
+                  <span style={{fontSize:12,fontWeight:700,color:useOwnedOnly?"#34d399":"#888"}}>只用我現有的零件配</span>
+                </div>
+                <span style={{fontSize:11,color:"#555"}}>
+                  {useOwnedOnly?"只顯示你能馬上組出來的組合":"S → A → B → C · ✓已有 / ✕待收集"}
+                </span>
               </div>
               <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill, minmax(290px, 1fr))",gap:14}}>
                 {combos.map((c,i)=><ComboCard key={i} combo={c} index={i}/>)}
@@ -668,14 +719,25 @@ export default function App(){
                       <SeriesBadge series={p.series}/>
                     </div>
                     <div style={{display:"flex",flexDirection:"column",gap:4}}>
-                      {[
-                        {layer:"上層 刀片",name:p.blade.name,note:p.blade.note,integrated:false},
-                        {layer:"中層 棘輪",name:p.ratchet.integrated?"Turbo（一體式）":p.ratchet.name,note:p.ratchet.integrated?"⚠ 無法替換":null,integrated:p.ratchet.integrated},
-                        {layer:"底層 Bit",name:p.bit.integrated?"Turbo（一體式）":p.bit.name,note:p.bit.integrated?"⚠ 無法替換":null,integrated:p.bit.integrated},
-                      ].map(row=>(
+                      {(p.series==="CX"?[
+                        {layer:"鎖定芯",name:p.lockChip?.name||"-",note:null,integrated:false,color:"#c084fc"},
+                        ...(p.expandBlade?[
+                          {layer:"覆蓋刀片",name:p.overBlade?.name||"-",note:null,integrated:false,color:"#f472b6"},
+                          {layer:"金屬刀片",name:p.mainBlade?.name||"-",note:null,integrated:false,color:"#f472b6"},
+                        ]:[
+                          {layer:"主刀片",name:p.mainBlade?.name||"-",note:null,integrated:false,color:"#f472b6"},
+                        ]),
+                        {layer:"輔助刀片",name:p.assistBlade?.name||"-",note:null,integrated:false,color:"#f472b6"},
+                        {layer:"棘輪",name:p.ratchet.integrated?"Turbo（一體式）":p.ratchet.name,note:p.ratchet.integrated?"⚠ 無法替換":null,integrated:p.ratchet.integrated,color:null},
+                        {layer:"底層 Bit",name:p.bit.integrated?"Turbo（一體式）":p.bit.name,note:p.bit.integrated?"⚠ 無法替換":null,integrated:p.bit.integrated,color:null},
+                      ]:[
+                        {layer:"上層 刀片",name:p.blade.name,note:p.blade.note,integrated:false,color:null},
+                        {layer:"中層 棘輪",name:p.ratchet.integrated?"（內建）":p.ratchet.name,note:p.ratchet.integrated?"⚠ 無法替換":null,integrated:p.ratchet.integrated,color:null},
+                        {layer:"底層 Bit",name:p.bit.integrated?"Turbo（一體式）":p.bit.name,note:p.bit.integrated?"⚠ 無法替換":null,integrated:p.bit.integrated,color:null},
+                      ]).map(row=>(
                         <div key={row.layer} style={{display:"flex",alignItems:"flex-start",gap:8}}>
                           <span style={{fontSize:10,color:"#555",width:64,flexShrink:0,paddingTop:2}}>{row.layer}</span>
-                          <span style={{fontSize:12,color:row.integrated?"#f59e0b":owned?"#ccc":"#666"}}>{row.name}</span>
+                          <span style={{fontSize:12,color:row.integrated?"#f59e0b":row.color||(owned?"#ccc":"#666")}}>{row.name}</span>
                           {row.note&&<span style={{fontSize:10,color:"#f87171"}}>{row.note}</span>}
                         </div>
                       ))}
