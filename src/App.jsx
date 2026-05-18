@@ -43,8 +43,8 @@ const ALL_PRODUCTS = [
     blade:{id:"phoenixwing",name:"鳳凰飛翼",nameEn:"PhoenixWing",type:"attack"},
     ratchet:{id:"9-60",name:"9-60",protrusions:9,height:60},
     bit:{id:"gearflat",name:"Gear Flat（GF）",type:"attack",desc:"齒輪平面底，更快X-Dash"} },
-  { id:"BX-26", name:"獨角刺心", nameEn:"UnicornSting", code:"BX-26", series:"BX",
-    blade:{id:"unicornsting",name:"獨角刺心",nameEn:"UnicornSting",type:"balance"},
+  { id:"BX-26", name:"獨角獸刺心", nameEn:"UnicornSting", code:"BX-26", series:"BX",
+    blade:{id:"unicornsting",name:"獨角獸刺心",nameEn:"UnicornSting",type:"balance"},
     ratchet:{id:"5-60",name:"5-60",protrusions:5,height:60},
     bit:{id:"gearpoint",name:"Gear Point（GP）",type:"stamina",desc:"齒輪點形底，穩定耐久"} },
   { id:"BX-33", name:"皓戰猛虎", nameEn:"WeissTiger", code:"BX-33", series:"BX",
@@ -59,12 +59,12 @@ const ALL_PRODUCTS = [
     blade:{id:"whalewave",name:"巨鯨怒濤",nameEn:"WhaleWave",type:"stamina"},
     ratchet:{id:"5-80",name:"5-80",protrusions:5,height:80},
     bit:{id:"elevate",name:"Elevate（E）",type:"stamina",desc:"提升底，高重心耐久"} },
-  { id:"BX-38", name:"赤焰迦樓羅", nameEn:"CrimsonGaruda", code:"BX-38", series:"BX",
-    blade:{id:"crimsongaruda",name:"赤焰迦樓羅",nameEn:"CrimsonGaruda",type:"balance"},
+  { id:"BX-38", name:"赫燃天鳳", nameEn:"CrimsonGaruda", code:"BX-38", series:"BX",
+    blade:{id:"crimsongaruda",name:"赫燃天鳳",nameEn:"CrimsonGaruda",type:"balance"},
     ratchet:{id:"4-70",name:"4-70",protrusions:4,height:70},
     bit:{id:"transpoint",name:"Trans Point（TP）",type:"balance",desc:"變形點底，可切換模式"} },
-  { id:"BX-44", name:"魔像奇岩", nameEn:"TriceraPress", code:"BX-44", series:"BX",
-    blade:{id:"tricerapress",name:"魔像奇岩",nameEn:"TriceraPress",type:"defense"},
+  { id:"BX-44", name:"三角強襲", nameEn:"TriceraPress", code:"BX-44", series:"BX",
+    blade:{id:"tricerapress",name:"三角強襲",nameEn:"TriceraPress",type:"defense"},
     ratchet:{id:"m-85",name:"M-85",protrusions:null,height:85},
     bit:{id:"boundspike2",name:"Bound Spike（BS）",type:"defense",desc:"彈跳尖刺底，反擊防守"} },
   { id:"BX-45", name:"武士校刀", nameEn:"SamuraiCalibur", code:"BX-45", series:"BX",
@@ -97,8 +97,8 @@ const ALL_PRODUCTS = [
     blade:{id:"phoenixrudder",name:"鳳凰尾翼",nameEn:"PhoenixRudder",type:"balance"},
     ratchet:{id:"9-70",name:"9-70",protrusions:9,height:70},
     bit:{id:"glide",name:"Glide（G）",type:"balance",desc:"滑翔底，平衡機動"} },
-  { id:"UX-08", name:"銀狼獵手", nameEn:"SilverWolf", code:"UX-08", series:"UX",
-    blade:{id:"silverwolf",name:"銀狼獵手",nameEn:"SilverWolf",type:"defense"},
+  { id:"UX-08", name:"霜輝銀狼", nameEn:"SilverWolf", code:"UX-08", series:"UX",
+    blade:{id:"silverwolf",name:"霜輝銀狼",nameEn:"SilverWolf",type:"defense"},
     ratchet:{id:"3-80",name:"3-80",protrusions:3,height:80},
     bit:{id:"freeball",name:"Free Ball（FB）",type:"defense",desc:"自由球底，防守反彈"} },
   { id:"UX-09", name:"武士星劍", nameEn:"SamuraiSaber", code:"UX-09", series:"UX",
@@ -113,8 +113,8 @@ const ALL_PRODUCTS = [
     blade:{id:"impactdrake",name:"衝擊龍神",nameEn:"ImpactDrake",type:"attack"},
     ratchet:{id:"9-60",name:"9-60",protrusions:9,height:60},
     bit:{id:"lowrush",name:"Low Rush（LR）",type:"attack",desc:"低版Rush，更低重心強衝擊，競技首選"} },
-  { id:"UX-12", name:"幽靈圓（隨機包Vol.5）", nameEn:"GhostCircle", code:"UX-12", series:"UX",
-    blade:{id:"ghostcircle",name:"幽靈圓",nameEn:"GhostCircle",type:"defense"},
+  { id:"UX-12", name:"幽靈元魂（隨機包Vol.5）", nameEn:"GhostCircle", code:"UX-12", series:"UX",
+    blade:{id:"ghostcircle",name:"幽靈元魂",nameEn:"GhostCircle",type:"defense"},
     ratchet:{id:"0-80",name:"0-80",protrusions:0,height:80},
     bit:{id:"gearball",name:"Gear Ball（GB）",type:"defense",desc:"齒輪球底，防守穩定"} },
   { id:"UX-13", name:"魔像奇岩", nameEn:"GolemRock", code:"UX-13", series:"UX",
@@ -401,6 +401,7 @@ export default function App(){
   const [inventoryQuery,setInventoryQuery]=useState("");
   const [showOwnedOnly,setShowOwnedOnly]=useState(false);
   const [useOwnedOnly,setUseOwnedOnly]=useState(false);
+  const [showQuickSelect,setShowQuickSelect]=useState(false);
   const [seriesFilter,setSeriesFilter]=useState("ALL");
 
   const {blades,ratchets,bits}=getAllParts();
@@ -539,19 +540,25 @@ export default function App(){
 
           {/* 快速選擇 */}
           <div style={{marginBottom:24}}>
-            <div style={{fontSize:10,color:"#555",marginBottom:8,letterSpacing:1}}>快速選擇（{filteredProducts.length} 顆）</div>
-            <div style={{display:"flex",flexWrap:"wrap",gap:8}}>
-              {filteredProducts.map(p=>(
-                <button key={p.id} onClick={()=>{setSelectedProduct(p);setQuery(p.name);}} style={{
-                  padding:"5px 12px",borderRadius:99,fontSize:12,cursor:"pointer",fontWeight:600,
-                  background:selectedProduct?.id===p.id?"#fbbf24":ownedProducts.has(p.id)?"rgba(34,197,94,0.12)":"rgba(255,255,255,0.06)",
-                  color:selectedProduct?.id===p.id?"#000":ownedProducts.has(p.id)?"#34d399":"#888",
-                  border:selectedProduct?.id===p.id?"none":`1px solid ${ownedProducts.has(p.id)?"rgba(34,197,94,0.3)":"rgba(255,255,255,0.1)"}`}}>
-                  {p.name}
-                  <span style={{fontSize:9,opacity:0.6,marginLeft:4}}>{p.code}</span>
-                </button>
-              ))}
+            <div onClick={()=>setShowQuickSelect(v=>!v)}
+              style={{display:"flex",alignItems:"center",gap:8,cursor:"pointer",marginBottom:showQuickSelect?12:0}}>
+              <span style={{fontSize:10,color:"#555",letterSpacing:1}}>快速選擇（{filteredProducts.length} 顆）</span>
+              <span style={{fontSize:12,color:"#555",transform:showQuickSelect?"rotate(180deg)":"rotate(0deg)",transition:"transform 0.2s"}}>▼</span>
             </div>
+            {showQuickSelect&&(
+              <div style={{display:"flex",flexWrap:"wrap",gap:8}}>
+                {filteredProducts.map(p=>(
+                  <button key={p.id} onClick={()=>{setSelectedProduct(p);setQuery(p.name);}} style={{
+                    padding:"5px 12px",borderRadius:99,fontSize:12,cursor:"pointer",fontWeight:600,
+                    background:selectedProduct?.id===p.id?"#fbbf24":ownedProducts.has(p.id)?"rgba(34,197,94,0.12)":"rgba(255,255,255,0.06)",
+                    color:selectedProduct?.id===p.id?"#000":ownedProducts.has(p.id)?"#34d399":"#888",
+                    border:selectedProduct?.id===p.id?"none":`1px solid ${ownedProducts.has(p.id)?"rgba(34,197,94,0.3)":"rgba(255,255,255,0.1)"}`}}>
+                    {p.name}
+                    <span style={{fontSize:9,opacity:0.6,marginLeft:4}}>{p.code}</span>
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
           {selectedProduct&&combos.length>0&&(
@@ -721,17 +728,17 @@ export default function App(){
             {inventoryFiltered.map(p=>{
               const owned=ownedProducts.has(p.id);
               return(
-                <div key={p.id} onClick={()=>toggleOwned(p.id)}
-                  style={{display:"flex",alignItems:"flex-start",gap:14,padding:"14px 18px",borderRadius:14,cursor:"pointer",
+                <div key={p.id}
+                  style={{display:"flex",alignItems:"flex-start",gap:14,padding:"14px 18px",borderRadius:14,
                     background:owned?"rgba(34,197,94,0.07)":"rgba(255,255,255,0.04)",
                     border:`1px solid ${owned?"rgba(34,197,94,0.3)":"rgba(255,255,255,0.09)"}`}}>
-                  <div style={{width:22,height:22,borderRadius:6,flexShrink:0,marginTop:2,
+                  <div onClick={()=>toggleOwned(p.id)} style={{width:22,height:22,borderRadius:6,flexShrink:0,marginTop:2,cursor:"pointer",
                     background:owned?"#34d399":"rgba(255,255,255,0.08)",
                     border:`2px solid ${owned?"#34d399":"rgba(255,255,255,0.2)"}`,
                     display:"flex",alignItems:"center",justifyContent:"center",color:"#000",fontWeight:900,fontSize:13}}>
                     {owned?"✓":""}
                   </div>
-                  <div style={{flex:1}}>
+                  <div style={{flex:1,cursor:"pointer"}} onClick={()=>{setSelectedProduct(p);setTab("combo");setQuery(p.name);}}>
                     <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:8,flexWrap:"wrap"}}>
                       <span style={{fontWeight:700,fontSize:15,color:owned?"#fff":"#aaa"}}>{p.name}</span>
                       <span style={{fontSize:11,color:"#555"}}>{p.nameEn}</span>
