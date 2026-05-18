@@ -390,12 +390,17 @@ function ComboCard({combo,index}){
   );
 }
 
-const DEFAULT_OWNED=new Set(["BX-01","BX-45","CX-07","CX-13","UX-14","UX-19"]);
+
 
 export default function App(){
   const [query,setQuery]=useState("");
   const [selectedProduct,setSelectedProduct]=useState(null);
-  const [ownedProducts,setOwnedProducts]=useState(DEFAULT_OWNED);
+  const [ownedProducts,setOwnedProducts]=useState(()=>{
+    try{
+      const saved=localStorage.getItem("beyblade-owned");
+      return saved?new Set(JSON.parse(saved)):new Set();
+    }catch{return new Set();}
+  });
   const [tab,setTab]=useState("combo");
   const [partQuery,setPartQuery]=useState("");
   const [inventoryQuery,setInventoryQuery]=useState("");
@@ -442,7 +447,12 @@ export default function App(){
   },[combos,selectedProduct]);
 
   const toggleOwned=(id)=>{
-    setOwnedProducts(prev=>{const n=new Set(prev);n.has(id)?n.delete(id):n.add(id);return n;});
+    setOwnedProducts(prev=>{
+      const n=new Set(prev);
+      n.has(id)?n.delete(id):n.add(id);
+      try{localStorage.setItem("beyblade-owned",JSON.stringify([...n]));}catch{}
+      return n;
+    });
   };
 
   const filteredProducts=useMemo(()=>
