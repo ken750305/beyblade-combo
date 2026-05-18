@@ -3,68 +3,68 @@ import { useState, useMemo, useCallback } from "react";
 // ── 完整資料庫 BX / UX / CX ──────────────────────────────
 const ALL_PRODUCTS = [
   // ── BX Basic Line ──
-  { id:"BX-01", name:"龍劍", nameEn:"DranSword", code:"BX-01", series:"BX",
-    blade:{id:"dransword",name:"龍劍",nameEn:"DranSword",type:"attack"},
+  { id:"BX-01", name:"蒼龍神劍", nameEn:"DranSword", code:"BX-01", series:"BX",
+    blade:{id:"dransword",name:"蒼龍神劍",nameEn:"DranSword",type:"attack"},
     ratchet:{id:"3-60",name:"3-60",protrusions:3,height:60},
     bit:{id:"flat",name:"Flat（F）",type:"attack",desc:"平面底，激進移動"} },
-  { id:"BX-02", name:"地獄鐮刀", nameEn:"HellsScythe", code:"BX-02", series:"BX",
-    blade:{id:"hellsscythe",name:"地獄鐮刀",nameEn:"HellsScythe",type:"attack"},
+  { id:"BX-02", name:"惡魔紅鐮", nameEn:"HellsScythe", code:"BX-02", series:"BX",
+    blade:{id:"hellsscythe",name:"惡魔紅鐮",nameEn:"HellsScythe",type:"attack"},
     ratchet:{id:"4-60",name:"4-60",protrusions:4,height:60},
     bit:{id:"taper",name:"Taper（T）",type:"stamina",desc:"錐形底，旋轉耐久型"} },
-  { id:"BX-03", name:"魔法箭", nameEn:"WizardArrow", code:"BX-03", series:"BX",
-    blade:{id:"wizardarrow",name:"魔法箭",nameEn:"WizardArrow",type:"balance"},
+  { id:"BX-03", name:"魔導幻箭", nameEn:"WizardArrow", code:"BX-03", series:"BX",
+    blade:{id:"wizardarrow",name:"魔導幻箭",nameEn:"WizardArrow",type:"balance"},
     ratchet:{id:"4-80",name:"4-80",protrusions:4,height:80},
     bit:{id:"ball",name:"Ball（B）",type:"balance",desc:"球形底，平衡型"} },
-  { id:"BX-04", name:"騎士盾", nameEn:"KnightShield", code:"BX-04", series:"BX",
-    blade:{id:"knightshield",name:"騎士盾",nameEn:"KnightShield",type:"defense"},
+  { id:"BX-04", name:"騎士重盾", nameEn:"KnightShield", code:"BX-04", series:"BX",
+    blade:{id:"knightshield",name:"騎士重盾",nameEn:"KnightShield",type:"defense"},
     ratchet:{id:"3-80",name:"3-80",protrusions:3,height:80},
     bit:{id:"needle",name:"Needle（N）",type:"defense",desc:"針形底，防守定點型"} },
   { id:"BX-13", name:"騎士長槍", nameEn:"KnightLance", code:"BX-13", series:"BX",
     blade:{id:"knightlance",name:"騎士長槍",nameEn:"KnightLance",type:"defense"},
     ratchet:{id:"4-80",name:"4-80",protrusions:4,height:80},
     bit:{id:"highneedle",name:"High Needle（HN）",type:"defense",desc:"高針形底，高重心防守"} },
-  { id:"BX-15", name:"獅爪", nameEn:"LeonClaw", code:"BX-15", series:"BX",
-    blade:{id:"leonclaw",name:"獅爪",nameEn:"LeonClaw",type:"attack"},
+  { id:"BX-15", name:"雄獅獵爪", nameEn:"LeonClaw", code:"BX-15", series:"BX",
+    blade:{id:"leonclaw",name:"雄獅獵爪",nameEn:"LeonClaw",type:"attack"},
     ratchet:{id:"5-60",name:"5-60",protrusions:5,height:60},
     bit:{id:"point",name:"Point（P）",type:"stamina",desc:"點形底，穩定耐久"} },
-  { id:"BX-19", name:"犀牛角", nameEn:"RhinoHorn", code:"BX-19", series:"BX",
-    blade:{id:"rhinohorn",name:"犀牛角",nameEn:"RhinoHorn",type:"defense"},
+  { id:"BX-19", name:"戰犀獸角", nameEn:"RhinoHorn", code:"BX-19", series:"BX",
+    blade:{id:"rhinohorn",name:"戰犀獸角",nameEn:"RhinoHorn",type:"defense"},
     ratchet:{id:"3-80",name:"3-80",protrusions:3,height:80},
     bit:{id:"spike",name:"Spike（S）",type:"stamina",desc:"尖刺底，耐久穩定"} },
-  { id:"BX-20", name:"龍匕套組", nameEn:"DranDagger Deck Set", code:"BX-20", series:"BX",
-    blade:{id:"drandagger",name:"龍匕",nameEn:"DranDagger",type:"attack"},
+  { id:"BX-20", name:"蒼龍利刃", nameEn:"DranDagger Deck Set", code:"BX-20", series:"BX",
+    blade:{id:"drandagger",name:"蒼龍利刃",nameEn:"DranDagger",type:"attack"},
     ratchet:{id:"4-60",name:"4-60",protrusions:4,height:60},
     bit:{id:"rush",name:"Rush（R）",type:"attack",desc:"平面底，高頻X-Dash攻擊"} },
-  { id:"BX-21", name:"地獄鏈套組", nameEn:"HellsChain Deck Set", code:"BX-21", series:"BX",
-    blade:{id:"hellschain",name:"地獄鏈",nameEn:"HellsChain",type:"attack"},
+  { id:"BX-21", name:"惡魔鎖鏈", nameEn:"HellsChain Deck Set", code:"BX-21", series:"BX",
+    blade:{id:"hellschain",name:"惡魔鎖鏈",nameEn:"HellsChain",type:"attack"},
     ratchet:{id:"4-60",name:"4-60",protrusions:4,height:60},
     bit:{id:"hightaper",name:"High Taper（HT）",type:"stamina",desc:"高錐形底，高重心耐久"} },
   { id:"BX-23", name:"鳳凰飛翼", nameEn:"PhoenixWing", code:"BX-23", series:"BX",
     blade:{id:"phoenixwing",name:"鳳凰飛翼",nameEn:"PhoenixWing",type:"attack"},
     ratchet:{id:"9-60",name:"9-60",protrusions:9,height:60},
     bit:{id:"gearflat",name:"Gear Flat（GF）",type:"attack",desc:"齒輪平面底，更快X-Dash"} },
-  { id:"BX-26", name:"獨角獸刺", nameEn:"UnicornSting", code:"BX-26", series:"BX",
-    blade:{id:"unicornsting",name:"獨角獸刺",nameEn:"UnicornSting",type:"balance"},
+  { id:"BX-26", name:"獨角刺心", nameEn:"UnicornSting", code:"BX-26", series:"BX",
+    blade:{id:"unicornsting",name:"獨角刺心",nameEn:"UnicornSting",type:"balance"},
     ratchet:{id:"5-60",name:"5-60",protrusions:5,height:60},
     bit:{id:"gearpoint",name:"Gear Point（GP）",type:"stamina",desc:"齒輪點形底，穩定耐久"} },
-  { id:"BX-33", name:"白虎", nameEn:"WeissTiger", code:"BX-33", series:"BX",
-    blade:{id:"weisstiger",name:"白虎",nameEn:"WeissTiger",type:"balance"},
+  { id:"BX-33", name:"皓戰猛虎", nameEn:"WeissTiger", code:"BX-33", series:"BX",
+    blade:{id:"weisstiger",name:"皓戰猛虎",nameEn:"WeissTiger",type:"balance"},
     ratchet:{id:"3-60",name:"3-60",protrusions:3,height:60},
     bit:{id:"unite",name:"Unite（U）",type:"balance",desc:"組合底，兼顧攻守"} },
-  { id:"BX-34", name:"蒼藍龍", nameEn:"CobaltDragoon", code:"BX-34", series:"BX",
-    blade:{id:"cobaltdragoon",name:"蒼藍龍",nameEn:"CobaltDragoon",type:"attack"},
+  { id:"BX-34", name:"蒼穹龍騎士", nameEn:"CobaltDragoon", code:"BX-34", series:"BX",
+    blade:{id:"cobaltdragoon",name:"蒼穹龍騎士",nameEn:"CobaltDragoon",type:"attack"},
     ratchet:{id:"2-60",name:"2-60",protrusions:2,height:60},
     bit:{id:"cyclone",name:"Cyclone（C）",type:"attack",desc:"旋風底，激進移動攻擊"} },
-  { id:"BX-36", name:"鯨浪", nameEn:"WhaleWave", code:"BX-36", series:"BX",
-    blade:{id:"whalewave",name:"鯨浪",nameEn:"WhaleWave",type:"stamina"},
+  { id:"BX-36", name:"巨鯨怒濤", nameEn:"WhaleWave", code:"BX-36", series:"BX",
+    blade:{id:"whalewave",name:"巨鯨怒濤",nameEn:"WhaleWave",type:"stamina"},
     ratchet:{id:"5-80",name:"5-80",protrusions:5,height:80},
     bit:{id:"elevate",name:"Elevate（E）",type:"stamina",desc:"提升底，高重心耐久"} },
-  { id:"BX-38", name:"緋紅迦樓羅", nameEn:"CrimsonGaruda", code:"BX-38", series:"BX",
-    blade:{id:"crimsongaruda",name:"緋紅迦樓羅",nameEn:"CrimsonGaruda",type:"balance"},
+  { id:"BX-38", name:"赤焰迦樓羅", nameEn:"CrimsonGaruda", code:"BX-38", series:"BX",
+    blade:{id:"crimsongaruda",name:"赤焰迦樓羅",nameEn:"CrimsonGaruda",type:"balance"},
     ratchet:{id:"4-70",name:"4-70",protrusions:4,height:70},
     bit:{id:"transpoint",name:"Trans Point（TP）",type:"balance",desc:"變形點底，可切換模式"} },
-  { id:"BX-44", name:"三角龍壓", nameEn:"TriceraPress", code:"BX-44", series:"BX",
-    blade:{id:"tricerapress",name:"三角龍壓",nameEn:"TriceraPress",type:"defense"},
+  { id:"BX-44", name:"魔像奇岩", nameEn:"TriceraPress", code:"BX-44", series:"BX",
+    blade:{id:"tricerapress",name:"魔像奇岩",nameEn:"TriceraPress",type:"defense"},
     ratchet:{id:"m-85",name:"M-85",protrusions:null,height:85},
     bit:{id:"boundspike2",name:"Bound Spike（BS）",type:"defense",desc:"彈跳尖刺底，反擊防守"} },
   { id:"BX-45", name:"武士校刀", nameEn:"SamuraiCalibur", code:"BX-45", series:"BX",
@@ -77,48 +77,48 @@ const ALL_PRODUCTS = [
     blade:{id:"dranbuster",name:"蒼龍爆刃",nameEn:"DranBuster",type:"attack"},
     ratchet:{id:"1-60",name:"1-60",protrusions:1,height:60},
     bit:{id:"accel",name:"Accel（A）",type:"attack",desc:"加速底，快速機動攻擊"} },
-  { id:"UX-02", name:"地獄鐵鎚", nameEn:"HellsHammer", code:"UX-02", series:"UX",
-    blade:{id:"hellshammer",name:"地獄鐵鎚",nameEn:"HellsHammer",type:"attack"},
+  { id:"UX-02", name:"惡魔戰槌", nameEn:"HellsHammer", code:"UX-02", series:"UX",
+    blade:{id:"hellshammer",name:"惡魔戰槌",nameEn:"HellsHammer",type:"attack"},
     ratchet:{id:"3-70",name:"3-70",protrusions:3,height:70},
     bit:{id:"hexa",name:"Hexa（H）",type:"balance",desc:"六角形底，自動扶正平衡"} },
-  { id:"UX-03", name:"魔法棒", nameEn:"WizardRod", code:"UX-03", series:"UX",
-    blade:{id:"wizardrod",name:"魔法棒",nameEn:"WizardRod",type:"stamina"},
+  { id:"UX-03", name:"魔導神杖", nameEn:"WizardRod", code:"UX-03", series:"UX",
+    blade:{id:"wizardrod",name:"魔導神杖",nameEn:"WizardRod",type:"stamina"},
     ratchet:{id:"5-70",name:"5-70",protrusions:5,height:70},
     bit:{id:"diskball",name:"Disk Ball（DB）",type:"stamina",desc:"碟形球底，圓盤穩定耐久"} },
-  { id:"UX-05", name:"忍影", nameEn:"ShinobiShadow", code:"UX-05", series:"UX",
-    blade:{id:"shinobishadow",name:"忍影",nameEn:"ShinobiShadow",type:"attack"},
+  { id:"UX-05", name:"忍者闇影", nameEn:"ShinobiShadow", code:"UX-05", series:"UX",
+    blade:{id:"shinobishadow",name:"忍者闇影",nameEn:"ShinobiShadow",type:"attack"},
     ratchet:{id:"1-80",name:"1-80",protrusions:1,height:80},
     bit:{id:"metalneedle",name:"Metal Needle（MN）",type:"defense",desc:"金屬針底，防守耐久"} },
-  { id:"UX-06", name:"獅冠", nameEn:"LeonCrest", code:"UX-06", series:"UX",
-    blade:{id:"leoncrest",name:"獅冠",nameEn:"LeonCrest",type:"balance"},
+  { id:"UX-06", name:"雄獅巔峰", nameEn:"LeonCrest", code:"UX-06", series:"UX",
+    blade:{id:"leoncrest",name:"雄獅巔峰",nameEn:"LeonCrest",type:"balance"},
     ratchet:{id:"7-60",name:"7-60",protrusions:7,height:60},
     bit:{id:"gearneedle",name:"Gear Needle（GN）",type:"stamina",desc:"齒輪針底，耐久型"} },
-  { id:"UX-07", name:"鳳凰舵套組", nameEn:"PhoenixRudder Deck Set", code:"UX-07", series:"UX",
-    blade:{id:"phoenixrudder",name:"鳳凰舵",nameEn:"PhoenixRudder",type:"balance"},
+  { id:"UX-07", name:"鳳凰尾翼", nameEn:"PhoenixRudder Deck Set", code:"UX-07", series:"UX",
+    blade:{id:"phoenixrudder",name:"鳳凰尾翼",nameEn:"PhoenixRudder",type:"balance"},
     ratchet:{id:"9-70",name:"9-70",protrusions:9,height:70},
     bit:{id:"glide",name:"Glide（G）",type:"balance",desc:"滑翔底，平衡機動"} },
-  { id:"UX-08", name:"銀狼", nameEn:"SilverWolf", code:"UX-08", series:"UX",
-    blade:{id:"silverwolf",name:"銀狼",nameEn:"SilverWolf",type:"defense"},
+  { id:"UX-08", name:"銀狼獵手", nameEn:"SilverWolf", code:"UX-08", series:"UX",
+    blade:{id:"silverwolf",name:"銀狼獵手",nameEn:"SilverWolf",type:"defense"},
     ratchet:{id:"3-80",name:"3-80",protrusions:3,height:80},
     bit:{id:"freeball",name:"Free Ball（FB）",type:"defense",desc:"自由球底，防守反彈"} },
-  { id:"UX-09", name:"武士劍士", nameEn:"SamuraiSaber", code:"UX-09", series:"UX",
-    blade:{id:"samuraisaber",name:"武士劍士",nameEn:"SamuraiSaber",type:"balance"},
+  { id:"UX-09", name:"武士星劍", nameEn:"SamuraiSaber", code:"UX-09", series:"UX",
+    blade:{id:"samuraisaber",name:"武士星劍",nameEn:"SamuraiSaber",type:"balance"},
     ratchet:{id:"2-70",name:"2-70",protrusions:2,height:70},
     bit:{id:"level",name:"Level（L）",type:"balance",desc:"水平底，平衡穩定型"} },
-  { id:"UX-10", name:"騎士鎖甲套組", nameEn:"KnightMail Customize Set", code:"UX-10", series:"UX",
-    blade:{id:"knightmail",name:"騎士鎖甲",nameEn:"KnightMail",type:"defense"},
+  { id:"UX-10", name:"騎士圓甲", nameEn:"KnightMail Customize Set", code:"UX-10", series:"UX",
+    blade:{id:"knightmail",name:"騎士圓甲",nameEn:"KnightMail",type:"defense"},
     ratchet:{id:"3-85",name:"3-85",protrusions:3,height:85},
     bit:{id:"boundspike",name:"Bound Spike（BS）",type:"defense",desc:"彈跳尖刺底，防守反擊"} },
-  { id:"UX-11", name:"衝擊龍", nameEn:"ImpactDrake", code:"UX-11", series:"UX",
-    blade:{id:"impactdrake",name:"衝擊龍",nameEn:"ImpactDrake",type:"attack"},
+  { id:"UX-11", name:"衝擊龍神", nameEn:"ImpactDrake", code:"UX-11", series:"UX",
+    blade:{id:"impactdrake",name:"衝擊龍神",nameEn:"ImpactDrake",type:"attack"},
     ratchet:{id:"9-60",name:"9-60",protrusions:9,height:60},
     bit:{id:"lowrush",name:"Low Rush（LR）",type:"attack",desc:"低版Rush，更低重心強衝擊，競技首選"} },
   { id:"UX-12", name:"幽靈圓（隨機包Vol.5）", nameEn:"GhostCircle", code:"UX-12", series:"UX",
     blade:{id:"ghostcircle",name:"幽靈圓",nameEn:"GhostCircle",type:"defense"},
     ratchet:{id:"0-80",name:"0-80",protrusions:0,height:80},
     bit:{id:"gearball",name:"Gear Ball（GB）",type:"defense",desc:"齒輪球底，防守穩定"} },
-  { id:"UX-13", name:"石魔岩", nameEn:"GolemRock", code:"UX-13", series:"UX",
-    blade:{id:"golemrock",name:"石魔岩",nameEn:"GolemRock",type:"defense"},
+  { id:"UX-13", name:"魔像奇岩", nameEn:"GolemRock", code:"UX-13", series:"UX",
+    blade:{id:"golemrock",name:"魔像奇岩",nameEn:"GolemRock",type:"defense"},
     ratchet:{id:"1-60",name:"1-60",protrusions:1,height:60},
     bit:{id:"underneedle",name:"Under Needle（UN）",type:"defense",desc:"超低針底，超低重心防守"} },
   { id:"UX-14", name:"天蠍長矛", nameEn:"ScorpioSpear", code:"UX-14", series:"UX",
@@ -135,29 +135,29 @@ const ALL_PRODUCTS = [
     bit:{id:"hexa2",name:"Hexa（H）",type:"balance",desc:"六角形底，自動扶正平衡"} },
 
   // ── CX Custom Line（五部件：Lock Chip / Main Blade / Assist Blade / Ratchet / Bit）──
-  { id:"CX-01", name:"龍勇閃", nameEn:"DranBrave", code:"CX-01", series:"CX",
-    blade:{id:"dranbrave",name:"龍勇閃",nameEn:"DranBrave",type:"attack"},
+  { id:"CX-01", name:"蒼龍勇氣", nameEn:"DranBrave", code:"CX-01", series:"CX",
+    blade:{id:"dranbrave",name:"蒼龍勇氣",nameEn:"DranBrave",type:"attack"},
     lockChip:{id:"lc-dran",name:"Dran"},
     mainBlade:{id:"mb-brave",name:"Brave"},
     assistBlade:{id:"ab-slash",name:"Slash"},
     ratchet:{id:"6-60",name:"6-60",protrusions:6,height:60},
     bit:{id:"vortex",name:"Vortex（V）",type:"attack",desc:"渦流底，激進旋轉攻擊"} },
-  { id:"CX-02", name:"巫師弧光", nameEn:"WizardArc", code:"CX-02", series:"CX",
-    blade:{id:"wizardarc",name:"巫師弧光",nameEn:"WizardArc",type:"stamina"},
+  { id:"CX-02", name:"魔導至尊", nameEn:"WizardArc", code:"CX-02", series:"CX",
+    blade:{id:"wizardarc",name:"魔導至尊",nameEn:"WizardArc",type:"stamina"},
     lockChip:{id:"lc-wizard",name:"Wizard"},
     mainBlade:{id:"mb-arc",name:"Arc"},
     assistBlade:{id:"ab-round",name:"Round"},
     ratchet:{id:"4-55",name:"4-55",protrusions:4,height:55},
     bit:{id:"loworb",name:"Low Orb（LO）",type:"stamina",desc:"低球形底，低重心耐久"} },
-  { id:"CX-03", name:"英雄暗影", nameEn:"PerseusDark", code:"CX-03", series:"CX",
-    blade:{id:"perseusdark",name:"英雄暗影",nameEn:"PerseusDark",type:"defense"},
+  { id:"CX-03", name:"英仙幽冥", nameEn:"PerseusDark", code:"CX-03", series:"CX",
+    blade:{id:"perseusdark",name:"英仙幽冥",nameEn:"PerseusDark",type:"defense"},
     lockChip:{id:"lc-perseus",name:"Perseus"},
     mainBlade:{id:"mb-dark",name:"Dark"},
     assistBlade:{id:"ab-bumper",name:"Bumper"},
     ratchet:{id:"6-80",name:"6-80",protrusions:6,height:80},
     bit:{id:"wall",name:"Wall（W）",type:"defense",desc:"牆形底，防守反彈型"} },
-  { id:"CX-05", name:"地獄收割（隨機包Vol.6）", nameEn:"HellsReaper", code:"CX-05", series:"CX",
-    blade:{id:"hellsreaper",name:"地獄收割",nameEn:"HellsReaper",type:"attack"},
+  { id:"CX-05", name:"惡魔獵魂（隨機包Vol.6）", nameEn:"HellsReaper", code:"CX-05", series:"CX",
+    blade:{id:"hellsreaper",name:"惡魔獵魂",nameEn:"HellsReaper",type:"attack"},
     lockChip:{id:"lc-hells",name:"Hells"},
     mainBlade:{id:"mb-reaper",name:"Reaper"},
     assistBlade:{id:"ab-turn",name:"Turn"},
@@ -170,29 +170,29 @@ const ALL_PRODUCTS = [
     assistBlade:{id:"ab-assault",name:"Assault"},
     ratchet:{id:"turbo",name:"Turbo（一體式）",protrusions:null,height:null,integrated:true},
     bit:{id:"turbo-bit",name:"Turbo（一體式）",type:"attack",desc:"棘輪+Bit合體，高速尖底耐久低速平面攻擊",integrated:true} },
-  { id:"CX-09", name:"太陽蝕", nameEn:"SolEclipse", code:"CX-09", series:"CX",
-    blade:{id:"soleclipse",name:"太陽蝕",nameEn:"SolEclipse",type:"balance"},
+  { id:"CX-09", name:"焰神滅世", nameEn:"SolEclipse", code:"CX-09", series:"CX",
+    blade:{id:"soleclipse",name:"焰神滅世",nameEn:"SolEclipse",type:"balance"},
     lockChip:{id:"lc-sol",name:"Sol"},
     mainBlade:{id:"mb-eclipse",name:"Eclipse"},
     assistBlade:{id:"ab-dual",name:"Dual"},
     ratchet:{id:"5-70",name:"5-70",protrusions:5,height:70},
     bit:{id:"transtaper",name:"Trans Kick（TK）",type:"balance",desc:"變形底，可切換模式"} },
-  { id:"CX-10", name:"狼獵（隨機包Vol.7）", nameEn:"WolfHunt", code:"CX-10", series:"CX",
-    blade:{id:"wolfhunt",name:"狼獵",nameEn:"WolfHunt",type:"attack"},
+  { id:"CX-10", name:"銀狼狩獵（隨機包Vol.7）", nameEn:"WolfHunt", code:"CX-10", series:"CX",
+    blade:{id:"wolfhunt",name:"銀狼狩獵",nameEn:"WolfHunt",type:"attack"},
     lockChip:{id:"lc-wolf",name:"Wolf"},
     mainBlade:{id:"mb-hunt",name:"Hunt"},
     assistBlade:{id:"ab-fang",name:"Fang"},
     ratchet:{id:"0-60",name:"0-60",protrusions:0,height:60},
     bit:{id:"diskball2",name:"Disk Ball（DB）",type:"stamina",desc:"碟形球底，穩定耐久"} },
-  { id:"CX-11", name:"皇帝強力套組", nameEn:"EmperorMight Deck Set", code:"CX-11", series:"CX",
-    blade:{id:"emperormight",name:"皇帝強力",nameEn:"EmperorMight",type:"defense"},
+  { id:"CX-11", name:"帝王威能", nameEn:"EmperorMight Deck Set", code:"CX-11", series:"CX",
+    blade:{id:"emperormight",name:"帝王威能",nameEn:"EmperorMight",type:"defense"},
     lockChip:{id:"lc-emperor",name:"Emperor"},
     mainBlade:{id:"mb-might",name:"Might"},
     assistBlade:{id:"ab-shield",name:"Shield"},
     ratchet:{id:"7-70",name:"7-70",protrusions:7,height:70},
     bit:{id:"orbsuction",name:"Orb Suction（O）",type:"stamina",desc:"球形吸力底，耐久型"} },
-  { id:"CX-12", name:"鳳凰烈焰", nameEn:"PhoenixFlare", code:"CX-12", series:"CX",
-    blade:{id:"phoenixflare",name:"鳳凰烈焰",nameEn:"PhoenixFlare",type:"attack"},
+  { id:"CX-12", name:"鳳凰閃焰", nameEn:"PhoenixFlare", code:"CX-12", series:"CX",
+    blade:{id:"phoenixflare",name:"鳳凰閃焰",nameEn:"PhoenixFlare",type:"attack"},
     lockChip:{id:"lc-phoenix",name:"Phoenix"},
     mainBlade:{id:"mb-flare",name:"Flare"},
     assistBlade:{id:"ab-zillion",name:"Zillion"},
@@ -216,8 +216,8 @@ const ALL_PRODUCTS = [
     expandBlade:true,
     ratchet:{id:"8-70",name:"8-70",protrusions:8,height:70},
     bit:{id:"underneedle2",name:"Under Needle（UN）",type:"defense",desc:"超低針底，低重心防守"} },
-  { id:"CX-15", name:"拉格納狂怒", nameEn:"RagnaRage", code:"CX-15", series:"CX",
-    blade:{id:"ragnarage",name:"拉格納狂怒",nameEn:"RagnaRage",type:"stamina"},
+  { id:"CX-15", name:"邪神狂怒", nameEn:"RagnaRage", code:"CX-15", series:"CX",
+    blade:{id:"ragnarage",name:"邪神狂怒",nameEn:"RagnaRage",type:"stamina"},
     lockChip:{id:"lc-ragna",name:"Ragna"},
     overBlade:{id:"ob-flow",name:"Flow"},
     mainBlade:{id:"mb-rage",name:"Rage（Metal）"},
@@ -265,17 +265,35 @@ function getRecommendedCombos(product,allRatchets,allBits,ownedPartIds){
   if(!product) return [];
   const blade=product.blade;
   const isIntegrated=product.ratchet.integrated&&product.bit.integrated;
+  const isIntegratedRatchet=blade.integratedRatchet; // 如子彈獅鷲，棘輪內建於刀片
   const combos=[];
+
+  // 棘輪+Bit全一體式（如天馬爆擊Turbo）
   if(isIntegrated){
     combos.push({
       blade,
       ratchet:{...product.ratchet,source:product.name,sourceCode:product.code},
       bit:{...product.bit,source:product.name,sourceCode:product.code},
       rating:"B",score:5,style:"原裝一體式",isIntegratedCard:true,
+      integratedRatchet:false,
       owned:{blade:ownedPartIds.has(blade.id),ratchet:true,bit:true},
       allOwned:ownedPartIds.has(blade.id),
     });
   }
+
+  // 棘輪內建於刀片（如子彈獅鷲），只能換Bit
+  if(isIntegratedRatchet){
+    const fixedRatchet={...product.ratchet,source:product.name,sourceCode:product.code};
+    allBits.forEach(b=>{
+      const score=2+rateBit(b.id); // 棘輪固定，只評Bit
+      const rating=getRating(score);
+      const owned={blade:ownedPartIds.has(blade.id),ratchet:true,bit:ownedPartIds.has(b.id)};
+      const style=b.type==="attack"?"偏攻":"平衡";
+      combos.push({blade,ratchet:fixedRatchet,bit:b,rating,score,style,isIntegratedCard:false,integratedRatchet:true,owned,allOwned:owned.blade&&owned.bit});
+    });
+    return combos.sort((a,b)=>b.score-a.score).slice(0,7);
+  }
+
   const seen=new Set();
   allRatchets.filter(r=>r.protrusions!==null).forEach(r=>{
     allBits.forEach(b=>{
@@ -291,7 +309,7 @@ function getRecommendedCombos(product,allRatchets,allBits,ownedPartIds){
       const key=`${blade.id}-${r.id}-${b.id}`;
       if(!seen.has(key)){
         seen.add(key);
-        combos.push({blade,ratchet:r,bit:b,rating,score,style,isIntegratedCard:false,owned,allOwned:owned.blade&&owned.ratchet&&owned.bit});
+        combos.push({blade,ratchet:r,bit:b,rating,score,style,isIntegratedCard:false,integratedRatchet:false,owned,allOwned:owned.blade&&owned.ratchet&&owned.bit});
       }
     });
   });
@@ -328,9 +346,10 @@ function SeriesBadge({series}){
 
 function ComboCard({combo,index}){
   const rColor=RATING_COLOR[combo.rating]||"#aaa";
+  const ratchetIntegrated=combo.isIntegratedCard||combo.integratedRatchet;
   const rows=[
     {layer:"上層 刀片",val:combo.blade.name,srcName:combo.blade.source,src:combo.blade.sourceCode,owned:combo.owned.blade,integrated:false},
-    {layer:"中層 棘輪",val:combo.isIntegratedCard?"Turbo（一體式，無法替換）":combo.ratchet.name,srcName:combo.isIntegratedCard?null:combo.ratchet.source,src:combo.isIntegratedCard?null:combo.ratchet.sourceCode,owned:combo.owned.ratchet,integrated:combo.isIntegratedCard},
+    {layer:"中層 棘輪",val:combo.isIntegratedCard?"Turbo（一體式，無法替換）":combo.integratedRatchet?"（內建於刀片，無法替換）":combo.ratchet.name,srcName:ratchetIntegrated?null:combo.ratchet.source,src:ratchetIntegrated?null:combo.ratchet.sourceCode,owned:combo.owned.ratchet,integrated:ratchetIntegrated},
     {layer:"底層 Bit",val:combo.isIntegratedCard?"Turbo（一體式，無法替換）":combo.bit.name,srcName:combo.isIntegratedCard?null:combo.bit.source,src:combo.isIntegratedCard?null:combo.bit.sourceCode,owned:combo.owned.bit,integrated:combo.isIntegratedCard},
   ];
   return(
@@ -529,6 +548,7 @@ export default function App(){
                   color:selectedProduct?.id===p.id?"#000":ownedProducts.has(p.id)?"#34d399":"#888",
                   border:selectedProduct?.id===p.id?"none":`1px solid ${ownedProducts.has(p.id)?"rgba(34,197,94,0.3)":"rgba(255,255,255,0.1)"}`}}>
                   {p.name}
+                  <span style={{fontSize:9,opacity:0.6,marginLeft:4}}>{p.code}</span>
                 </button>
               ))}
             </div>
