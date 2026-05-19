@@ -3,6 +3,10 @@ import { useState, useMemo, useCallback } from "react";
 // ── 完整資料庫 BX / UX / CX ──────────────────────────────
 const ALL_PRODUCTS = [
   // ── BX Basic Line ──
+  { id:"BX-00", name:"蒼穹龍神", nameEn:"CobaltDragoon", code:"BX-00", series:"BX",
+    blade:{id:"cobaltdragoon0",name:"蒼穹龍神",nameEn:"CobaltDragoon",type:"attack"},
+    ratchet:{id:"2-60b",name:"2-60",protrusions:2,height:60},
+    bit:{id:"flat0",name:"Flat（F）",type:"attack",desc:"平面底，激進移動"} },
   { id:"BX-01", name:"蒼龍神劍", nameEn:"DranSword", code:"BX-01", series:"BX",
     blade:{id:"dransword",name:"蒼龍神劍",nameEn:"DranSword",type:"attack"},
     ratchet:{id:"3-60",name:"3-60",protrusions:3,height:60},
@@ -19,14 +23,62 @@ const ALL_PRODUCTS = [
     blade:{id:"knightshield",name:"騎士重盾",nameEn:"KnightShield",type:"defense"},
     ratchet:{id:"3-80",name:"3-80",protrusions:3,height:80},
     bit:{id:"needle",name:"Needle（N）",type:"defense",desc:"針形底，防守定點型"} },
+  { id:"BX-05", name:"魔導幻箭（加強版）", nameEn:"WizardArrow Booster", code:"BX-05", series:"BX",
+    blade:{id:"wizardarrow2",name:"魔導幻箭",nameEn:"WizardArrow",type:"balance"},
+    ratchet:{id:"4-80b",name:"4-80",protrusions:4,height:80},
+    bit:{id:"ball2",name:"Ball（B）",type:"balance",desc:"球形底，平衡型"} },
+  { id:"BX-06", name:"騎士重盾（加強版）", nameEn:"KnightShield Booster", code:"BX-06", series:"BX",
+    blade:{id:"knightshield2",name:"騎士重盾",nameEn:"KnightShield",type:"defense"},
+    ratchet:{id:"3-80b",name:"3-80",protrusions:3,height:80},
+    bit:{id:"needle2",name:"Needle（N）",type:"defense",desc:"針形底，防守定點型"} },
+  { id:"BX-07", name:"起跑衝刺組", nameEn:"Start Dash Set", code:"BX-07", series:"BX",
+    blade:{id:"dransword2",name:"蒼龍神劍",nameEn:"DranSword",type:"attack"},
+    ratchet:{id:"3-60b",name:"3-60",protrusions:3,height:60},
+    bit:{id:"flat2",name:"Flat（F）",type:"attack",desc:"平面底，激進移動"} },
+  { id:"BX-08", name:"3對3 對戰套組", nameEn:"3on3 Deck Set", code:"BX-08", series:"BX",
+    blade:{id:"dransword3",name:"蒼龍神劍",nameEn:"DranSword",type:"attack"},
+    ratchet:{id:"3-60c",name:"3-60",protrusions:3,height:60},
+    bit:{id:"flat3",name:"Flat（F）",type:"attack",desc:"平面底，激進移動"} },
+  { id:"BX-09", name:"通行證組合", nameEn:"Bey Battle Pass", code:"BX-09", series:"BX",
+    blade:{id:"dransword4",name:"蒼龍神劍",nameEn:"DranSword",type:"attack"},
+    ratchet:{id:"3-60d",name:"3-60",protrusions:3,height:60},
+    bit:{id:"flat4",name:"Flat（F）",type:"attack",desc:"平面底，激進移動"} },
+  { id:"BX-10", name:"隨機包Vol.1", nameEn:"Random Booster Vol.1", code:"BX-10", series:"BX",
+    blade:{id:"hellosscythe2",name:"惡魔紅鐮",nameEn:"HellsScythe",type:"attack"},
+    ratchet:{id:"4-60b",name:"4-60",protrusions:4,height:60},
+    bit:{id:"taper2",name:"Taper（T）",type:"stamina",desc:"錐形底，旋轉耐久型"} },
+  { id:"BX-11", name:"對戰收納盒A", nameEn:"Beybattle Deck Case A", code:"BX-11", series:"BX",
+    blade:{id:"dransword5",name:"蒼龍神劍",nameEn:"DranSword",type:"attack"},
+    ratchet:{id:"3-60e",name:"3-60",protrusions:3,height:60},
+    bit:{id:"flat5",name:"Flat（F）",type:"attack",desc:"平面底，激進移動"} },
+  { id:"BX-12", name:"對戰收納盒B", nameEn:"Beybattle Deck Case B", code:"BX-12", series:"BX",
+    blade:{id:"knightshield3",name:"騎士重盾",nameEn:"KnightShield",type:"defense"},
+    ratchet:{id:"3-80c",name:"3-80",protrusions:3,height:80},
+    bit:{id:"needle3",name:"Needle（N）",type:"defense",desc:"針形底，防守定點型"} },
   { id:"BX-13", name:"騎士長槍", nameEn:"KnightLance", code:"BX-13", series:"BX",
     blade:{id:"knightlance",name:"騎士長槍",nameEn:"KnightLance",type:"defense"},
     ratchet:{id:"4-80",name:"4-80",protrusions:4,height:80},
     bit:{id:"highneedle",name:"High Needle（HN）",type:"defense",desc:"高針形底，高重心防守"} },
+  { id:"BX-14", name:"隨機包Vol.2", nameEn:"Random Booster Vol.2", code:"BX-14", series:"BX",
+    blade:{id:"wizardarrow3",name:"魔導幻箭",nameEn:"WizardArrow",type:"balance"},
+    ratchet:{id:"5-80b",name:"5-80",protrusions:5,height:80},
+    bit:{id:"highball",name:"High Ball（HB）",type:"balance",desc:"高球形底，高重心平衡"} },
   { id:"BX-15", name:"雄獅獵爪", nameEn:"LeonClaw", code:"BX-15", series:"BX",
     blade:{id:"leonclaw",name:"雄獅獵爪",nameEn:"LeonClaw",type:"attack"},
     ratchet:{id:"5-60",name:"5-60",protrusions:5,height:60},
     bit:{id:"point",name:"Point（P）",type:"stamina",desc:"點形底，穩定耐久"} },
+  { id:"BX-16", name:"戰鬥盤組合", nameEn:"Beystadium Set", code:"BX-16", series:"BX",
+    blade:{id:"dransword6",name:"蒼龍神劍",nameEn:"DranSword",type:"attack"},
+    ratchet:{id:"3-60f",name:"3-60",protrusions:3,height:60},
+    bit:{id:"flat6",name:"Flat（F）",type:"attack",desc:"平面底，激進移動"} },
+  { id:"BX-17", name:"隨機包Vol.3 精裝版", nameEn:"Ultimate Deck Set", code:"BX-17", series:"BX",
+    blade:{id:"leonclaw2",name:"雄獅獵爪",nameEn:"LeonClaw",type:"attack"},
+    ratchet:{id:"5-60b",name:"5-60",protrusions:5,height:60},
+    bit:{id:"point2",name:"Point（P）",type:"stamina",desc:"點形底，穩定耐久"} },
+  { id:"BX-18", name:"雙入門組", nameEn:"2-Pack Starter Set", code:"BX-18", series:"BX",
+    blade:{id:"hellsscythe3",name:"惡魔紅鐮",nameEn:"HellsScythe",type:"attack"},
+    ratchet:{id:"4-60c",name:"4-60",protrusions:4,height:60},
+    bit:{id:"taper3",name:"Taper（T）",type:"stamina",desc:"錐形底，旋轉耐久型"} },
   { id:"BX-19", name:"戰犀獸角", nameEn:"RhinoHorn", code:"BX-19", series:"BX",
     blade:{id:"rhinohorn",name:"戰犀獸角",nameEn:"RhinoHorn",type:"defense"},
     ratchet:{id:"3-80",name:"3-80",protrusions:3,height:80},
@@ -39,14 +91,50 @@ const ALL_PRODUCTS = [
     blade:{id:"hellschain",name:"惡魔鎖鏈",nameEn:"HellsChain",type:"attack"},
     ratchet:{id:"4-60",name:"4-60",protrusions:4,height:60},
     bit:{id:"hightaper",name:"High Taper（HT）",type:"stamina",desc:"高錐形底，高重心耐久"} },
+  { id:"BX-22", name:"隨機包Vol.4", nameEn:"Random Booster Vol.4", code:"BX-22", series:"BX",
+    blade:{id:"wizardrod2",name:"魔導神杖",nameEn:"WizardRod",type:"stamina"},
+    ratchet:{id:"1-60b",name:"1-60",protrusions:1,height:60},
+    bit:{id:"rush3",name:"Rush（R）",type:"attack",desc:"平面底，高頻X-Dash攻擊"} },
   { id:"BX-23", name:"鳳凰飛翼", nameEn:"PhoenixWing", code:"BX-23", series:"BX",
     blade:{id:"phoenixwing",name:"鳳凰飛翼",nameEn:"PhoenixWing",type:"attack"},
     ratchet:{id:"9-60",name:"9-60",protrusions:9,height:60},
     bit:{id:"gearflat",name:"Gear Flat（GF）",type:"attack",desc:"齒輪平面底，更快X-Dash"} },
+  { id:"BX-24", name:"暴龍咆哮", nameEn:"TyraNnoRoar", code:"BX-24", series:"BX",
+    blade:{id:"tyrannoroar",name:"暴龍咆哮",nameEn:"TyraNnoRoar",type:"attack"},
+    ratchet:{id:"5-60c",name:"5-60",protrusions:5,height:60},
+    bit:{id:"gearflat2",name:"Gear Flat（GF）",type:"attack",desc:"齒輪平面底，更快X-Dash"} },
+  { id:"BX-25", name:"隨機包Vol.5", nameEn:"Random Booster Vol.5", code:"BX-25", series:"BX",
+    blade:{id:"cobaltdrake2",name:"蒼穹龍騎士",nameEn:"CobaltDrake",type:"attack"},
+    ratchet:{id:"9-60b",name:"9-60",protrusions:9,height:60},
+    bit:{id:"lowrush2",name:"Low Rush（LR）",type:"attack",desc:"低版Rush，更低重心強衝擊"} },
   { id:"BX-26", name:"獨角獸刺心", nameEn:"UnicornSting", code:"BX-26", series:"BX",
     blade:{id:"unicornsting",name:"獨角獸刺心",nameEn:"UnicornSting",type:"balance"},
     ratchet:{id:"5-60",name:"5-60",protrusions:5,height:60},
     bit:{id:"gearpoint",name:"Gear Point（GP）",type:"stamina",desc:"齒輪點形底，穩定耐久"} },
+  { id:"BX-27", name:"鬼火魔輪（隨機包Vol.6）", nameEn:"OrochiCluster", code:"BX-27", series:"BX",
+    blade:{id:"orochicluster",name:"鬼火魔輪",nameEn:"OrochiCluster",type:"stamina"},
+    ratchet:{id:"6-60b",name:"6-60",protrusions:6,height:60},
+    bit:{id:"lowflat",name:"Low Flat（LF）",type:"attack",desc:"低平面底，低重心攻擊"} },
+  { id:"BX-28", name:"對戰雙入門組B", nameEn:"2-Pack Starter Set B", code:"BX-28", series:"BX",
+    blade:{id:"phoenixwing2",name:"鳳凰飛翼",nameEn:"PhoenixWing",type:"attack"},
+    ratchet:{id:"9-60c",name:"9-60",protrusions:9,height:60},
+    bit:{id:"gearflat3",name:"Gear Flat（GF）",type:"attack",desc:"齒輪平面底，更快X-Dash"} },
+  { id:"BX-29", name:"帝王威能（特別版）", nameEn:"EmperorMight Special", code:"BX-29", series:"BX",
+    blade:{id:"emperormight2",name:"帝王威能",nameEn:"EmperorMight",type:"defense"},
+    ratchet:{id:"7-70b",name:"7-70",protrusions:7,height:70},
+    bit:{id:"lowrush3",name:"Low Rush（LR）",type:"attack",desc:"低版Rush，競技首選"} },
+  { id:"BX-30", name:"隨機包Vol.7", nameEn:"Random Booster Vol.7", code:"BX-30", series:"BX",
+    blade:{id:"sharkedge2",name:"鯊刃",nameEn:"SharkEdge",type:"attack"},
+    ratchet:{id:"1-60c",name:"1-60",protrusions:1,height:60},
+    bit:{id:"accel2",name:"Accel（A）",type:"attack",desc:"加速底，快速機動攻擊"} },
+  { id:"BX-31", name:"隨機包Vol.3", nameEn:"Random Booster Vol.3", code:"BX-31", series:"BX",
+    blade:{id:"sharkedge",name:"鯊刃",nameEn:"SharkEdge",type:"attack"},
+    ratchet:{id:"1-60",name:"1-60",protrusions:1,height:60},
+    bit:{id:"accel",name:"Accel（A）",type:"attack",desc:"加速底，快速機動攻擊"} },
+  { id:"BX-32", name:"競技對戰組", nameEn:"Competition Deck Set", code:"BX-32", series:"BX",
+    blade:{id:"phoenixwing3",name:"鳳凰飛翼",nameEn:"PhoenixWing",type:"attack"},
+    ratchet:{id:"9-60d",name:"9-60",protrusions:9,height:60},
+    bit:{id:"gearflat4",name:"Gear Flat（GF）",type:"attack",desc:"齒輪平面底，更快X-Dash"} },
   { id:"BX-33", name:"皓戰猛虎", nameEn:"WeissTiger", code:"BX-33", series:"BX",
     blade:{id:"weisstiger",name:"皓戰猛虎",nameEn:"WeissTiger",type:"balance"},
     ratchet:{id:"3-60",name:"3-60",protrusions:3,height:60},
@@ -55,14 +143,42 @@ const ALL_PRODUCTS = [
     blade:{id:"cobaltdragoon",name:"蒼穹龍騎士",nameEn:"CobaltDragoon",type:"attack"},
     ratchet:{id:"2-60",name:"2-60",protrusions:2,height:60},
     bit:{id:"cyclone",name:"Cyclone（C）",type:"attack",desc:"旋風底，激進移動攻擊"} },
+  { id:"BX-35", name:"隨機包Vol.4", nameEn:"Random Booster Vol.4", code:"BX-35", series:"BX",
+    blade:{id:"wizardrod3",name:"魔導神杖",nameEn:"WizardRod",type:"stamina"},
+    ratchet:{id:"1-60d",name:"1-60",protrusions:1,height:60},
+    bit:{id:"rush4",name:"Rush（R）",type:"attack",desc:"平面底，高頻X-Dash攻擊"} },
   { id:"BX-36", name:"巨鯨怒濤", nameEn:"WhaleWave", code:"BX-36", series:"BX",
     blade:{id:"whalewave",name:"巨鯨怒濤",nameEn:"WhaleWave",type:"stamina"},
     ratchet:{id:"5-80",name:"5-80",protrusions:5,height:80},
     bit:{id:"elevate",name:"Elevate（E）",type:"stamina",desc:"提升底，高重心耐久"} },
+  { id:"BX-37", name:"隨機包Vol.5", nameEn:"Random Booster Vol.5 Rerun", code:"BX-37", series:"BX",
+    blade:{id:"tyrannoroar2",name:"暴龍咆哮",nameEn:"TyraNnoRoar",type:"attack"},
+    ratchet:{id:"4-60d",name:"4-60",protrusions:4,height:60},
+    bit:{id:"gearflat5",name:"Gear Flat（GF）",type:"attack",desc:"齒輪平面底，更快X-Dash"} },
   { id:"BX-38", name:"赫燃天鳳", nameEn:"CrimsonGaruda", code:"BX-38", series:"BX",
     blade:{id:"crimsongaruda",name:"赫燃天鳳",nameEn:"CrimsonGaruda",type:"balance"},
     ratchet:{id:"4-70",name:"4-70",protrusions:4,height:70},
     bit:{id:"transpoint",name:"Trans Point（TP）",type:"balance",desc:"變形點底，可切換模式"} },
+  { id:"BX-39", name:"隨機包Vol.8", nameEn:"Random Booster Vol.8", code:"BX-39", series:"BX",
+    blade:{id:"orochicluster2",name:"鬼火魔輪",nameEn:"OrochiCluster",type:"stamina"},
+    ratchet:{id:"6-60c",name:"6-60",protrusions:6,height:60},
+    bit:{id:"lowflat2",name:"Low Flat（LF）",type:"attack",desc:"低平面底，低重心攻擊"} },
+  { id:"BX-40", name:"蒼穹龍騎士（對戰套組D）", nameEn:"CobaltDrake Deck Set D", code:"BX-40", series:"BX",
+    blade:{id:"cobaltdrake3",name:"蒼穹龍騎士",nameEn:"CobaltDrake",type:"attack"},
+    ratchet:{id:"9-60e",name:"9-60",protrusions:9,height:60},
+    bit:{id:"lowrush4",name:"Low Rush（LR）",type:"attack",desc:"低版Rush，競技首選"} },
+  { id:"BX-41", name:"隨機包Vol.9", nameEn:"Random Booster Vol.9", code:"BX-41", series:"BX",
+    blade:{id:"tyrannoroar3",name:"暴龍咆哮",nameEn:"TyraNnoRoar",type:"attack"},
+    ratchet:{id:"5-60d",name:"5-60",protrusions:5,height:60},
+    bit:{id:"underflat2",name:"Under Flat（UF）",type:"attack",desc:"超低平面底，最低重心攻擊"} },
+  { id:"BX-42", name:"天鳳神龍（對戰套組E）", nameEn:"GarudaDran Deck Set E", code:"BX-42", series:"BX",
+    blade:{id:"garudadran",name:"天鳳神龍",nameEn:"GarudaDran",type:"attack"},
+    ratchet:{id:"9-60f",name:"9-60",protrusions:9,height:60},
+    bit:{id:"lowrush5",name:"Low Rush（LR）",type:"attack",desc:"低版Rush，競技首選"} },
+  { id:"BX-43", name:"隨機包Vol.10", nameEn:"Random Booster Vol.10 BX", code:"BX-43", series:"BX",
+    blade:{id:"whalewave2",name:"巨鯨怒濤",nameEn:"WhaleWave",type:"stamina"},
+    ratchet:{id:"5-80b",name:"5-80",protrusions:5,height:80},
+    bit:{id:"elevate2",name:"Elevate（E）",type:"stamina",desc:"提升底，高重心耐久"} },
   { id:"BX-44", name:"三角強襲", nameEn:"TriceraPress", code:"BX-44", series:"BX",
     blade:{id:"tricerapress",name:"三角強襲",nameEn:"TriceraPress",type:"defense"},
     ratchet:{id:"m-85",name:"M-85",protrusions:null,height:85},
@@ -85,6 +201,10 @@ const ALL_PRODUCTS = [
     blade:{id:"wizardrod",name:"魔導神杖",nameEn:"WizardRod",type:"stamina"},
     ratchet:{id:"5-70",name:"5-70",protrusions:5,height:70},
     bit:{id:"diskball",name:"Disk Ball（DB）",type:"stamina",desc:"碟形球底，圓盤穩定耐久"} },
+  { id:"UX-04", name:"隨機包Vol.1 UX", nameEn:"UX Random Booster Vol.1", code:"UX-04", series:"UX",
+    blade:{id:"rhinohorn2",name:"戰犀獸角",nameEn:"RhinoHorn",type:"defense"},
+    ratchet:{id:"3-80d",name:"3-80",protrusions:3,height:80},
+    bit:{id:"spike2",name:"Spike（S）",type:"stamina",desc:"尖刺底，耐久穩定"} },
   { id:"UX-05", name:"忍者闇影", nameEn:"ShinobiShadow", code:"UX-05", series:"UX",
     blade:{id:"shinobishadow",name:"忍者闇影",nameEn:"ShinobiShadow",type:"attack"},
     ratchet:{id:"1-80",name:"1-80",protrusions:1,height:80},
@@ -129,6 +249,18 @@ const ALL_PRODUCTS = [
     blade:{id:"sharkscale",name:"鮫鯊狂鱗",nameEn:"SharkScale",type:"attack"},
     ratchet:{id:"4-50",name:"4-50",protrusions:4,height:50},
     bit:{id:"underflat",name:"Under Flat（UF）",type:"attack",desc:"超低平面底，最低重心攻擊"} },
+  { id:"UX-16", name:"隨機包Vol.6 UX", nameEn:"UX Random Booster Vol.6", code:"UX-16", series:"UX",
+    blade:{id:"shinobishadow2",name:"忍者闇影",nameEn:"ShinobiShadow",type:"attack"},
+    ratchet:{id:"1-80b",name:"1-80",protrusions:1,height:80},
+    bit:{id:"metalneedle2",name:"Metal Needle（MN）",type:"defense",desc:"金屬針底，防守耐久"} },
+  { id:"UX-17", name:"隕石龍神", nameEn:"MeteorDragon", code:"UX-17", series:"UX",
+    blade:{id:"meteordragon",name:"隕石龍神",nameEn:"MeteorDragon",type:"attack"},
+    ratchet:{id:"3-70b",name:"3-70",protrusions:3,height:70},
+    bit:{id:"orb",name:"Orb（O）",type:"stamina",desc:"球形底，耐久穩定"} },
+  { id:"UX-18", name:"隨機包Vol.8 UX", nameEn:"UX Random Booster Vol.8", code:"UX-18", series:"UX",
+    blade:{id:"weisstiger2",name:"皓戰猛虎",nameEn:"WeissTiger",type:"balance"},
+    ratchet:{id:"4-80b",name:"4-80",protrusions:4,height:80},
+    bit:{id:"lowrush6",name:"Low Rush（LR）",type:"attack",desc:"低版Rush，競技首選"} },
   { id:"UX-19", name:"子彈獅鷲", nameEn:"BulletGriffon", code:"UX-19", series:"UX",
     blade:{id:"bulletgriffon",name:"子彈獅鷲",nameEn:"BulletGriffon",type:"balance",note:"棘輪內建，受擊後分裂",integratedRatchet:true},
     ratchet:{id:"bulletgriffon-r",name:"（內建於刀片）",protrusions:null,height:null,integrated:true},
@@ -156,6 +288,13 @@ const ALL_PRODUCTS = [
     assistBlade:{id:"ab-bumper",name:"Bumper"},
     ratchet:{id:"6-80",name:"6-80",protrusions:6,height:80},
     bit:{id:"wall",name:"Wall（W）",type:"defense",desc:"牆形底，防守反彈型"} },
+  { id:"CX-04", name:"對戰組A", nameEn:"Battle Entry Set A", code:"CX-04", series:"CX",
+    blade:{id:"dranbrave2",name:"蒼龍勇氣",nameEn:"DranBrave",type:"attack"},
+    lockChip:{id:"lc-dran2",name:"Dran"},
+    mainBlade:{id:"mb-brave2",name:"Brave"},
+    assistBlade:{id:"ab-slash2",name:"Slash"},
+    ratchet:{id:"6-60d",name:"6-60",protrusions:6,height:60},
+    bit:{id:"vortex2",name:"Vortex（V）",type:"attack",desc:"渦流底，激進旋轉攻擊"} },
   { id:"CX-05", name:"惡魔獵魂（隨機包Vol.6）", nameEn:"HellsReaper", code:"CX-05", series:"CX",
     blade:{id:"hellsreaper",name:"惡魔獵魂",nameEn:"HellsReaper",type:"attack"},
     lockChip:{id:"lc-hells",name:"Hells"},
@@ -170,6 +309,13 @@ const ALL_PRODUCTS = [
     assistBlade:{id:"ab-assault",name:"Assault"},
     ratchet:{id:"turbo",name:"Turbo（一體式）",protrusions:null,height:null,integrated:true},
     bit:{id:"turbo-bit",name:"Turbo（一體式）",type:"attack",desc:"棘輪+Bit合體，高速尖底耐久低速平面攻擊",integrated:true} },
+  { id:"CX-08", name:"隨機包Vol.7 CX", nameEn:"CX Random Booster Vol.7", code:"CX-08", series:"CX",
+    blade:{id:"cerberusflame",name:"地獄三首焰（隨機包Vol.7）",nameEn:"CerberusFlame",type:"attack"},
+    lockChip:{id:"lc-cerberus",name:"Cerberus"},
+    mainBlade:{id:"mb-flame",name:"Flame"},
+    assistBlade:{id:"ab-w2",name:"W"},
+    ratchet:{id:"5-80c",name:"5-80",protrusions:5,height:80},
+    bit:{id:"wall2",name:"Wall Bound（WB）",type:"defense",desc:"牆面彈跳底，防守反彈"} },
   { id:"CX-09", name:"焰神滅世", nameEn:"SolEclipse", code:"CX-09", series:"CX",
     blade:{id:"soleclipse",name:"焰神滅世",nameEn:"SolEclipse",type:"balance"},
     lockChip:{id:"lc-sol",name:"Sol"},
@@ -216,6 +362,36 @@ const ALL_PRODUCTS = [
     expandBlade:true,
     ratchet:{id:"8-70",name:"8-70",protrusions:8,height:70},
     bit:{id:"underneedle2",name:"Under Needle（UN）",type:"defense",desc:"超低針底，低重心防守"} },
+  { id:"CX-06", name:"極狐九尾（隨機包Vol.6）", nameEn:"NineTails", code:"CX-06", series:"CX",
+    blade:{id:"ninetails",name:"極狐九尾",nameEn:"NineTails",type:"balance"},
+    lockChip:{id:"lc-fox",name:"Fox"},
+    mainBlade:{id:"mb-ninetails",name:"Nine Tails"},
+    assistBlade:{id:"ab-fox",name:"J"},
+    ratchet:{id:"9-70",name:"9-70",protrusions:9,height:70},
+    bit:{id:"gearball2",name:"Gear Rush（GR）",type:"balance",desc:"齒輪衝刺底，平衡機動"} },
+  { id:"CX-16", name:"龍王閃擊 異色版（對戰組C）", nameEn:"BahamutBlitz Alt", code:"CX-16", series:"CX",
+    blade:{id:"bahamutblitz2",name:"龍王閃擊（異色）",nameEn:"BahamutBlitz Alt",type:"attack"},
+    lockChip:{id:"lc-bahamut2",name:"Bahamut"},
+    overBlade:{id:"ob-break2",name:"Break"},
+    mainBlade:{id:"mb-blitz2",name:"Blitz（Metal）"},
+    assistBlade:{id:"ab-knuckle2",name:"Knuckle"},
+    expandBlade:true,
+    ratchet:{id:"1-50",name:"1-50",protrusions:1,height:50},
+    bit:{id:"ignition2",name:"Ignition（I）",type:"attack",desc:"大型圓筒底，強力抓地高速機動"} },
+  { id:"CX-17", name:"獨角極變（隨機包Vol.10）", nameEn:"UnicornMetamorphosis", code:"CX-17", series:"CX",
+    blade:{id:"unicornmeta",name:"獨角極變",nameEn:"UnicornMetamorphosis",type:"balance"},
+    lockChip:{id:"lc-unicorn",name:"Unicorn"},
+    mainBlade:{id:"mb-meta",name:"Metamorphosis"},
+    assistBlade:{id:"ab-o",name:"O"},
+    ratchet:{id:"3-60cx17",name:"3-60",protrusions:3,height:60},
+    bit:{id:"gearunite",name:"Gear Unite（GU）",type:"balance",desc:"齒輪組合底，平衡型"} },
+  { id:"CX-18", name:"腕龍長鞭", nameEn:"WristDragonWhip", code:"CX-18", series:"CX",
+    blade:{id:"wristdragon",name:"腕龍鞭擊",nameEn:"WristDragonWhip",type:"attack"},
+    lockChip:{id:"lc-wrist",name:"Wrist"},
+    mainBlade:{id:"mb-whip",name:"Whip"},
+    assistBlade:{id:"ab-w",name:"W"},
+    ratchet:{id:"5-70cx18",name:"5-70",protrusions:5,height:70},
+    bit:{id:"needlerush",name:"Needle Rush（Nr）",type:"stamina",desc:"針形衝刺底，耐久型"} },
   { id:"CX-15", name:"邪神狂怒", nameEn:"RagnaRage", code:"CX-15", series:"CX",
     blade:{id:"ragnarage",name:"邪神狂怒",nameEn:"RagnaRage",type:"stamina"},
     lockChip:{id:"lc-ragna",name:"Ragna"},
@@ -240,9 +416,15 @@ function getAllParts() {
   return {blades:Object.values(blades),ratchets:Object.values(ratchets),bits:Object.values(bits)};
 }
 
-function rateBit(id){
-  const s={lowrush:5,underflat:5,rush:4,flat:3,ignition:3,cyclone:3,vortex:3,gearflat:3,accel:2,merge:2,zap:2,hexa:2,hexa2:2,level:2,unite:2,transpoint:2};
-  return s[id]??1;
+function rateBit(id, bladeType){
+  // 依刀片類型給分
+  const attack={lowrush:5,underflat:5,rush:4,gearflat:4,flat:3,ignition:3,cyclone:3,vortex:3,accel:3,lowflat:3,merge:2,zap:2,hexa:2,hexa2:2,level:2,unite:2,transpoint:2,taper:1,needle:1,point:1,spike:1,ball:1};
+  const defense={needle:5,metalneedle:5,underneedle:5,underneedle2:5,ball:4,freeball:4,spike:4,boundspike:4,boundspike2:4,highball:3,highTaper:3,merge:3,zap:3,hexa:3,hexa2:3,level:3,unite:3,flat:1,rush:1,lowrush:1};
+  const stamina={taper:5,hightaper:5,point:5,gearpoint:5,spike:4,diskball:4,diskball2:4,elevate:4,highball:3,gearball:3,ball:3,orb:3,needle:3,merge:2,zap:2,level:2,flat:1,rush:1,lowrush:1};
+  const balance={merge:5,zap:5,hexa:5,hexa2:5,level:4,unite:4,transpoint:4,gearunite:4,glide:4,ball:3,highball:3,diskball:3,taper:2,rush:2,lowrush:2,flat:2,needle:2};
+  const map={attack,defense,stamina,balance};
+  const scores=map[bladeType]||balance;
+  return scores[id]??1;
 }
 function rateRatchet(r,bladeType){
   if(!r||r.protrusions===null) return 0;
@@ -250,6 +432,16 @@ function rateRatchet(r,bladeType){
     if(r.height<=50) return 5;
     if(r.height<=60&&r.protrusions<=3) return 4;
     if(r.height<=60) return 3;
+    return 2;
+  }
+  if(bladeType==="defense"){
+    if(r.height>=70) return 5;
+    if(r.height>=60) return 3;
+    return 2;
+  }
+  if(bladeType==="stamina"){
+    if(r.height>=70) return 4;
+    if(r.height>=60) return 3;
     return 2;
   }
   return 3;
@@ -285,7 +477,7 @@ function getRecommendedCombos(product,allRatchets,allBits,ownedPartIds){
   if(isIntegratedRatchet){
     const fixedRatchet={...product.ratchet,source:product.name,sourceCode:product.code};
     allBits.forEach(b=>{
-      const score=2+rateBit(b.id); // 棘輪固定，只評Bit
+      const score=2+rateBit(b.id,blade.type); // 棘輪固定，只評Bit
       const rating=getRating(score);
       const owned={blade:ownedPartIds.has(blade.id),ratchet:true,bit:ownedPartIds.has(b.id)};
       const style=b.type==="attack"?"偏攻":"平衡";
@@ -298,7 +490,7 @@ function getRecommendedCombos(product,allRatchets,allBits,ownedPartIds){
   allRatchets.filter(r=>r.protrusions!==null).forEach(r=>{
     allBits.forEach(b=>{
       if(blade.type==="attack"&&b.type==="defense") return;
-      const score=rateRatchet(r,blade.type)+rateBit(b.id);
+      const score=rateRatchet(r,blade.type)+rateBit(b.id,blade.type);
       const rating=getRating(score);
       const owned={
         blade:ownedPartIds.has(blade.id),
@@ -344,7 +536,7 @@ function SeriesBadge({series}){
   );
 }
 
-function ComboCard({combo,index}){
+function ComboCard({combo,index,wishlistParts,toggleWishlist}){
   const rColor=RATING_COLOR[combo.rating]||"#aaa";
   const ratchetIntegrated=combo.isIntegratedCard||combo.integratedRatchet;
   const rows=[
@@ -374,6 +566,20 @@ function ComboCard({combo,index}){
               <div style={{display:"flex",alignItems:"center",flexWrap:"wrap",gap:4}}>
                 <span style={{fontSize:13,fontWeight:600,color:row.integrated?"#fbbf24":"#fff"}}>{row.val}</span>
                 {!row.integrated&&<OwnTag owned={row.owned}/>}
+                {!row.integrated&&!row.owned&&wishlistParts&&(()=>{
+                  const wKey=JSON.stringify({layer:row.layer,name:row.val});
+                  const inWishlist=wishlistParts.has(wKey);
+                  return(
+                    <span onClick={e=>{e.stopPropagation();toggleWishlist(wKey);}}
+                      style={{fontSize:10,cursor:"pointer",padding:"1px 7px",borderRadius:99,fontWeight:700,
+                        background:inWishlist?"rgba(251,191,36,0.15)":"rgba(255,255,255,0.08)",
+                        color:inWishlist?"#fbbf24":"#aaa",
+                        border:`1px solid ${inWishlist?"rgba(251,191,36,0.4)":"rgba(255,255,255,0.15)"}`,
+                        marginLeft:2}}>
+                      {inWishlist?"🎯":"＋目標"}
+                    </span>
+                  );
+                })()}
               </div>
               {row.srcName&&(
                 <div style={{fontSize:10,color:"#888",marginTop:3}}>
@@ -403,6 +609,19 @@ export default function App(){
   });
   const [tab,setTab]=useState("combo");
   const [partQuery,setPartQuery]=useState("");
+  const [showWishlistExpanded,setShowWishlistExpanded]=useState(true);
+  const [wishlistParts,setWishlistParts]=useState(()=>{
+    try{const s=localStorage.getItem("beyblade-wishlist");return s?new Set(JSON.parse(s)):new Set();}
+    catch{return new Set();}
+  });
+  const toggleWishlist=(key)=>{
+    setWishlistParts(prev=>{
+      const n=new Set(prev);
+      n.has(key)?n.delete(key):n.add(key);
+      try{localStorage.setItem("beyblade-wishlist",JSON.stringify([...n]));}catch{}
+      return n;
+    });
+  };
   const [inventoryQuery,setInventoryQuery]=useState("");
   const [showOwnedOnly,setShowOwnedOnly]=useState(false);
   const [useOwnedOnly,setUseOwnedOnly]=useState(false);
@@ -455,12 +674,24 @@ export default function App(){
     });
   };
 
-  const filteredProducts=useMemo(()=>
-    seriesFilter==="ALL"?ALL_PRODUCTS:ALL_PRODUCTS.filter(p=>p.series===seriesFilter)
-  ,[seriesFilter]);
+  const filteredProducts=useMemo(()=>{
+    const list=seriesFilter==="ALL"?[...ALL_PRODUCTS]:ALL_PRODUCTS.filter(p=>p.series===seriesFilter);
+    return list.sort((a,b)=>{
+      if(a.series!==b.series) return a.series.localeCompare(b.series);
+      const numA=parseInt(a.code.split("-")[1]||"0");
+      const numB=parseInt(b.code.split("-")[1]||"0");
+      return numA-numB;
+    });
+  },[seriesFilter]);
 
   const inventoryFiltered=useMemo(()=>{
-    let list=seriesFilter==="ALL"?ALL_PRODUCTS:ALL_PRODUCTS.filter(p=>p.series===seriesFilter);
+    let list=seriesFilter==="ALL"?[...ALL_PRODUCTS]:ALL_PRODUCTS.filter(p=>p.series===seriesFilter);
+    list=list.sort((a,b)=>{
+      if(a.series!==b.series) return a.series.localeCompare(b.series);
+      const numA=parseInt(a.code.split("-")[1]||"0");
+      const numB=parseInt(b.code.split("-")[1]||"0");
+      return numA-numB;
+    });
     if(showOwnedOnly) list=list.filter(p=>ownedProducts.has(p.id));
     if(!inventoryQuery.trim()) return list;
     const q=inventoryQuery.toLowerCase();
@@ -487,9 +718,9 @@ export default function App(){
 
       {/* Tabs */}
       <div style={{display:"flex",justifyContent:"center",gap:8,marginBottom:28,flexWrap:"wrap"}}>
-        {[["combo","⚔️ 配裝查詢"],["parts","🔍 零件查詢"],["inventory","📦 我的庫存"]].map(([key,label])=>(
+        {[["combo","⚔️配裝"],["parts","🔍零件查詢"],["inventory","📦庫存"]].map(([key,label])=>(
           <button key={key} onClick={()=>setTab(key)} style={{
-            padding:"8px 20px",borderRadius:99,fontSize:13,fontWeight:700,cursor:"pointer",
+            padding:"7px 14px",borderRadius:99,fontSize:12,fontWeight:700,cursor:"pointer",
             background:tab===key?"#fbbf24":"rgba(255,255,255,0.07)",
             color:tab===key?"#000":"#aaa",
             border:tab===key?"none":"1px solid rgba(255,255,255,0.12)"}}>
@@ -595,7 +826,7 @@ export default function App(){
                 </span>
               </div>
               <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill, minmax(290px, 1fr))",gap:14}}>
-                {combos.map((c,i)=><ComboCard key={i} combo={c} index={i}/>)}
+                {combos.map((c,i)=><ComboCard key={i} combo={c} index={i} wishlistParts={wishlistParts} toggleWishlist={toggleWishlist}/>)}
               </div>
               {wishlist.length>0&&(
                 <div style={{marginTop:24,background:"rgba(239,68,68,0.06)",border:"1px solid rgba(239,68,68,0.2)",borderRadius:14,padding:18}}>
@@ -628,6 +859,57 @@ export default function App(){
             {partQuery&&<button onClick={()=>setPartQuery("")}
               style={{position:"absolute",right:14,top:"50%",transform:"translateY(-50%)",background:"none",border:"none",color:"#888",cursor:"pointer",fontSize:18}}>✕</button>}
           </div>
+
+          {/* 目標清單區塊 */}
+          {wishlistParts.size>0&&(
+            <div style={{marginBottom:24,background:"rgba(251,191,36,0.05)",border:"1px solid rgba(251,191,36,0.2)",borderRadius:14,padding:16}}>
+              <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12}}>
+                <div onClick={()=>setShowWishlistExpanded(v=>!v)} style={{display:"flex",alignItems:"center",gap:6,cursor:"pointer"}}>
+                  <span style={{fontSize:12,color:"#fbbf24",fontWeight:700}}>🎯 目標清單（{wishlistParts.size}）</span>
+                  <span style={{fontSize:11,color:"#f59e0b",transform:showWishlistExpanded?"rotate(180deg)":"rotate(0deg)",transition:"transform 0.2s"}}>▼</span>
+                </div>
+                <button onClick={()=>{setWishlistParts(new Set());try{localStorage.removeItem("beyblade-wishlist");}catch{}}}
+                  style={{fontSize:10,color:"#f87171",background:"none",border:"1px solid rgba(248,113,113,0.3)",padding:"2px 8px",borderRadius:99,cursor:"pointer"}}>
+                  清空
+                </button>
+              </div>
+              {showWishlistExpanded&&<div style={{display:"flex",flexDirection:"column",gap:10}}>
+                {[...wishlistParts].map((wKey,i)=>{
+                  let layer="",name="";
+                  try{const d=JSON.parse(wKey);layer=d.layer;name=d.name;}catch{}
+                  const sources=ALL_PRODUCTS.filter(p=>{
+                    if(layer==="上層 刀片") return p.blade.name===name;
+                    if(layer==="中層 棘輪") return !p.ratchet.integrated&&p.ratchet.name===name;
+                    if(layer==="底層 Bit") return !p.bit.integrated&&p.bit.name===name;
+                    return false;
+                  });
+                  return(
+                    <div key={i} style={{background:"rgba(255,255,255,0.04)",borderRadius:10,padding:"10px 12px"}}>
+                      <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:6}}>
+                        <div style={{display:"flex",alignItems:"center",gap:6}}>
+                          <span style={{fontSize:10,color:"#f59e0b",background:"rgba(245,158,11,0.12)",padding:"1px 6px",borderRadius:4}}>{layer}</span>
+                          <span style={{fontSize:13,fontWeight:700,color:"#fff"}}>{name}</span>
+                        </div>
+                        <button onClick={()=>toggleWishlist(wKey)}
+                          style={{background:"none",border:"none",color:"#f87171",cursor:"pointer",fontSize:16}}>✕</button>
+                      </div>
+                      <div style={{display:"flex",flexWrap:"wrap",gap:6}}>
+                        {sources.map((p,j)=>(
+                          <div key={j} style={{fontSize:11,padding:"3px 8px",borderRadius:6,
+                            background:ownedProducts.has(p.id)?"rgba(34,197,94,0.12)":"rgba(255,255,255,0.06)",
+                            color:ownedProducts.has(p.id)?"#34d399":"#aaa",
+                            border:`1px solid ${ownedProducts.has(p.id)?"rgba(34,197,94,0.3)":"rgba(255,255,255,0.1)"}`}}>
+                            {p.name} <span style={{opacity:0.5}}>{p.code}</span>
+                            {ownedProducts.has(p.id)&&" ✓"}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>}
+            </div>
+          )}
 
           {partQuery.trim()===""?(
             <div style={{textAlign:"center",color:"#333",marginTop:40}}>
@@ -682,6 +964,28 @@ export default function App(){
                         <SeriesBadge series={r.product.series}/>
                         <OwnTag owned={owned}/>
                       </div>
+                      <div style={{marginTop:8}}>
+                        {(()=>{
+                          const wKey=JSON.stringify({layer:r.layer,name:r.name});
+                          const inWishlist=wishlistParts.has(wKey);
+                          return(
+                            <div onClick={()=>toggleWishlist(wKey)}
+                              style={{display:"inline-flex",alignItems:"center",gap:6,cursor:"pointer",padding:"5px 12px",borderRadius:99,
+                                background:inWishlist?"rgba(251,191,36,0.15)":"rgba(255,255,255,0.06)",
+                                border:`1px solid ${inWishlist?"rgba(251,191,36,0.5)":"rgba(255,255,255,0.12)"}`}}>
+                              <div style={{width:14,height:14,borderRadius:3,
+                                background:inWishlist?"#fbbf24":"rgba(255,255,255,0.08)",
+                                border:`2px solid ${inWishlist?"#fbbf24":"rgba(255,255,255,0.2)"}`,
+                                display:"flex",alignItems:"center",justifyContent:"center",color:"#000",fontWeight:900,fontSize:9}}>
+                                {inWishlist?"✓":""}
+                              </div>
+                              <span style={{fontSize:11,fontWeight:700,color:inWishlist?"#fbbf24":"#888"}}>
+                                {inWishlist?"✓ 已加入目標清單":"＋ 加入目標清單"}
+                              </span>
+                            </div>
+                          );
+                        })()}
+                      </div>
                     </div>
                   );
                 })}
@@ -690,6 +994,7 @@ export default function App(){
           })()}
         </div>
       )}
+
 
       {/* ── 我的庫存 ── */}
       {tab==="inventory"&&(
