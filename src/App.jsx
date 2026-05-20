@@ -1081,9 +1081,9 @@ export default function App(){
 
           {/* 三張圖片 */}
           {[
-            {title:"⚔️ 刀片 Blade Tier",url:"https://i.postimg.cc/7f0pBzX3/IMG-2187.jpg"},
-            {title:"⚙️ 棘輪 Ratchet Tier",url:"https://i.postimg.cc/0zvhhNH7/IMG-2188.jpg"},
-            {title:"🔵 軸心 Bit Tier",url:"https://i.postimg.cc/DShRRzYG/IMG-2189.jpg"},
+            {title:"⚔️ 刀片 Blade Tier",url:"https://i.postimg.cc/jwCFbnT0/IMG-2187-4K.jpg"},
+            {title:"⚙️ 棘輪 Ratchet Tier",url:"https://i.postimg.cc/hzw3P44G/IMG-2188-4K.jpg"},
+            {title:"🔵 軸心 Bit Tier",url:"https://i.postimg.cc/TLSHY22d/IMG-2189-4K.jpg"},
           ].map((img,i)=>(
             <div key={i} style={{marginBottom:24}}>
               <div style={{fontSize:13,fontWeight:700,color:"#fbbf24",marginBottom:10}}>{img.title}</div>
@@ -1091,67 +1091,6 @@ export default function App(){
             </div>
           ))}
 
-          {/* 棘輪等級表 */}
-          <div style={{marginBottom:28}}>
-            <div style={{fontSize:13,fontWeight:700,color:"#fbbf24",marginBottom:12}}>⚙️ 棘輪 Ratchet 等級</div>
-            {Object.entries({
-              X:["9-60","7-60","1-60","1-50","1-70"],
-              S:["3-60","5-60","6-60","9-70","4-50"],
-              A:["0-60","8-70","7-55","7-70","4-60"],
-              B:["0-70","3-70","9-80","0-80","7-80"],
-              C:["M-85","4-55","9-65","5-70","6-70"],
-              D:["4-70","3-85","1-80","3-80","6-80"],
-              E:["5-80","4-80","2-70","2-80","2-60"],
-            }).map(([tier,items])=>(
-              <div key={tier} style={{display:"flex",alignItems:"flex-start",gap:10,marginBottom:8}}>
-                <div style={{width:28,height:28,borderRadius:6,flexShrink:0,
-                  background:TIER_COLOR[tier]?.bg,border:`1px solid ${TIER_COLOR[tier]?.border}`,
-                  display:"flex",alignItems:"center",justifyContent:"center",
-                  fontSize:13,fontWeight:900,color:TIER_COLOR[tier]?.color}}>
-                  {tier}
-                </div>
-                <div style={{display:"flex",flexWrap:"wrap",gap:6,paddingTop:4}}>
-                  {items.map(r=>(
-                    <span key={r} style={{fontSize:12,padding:"3px 10px",borderRadius:8,fontWeight:700,
-                      background:"rgba(255,255,255,0.06)",color:"#ccc",border:"1px solid rgba(255,255,255,0.1)"}}>
-                      {r}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* 軸心等級表 */}
-          <div>
-            <div style={{fontSize:13,fontWeight:700,color:"#fbbf24",marginBottom:12}}>🔵 軸心 Bit 等級</div>
-            {Object.entries({
-              X:["LR","R","B","H","E","L","K"],
-              S:["UN","FB","J","LO","T","UF","FF"],
-              A:["O","P","U","LF","OP","W","F"],
-              B:["WB","GU","TK","GR","Y","D","HN"],
-              C:["I","GP","Z","TP","WW","A","C"],
-              D:["V","HT","GB","DB","G","GF","S"],
-              E:["N","GN","M","Tr","BS","MN","RA","Q"],
-            }).map(([tier,items])=>(
-              <div key={tier} style={{display:"flex",alignItems:"flex-start",gap:10,marginBottom:8}}>
-                <div style={{width:28,height:28,borderRadius:6,flexShrink:0,
-                  background:TIER_COLOR[tier]?.bg,border:`1px solid ${TIER_COLOR[tier]?.border}`,
-                  display:"flex",alignItems:"center",justifyContent:"center",
-                  fontSize:13,fontWeight:900,color:TIER_COLOR[tier]?.color}}>
-                  {tier}
-                </div>
-                <div style={{display:"flex",flexWrap:"wrap",gap:6,paddingTop:4}}>
-                  {items.map(b=>(
-                    <span key={b} style={{fontSize:12,padding:"3px 10px",borderRadius:8,fontWeight:700,
-                      background:"rgba(255,255,255,0.06)",color:"#ccc",border:"1px solid rgba(255,255,255,0.1)"}}>
-                      {b}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
       )}
 
