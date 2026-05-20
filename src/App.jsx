@@ -1081,9 +1081,9 @@ export default function App(){
 
           {/* 三張圖片 */}
           {[
-            {title:"⚔️ 刀片 Blade Tier",url:"https://i.postimg.cc/jwCFbnT0/IMG-2187-4K.jpg"},
-            {title:"⚙️ 棘輪 Ratchet Tier",url:"https://i.postimg.cc/hzw3P44G/IMG-2188-4K.jpg"},
-            {title:"🔵 軸心 Bit Tier",url:"https://i.postimg.cc/TLSHY22d/IMG-2189-4K.jpg"},
+            {title:"⚔️ 刀片 Blade Tier",url:"/IMG_2187_4K.jpg"},
+            {title:"⚙️ 棘輪 Ratchet Tier",url:"/IMG_2188_4K.jpg"},
+            {title:"🔵 軸心 Bit Tier",url:"/IMG_2189_4K.jpg"},
           ].map((img,i)=>(
             <div key={i} style={{marginBottom:24}}>
               <div style={{fontSize:13,fontWeight:700,color:"#fbbf24",marginBottom:10}}>{img.title}</div>
