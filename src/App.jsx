@@ -1,5 +1,59 @@
 import { useState, useMemo, useCallback } from "react";
 
+
+// ── Tier 資料（來源：@RENLIgames）──────────────────────────
+const RATCHET_TIER = {
+  "9-60":"X","7-60":"X","1-60":"X","1-50":"X","1-70":"X",
+  "3-60":"S","5-60":"S","6-60":"S","9-70":"S","4-50":"S",
+  "0-60":"A","8-70":"A","7-55":"A","7-70":"A","4-60":"A",
+  "0-70":"B","3-70":"B","9-80":"B","0-80":"B","7-80":"B",
+  "M-85":"C","4-55":"C","9-65":"C","5-70":"C","6-70":"C",
+  "4-70":"D","3-85":"D","1-80":"D","3-80":"D","6-80":"D",
+  "5-80":"E","4-80":"E","2-70":"E","2-80":"E","2-60":"E",
+};
+
+const BIT_TIER = {
+  "LR":"X","R":"X","B":"X","H":"X","E":"X","L":"X","K":"X",
+  "UN":"S","FB":"S","J":"S","LO":"S","T":"S","UF":"S","FF":"S",
+  "O":"A","P":"A","U":"A","LF":"A","OP":"A","W":"A","F":"A",
+  "WB":"B","GU":"B","TK":"B","GR":"B","Y":"B","D":"B","HN":"B",
+  "I":"C","GP":"C","Z":"C","TP":"C","WW":"C","A":"C","C":"C",
+  "V":"D","HT":"D","GB":"D","DB":"D","G":"D","GF":"D","S":"D",
+  "N":"E","GN":"E","M":"E","Tr":"E","BS":"E","MN":"E","RA":"E","Q":"E",
+};
+
+const BIT_ID_TO_ABBR = {
+  lowrush:"LR",rush:"R",ball:"B",hexa:"H",hexa2:"H",elevate:"E",level:"L",kick:"K",
+  underneedle:"UN",underneedle2:"UN",freeball:"FB",diskball:"J",diskball2:"J",loworb:"LO",taper:"T",underflat:"UF",underflat2:"UF",
+  orb:"O",point:"P",unite:"U",lowflat:"LF",lowflat2:"LF",orbsuction:"OP",wall:"W",flat:"F",flat0:"F",flat2:"F",flat3:"F",flat4:"F",flat5:"F",flat6:"F",
+  gearball:"WB",gearball2:"WB",gearunite:"GU",transtaper:"TK",gearflat:"GR",gearflat2:"GR",gearflat3:"GR",gearflat4:"GR",gearflat5:"GR",yielding:"Y",
+  diskball3:"D",highneedle:"HN",
+  ignition:"I",ignition2:"I",gearpoint:"GP",zap:"Z",transpoint:"TP",wallwedge:"WW",accel:"A",accel2:"A",cyclone:"C",
+  vortex:"V",vortex2:"V",hightaper:"HT",highTaper:"HT",gearball3:"GB",gearVortex:"V",glide:"G",gearflat6:"GF",spike:"S",spike2:"S",
+  needle:"N",needle2:"N",needle3:"N",gearneedle:"GN",merge:"M",metalneedle:"MN",metalneedle2:"MN",boundspike:"BS",boundspike2:"BS",needlerush:"RA",diskball4:"Q",
+};
+
+const TIER_COLOR = {
+  X:{bg:"rgba(255,215,0,0.2)",color:"#fbbf24",border:"rgba(255,215,0,0.5)"},
+  S:{bg:"rgba(180,180,180,0.2)",color:"#d1d5db",border:"rgba(180,180,180,0.4)"},
+  A:{bg:"rgba(239,68,68,0.2)",color:"#f87171",border:"rgba(239,68,68,0.4)"},
+  B:{bg:"rgba(59,130,246,0.2)",color:"#60a5fa",border:"rgba(59,130,246,0.4)"},
+  C:{bg:"rgba(234,179,8,0.2)",color:"#fde047",border:"rgba(234,179,8,0.4)"},
+  D:{bg:"rgba(34,197,94,0.2)",color:"#4ade80",border:"rgba(34,197,94,0.4)"},
+  E:{bg:"rgba(168,85,247,0.2)",color:"#c084fc",border:"rgba(168,85,247,0.4)"},
+};
+
+function TierBadge({tier}){
+  if(!tier) return null;
+  const c=TIER_COLOR[tier]||TIER_COLOR.E;
+  return(
+    <span style={{fontSize:10,fontWeight:900,padding:"1px 6px",borderRadius:4,
+      background:c.bg,color:c.color,border:`1px solid ${c.border}`,marginLeft:4}}>
+      {tier}
+    </span>
+  );
+}
+
 // ── 完整資料庫 BX / UX / CX ──────────────────────────────
 const ALL_PRODUCTS = [
   // ── BX Basic Line ──
@@ -541,8 +595,8 @@ function ComboCard({combo,index,wishlistParts,toggleWishlist}){
   const ratchetIntegrated=combo.isIntegratedCard||combo.integratedRatchet;
   const rows=[
     {layer:"上層 刀片",val:combo.blade.name,srcName:combo.blade.source,src:combo.blade.sourceCode,owned:combo.owned.blade,integrated:false},
-    {layer:"中層 棘輪",val:combo.isIntegratedCard?"Turbo（一體式，無法替換）":combo.integratedRatchet?"（內建於刀片，無法替換）":combo.ratchet.name,srcName:ratchetIntegrated?null:combo.ratchet.source,src:ratchetIntegrated?null:combo.ratchet.sourceCode,owned:combo.owned.ratchet,integrated:ratchetIntegrated},
-    {layer:"底層 Bit",val:combo.isIntegratedCard?"Turbo（一體式，無法替換）":combo.bit.name,srcName:combo.isIntegratedCard?null:combo.bit.source,src:combo.isIntegratedCard?null:combo.bit.sourceCode,owned:combo.owned.bit,integrated:combo.isIntegratedCard},
+    {layer:"中層 棘輪",val:combo.isIntegratedCard?"Turbo（一體式，無法替換）":combo.integratedRatchet?"（內建於刀片，無法替換）":combo.ratchet.name,srcName:ratchetIntegrated?null:combo.ratchet.source,src:ratchetIntegrated?null:combo.ratchet.sourceCode,owned:combo.owned.ratchet,integrated:ratchetIntegrated,tier:RATCHET_TIER[combo.ratchet.name]||null},
+    {layer:"底層 Bit",val:combo.isIntegratedCard?"Turbo（一體式，無法替換）":combo.bit.name,srcName:combo.isIntegratedCard?null:combo.bit.source,src:combo.isIntegratedCard?null:combo.bit.sourceCode,owned:combo.owned.bit,integrated:combo.isIntegratedCard,tier:BIT_TIER[BIT_ID_TO_ABBR[combo.bit.id]]||null},
   ];
   return(
     <div style={{background:combo.allOwned?"rgba(34,197,94,0.06)":"rgba(255,255,255,0.04)",
@@ -565,6 +619,7 @@ function ComboCard({combo,index,wishlistParts,toggleWishlist}){
               border:row.integrated?"1px solid rgba(251,191,36,0.2)":"none"}}>
               <div style={{display:"flex",alignItems:"center",flexWrap:"wrap",gap:4}}>
                 <span style={{fontSize:13,fontWeight:600,color:row.integrated?"#fbbf24":"#fff"}}>{row.val}</span>
+                {row.tier&&<TierBadge tier={row.tier}/>}
                 {!row.integrated&&<OwnTag owned={row.owned}/>}
                 {!row.integrated&&!row.owned&&wishlistParts&&(()=>{
                   const wKey=JSON.stringify({layer:row.layer,name:row.val});
@@ -609,6 +664,7 @@ export default function App(){
   });
   const [tab,setTab]=useState("combo");
   const [partQuery,setPartQuery]=useState("");
+  const [partLayerFilter,setPartLayerFilter]=useState("ALL");
   const [showWishlistExpanded,setShowWishlistExpanded]=useState(true);
   const [wishlistParts,setWishlistParts]=useState(()=>{
     try{const s=localStorage.getItem("beyblade-wishlist");return s?new Set(JSON.parse(s)):new Set();}
@@ -718,7 +774,7 @@ export default function App(){
 
       {/* Tabs */}
       <div style={{display:"flex",justifyContent:"center",gap:8,marginBottom:28,flexWrap:"wrap"}}>
-        {[["combo","⚔️配裝"],["parts","🔍零件查詢"],["inventory","📦庫存"]].map(([key,label])=>(
+        {[["combo","⚔️配裝"],["parts","🔍零件查詢"],["tier","📊等級表"],["inventory","📦庫存"]].map(([key,label])=>(
           <button key={key} onClick={()=>setTab(key)} style={{
             padding:"7px 14px",borderRadius:99,fontSize:12,fontWeight:700,cursor:"pointer",
             background:tab===key?"#fbbf24":"rgba(255,255,255,0.07)",
@@ -859,6 +915,17 @@ export default function App(){
             {partQuery&&<button onClick={()=>setPartQuery("")}
               style={{position:"absolute",right:14,top:"50%",transform:"translateY(-50%)",background:"none",border:"none",color:"#888",cursor:"pointer",fontSize:18}}>✕</button>}
           </div>
+          <div style={{display:"flex",gap:8,marginBottom:16,flexWrap:"wrap"}}>
+            {[["ALL","全部"],["上層 刀片","🗡️ 刀片"],["中層 棘輪","⚙️ 固鎖"],["底層 Bit","🔵 軸心"]].map(([val,label])=>(
+              <button key={val} onClick={()=>setPartLayerFilter(val)} style={{
+                padding:"5px 14px",borderRadius:99,fontSize:12,cursor:"pointer",fontWeight:700,
+                background:partLayerFilter===val?"#fbbf24":"rgba(255,255,255,0.07)",
+                color:partLayerFilter===val?"#000":"#aaa",
+                border:partLayerFilter===val?"none":"1px solid rgba(255,255,255,0.12)"}}>
+                {label}
+              </button>
+            ))}
+          </div>
 
           {/* 目標清單區塊 */}
           {wishlistParts.size>0&&(
@@ -914,8 +981,8 @@ export default function App(){
           {partQuery.trim()===""?(
             <div style={{textAlign:"center",color:"#333",marginTop:40}}>
               <div style={{fontSize:40,marginBottom:10}}>🔍</div>
-              <div style={{fontSize:13}}>輸入零件名稱查詢來源陀螺</div>
-              <div style={{fontSize:11,color:"#444",marginTop:8}}>例如：1-50、Low Rush、Flat、Ignition、Rush、6-70</div>
+              <div style={{fontSize:13}}>{partLayerFilter==="ALL"?"選擇類型或輸入名稱查詢":partLayerFilter==="上層 刀片"?"輸入刀片名稱":partLayerFilter==="中層 棘輪"?"輸入棘輪型號（例：1-50、9-60）":"輸入軸心縮寫（例：LR、Rush、Flat）"}</div>
+              <div style={{fontSize:11,color:"#444",marginTop:8}}>選擇上方類型按鈕可篩選</div>
             </div>
           ):(()=>{
             const q=partQuery.toLowerCase();
@@ -927,9 +994,17 @@ export default function App(){
                 {layer:"底層 Bit",name:p.bit.name,nameEn:"",type:p.bit.type,desc:p.bit.desc,integrated:!!p.bit.integrated},
               ];
               layers.forEach(layer=>{
-                if(layer.name.toLowerCase().includes(q)||(layer.nameEn&&layer.nameEn.toLowerCase().includes(q))){
-                  results.push({product:p,...layer});
+                if(partLayerFilter!=="ALL"&&layer.layer!==partLayerFilter) return;
+                if(q){
+                  const nameMatch=layer.name.toLowerCase().includes(q);
+                  const enMatch=layer.nameEn&&layer.nameEn.toLowerCase().includes(q);
+                  // 軸心篩選時，短查詢（1-2字）改為縮寫完整比對
+                  const isAbbrSearch=layer.layer==="底層 Bit"&&q.length<=3;
+                  const abbrMatch=isAbbrSearch&&layer.name.match(/（([^）]+)）/)?.[1]?.toLowerCase()===q;
+                  if(!nameMatch&&!enMatch&&!abbrMatch) return;
                 }
+                if(!q&&partLayerFilter==="ALL") return;
+                results.push({product:p,...layer});
               });
             });
             if(results.length===0){
@@ -953,6 +1028,8 @@ export default function App(){
                       <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:8,flexWrap:"wrap"}}>
                         <span style={{fontSize:10,color:"#555",background:"rgba(255,255,255,0.07)",padding:"2px 8px",borderRadius:6}}>{r.layer}</span>
                         <span style={{fontSize:15,fontWeight:700,color:"#fff"}}>{r.name}</span>
+                        {r.layer==="中層 棘輪"&&<TierBadge tier={RATCHET_TIER[r.name]}/>}
+                        {r.layer==="底層 Bit"&&<TierBadge tier={BIT_TIER[r.name.match(/（([^）]+)）/)?.[1]||""]}/>}
                         {r.integrated&&<span style={{fontSize:10,color:"#f59e0b"}}>⚠ 一體式</span>}
                       </div>
                       {r.desc&&<div style={{fontSize:11,color:"#888",marginBottom:8}}>{r.desc}</div>}
@@ -995,6 +1072,88 @@ export default function App(){
         </div>
       )}
 
+
+
+      {/* ── 等級表 ── */}
+      {tab==="tier"&&(
+        <div style={{maxWidth:680,margin:"0 auto"}}>
+          <div style={{fontSize:11,color:"#666",marginBottom:20,textAlign:"center"}}>資料來源：@RENLIgames</div>
+
+          {/* 三張圖片 */}
+          {[
+            {title:"⚔️ 刀片 Blade Tier",url:"https://i.postimg.cc/7f0pBzX3/IMG-2187.jpg"},
+            {title:"⚙️ 棘輪 Ratchet Tier",url:"https://i.postimg.cc/0zvhhNH7/IMG-2188.jpg"},
+            {title:"🔵 軸心 Bit Tier",url:"https://i.postimg.cc/DShRRzYG/IMG-2189.jpg"},
+          ].map((img,i)=>(
+            <div key={i} style={{marginBottom:24}}>
+              <div style={{fontSize:13,fontWeight:700,color:"#fbbf24",marginBottom:10}}>{img.title}</div>
+              <img src={img.url} alt={img.title} style={{width:"100%",borderRadius:12,border:"1px solid rgba(255,255,255,0.1)"}}/>
+            </div>
+          ))}
+
+          {/* 棘輪等級表 */}
+          <div style={{marginBottom:28}}>
+            <div style={{fontSize:13,fontWeight:700,color:"#fbbf24",marginBottom:12}}>⚙️ 棘輪 Ratchet 等級</div>
+            {Object.entries({
+              X:["9-60","7-60","1-60","1-50","1-70"],
+              S:["3-60","5-60","6-60","9-70","4-50"],
+              A:["0-60","8-70","7-55","7-70","4-60"],
+              B:["0-70","3-70","9-80","0-80","7-80"],
+              C:["M-85","4-55","9-65","5-70","6-70"],
+              D:["4-70","3-85","1-80","3-80","6-80"],
+              E:["5-80","4-80","2-70","2-80","2-60"],
+            }).map(([tier,items])=>(
+              <div key={tier} style={{display:"flex",alignItems:"flex-start",gap:10,marginBottom:8}}>
+                <div style={{width:28,height:28,borderRadius:6,flexShrink:0,
+                  background:TIER_COLOR[tier]?.bg,border:`1px solid ${TIER_COLOR[tier]?.border}`,
+                  display:"flex",alignItems:"center",justifyContent:"center",
+                  fontSize:13,fontWeight:900,color:TIER_COLOR[tier]?.color}}>
+                  {tier}
+                </div>
+                <div style={{display:"flex",flexWrap:"wrap",gap:6,paddingTop:4}}>
+                  {items.map(r=>(
+                    <span key={r} style={{fontSize:12,padding:"3px 10px",borderRadius:8,fontWeight:700,
+                      background:"rgba(255,255,255,0.06)",color:"#ccc",border:"1px solid rgba(255,255,255,0.1)"}}>
+                      {r}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* 軸心等級表 */}
+          <div>
+            <div style={{fontSize:13,fontWeight:700,color:"#fbbf24",marginBottom:12}}>🔵 軸心 Bit 等級</div>
+            {Object.entries({
+              X:["LR","R","B","H","E","L","K"],
+              S:["UN","FB","J","LO","T","UF","FF"],
+              A:["O","P","U","LF","OP","W","F"],
+              B:["WB","GU","TK","GR","Y","D","HN"],
+              C:["I","GP","Z","TP","WW","A","C"],
+              D:["V","HT","GB","DB","G","GF","S"],
+              E:["N","GN","M","Tr","BS","MN","RA","Q"],
+            }).map(([tier,items])=>(
+              <div key={tier} style={{display:"flex",alignItems:"flex-start",gap:10,marginBottom:8}}>
+                <div style={{width:28,height:28,borderRadius:6,flexShrink:0,
+                  background:TIER_COLOR[tier]?.bg,border:`1px solid ${TIER_COLOR[tier]?.border}`,
+                  display:"flex",alignItems:"center",justifyContent:"center",
+                  fontSize:13,fontWeight:900,color:TIER_COLOR[tier]?.color}}>
+                  {tier}
+                </div>
+                <div style={{display:"flex",flexWrap:"wrap",gap:6,paddingTop:4}}>
+                  {items.map(b=>(
+                    <span key={b} style={{fontSize:12,padding:"3px 10px",borderRadius:8,fontWeight:700,
+                      background:"rgba(255,255,255,0.06)",color:"#ccc",border:"1px solid rgba(255,255,255,0.1)"}}>
+                      {b}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* ── 我的庫存 ── */}
       {tab==="inventory"&&(
