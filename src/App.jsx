@@ -1087,7 +1087,7 @@ export default function App(){
           ].map((img,i)=>(
             <div key={i} style={{marginBottom:24}}>
               <div style={{fontSize:13,fontWeight:700,color:"#fbbf24",marginBottom:10}}>{img.title}</div>
-              <img src={img.url} alt={img.title} style={{width:"100%",borderRadius:12,border:"1px solid rgba(255,255,255,0.1)"}}/>
+              <img src={img.url} alt={img.title} style={{width:"100%",maxWidth:"100%",height:"auto",borderRadius:12,border:"1px solid rgba(255,255,255,0.1)",imageRendering:"crisp-edges"}}/>
             </div>
           ))}
 
