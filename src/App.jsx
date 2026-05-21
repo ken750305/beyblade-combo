@@ -451,13 +451,14 @@ export default function App() {
   const saveMyCombo=()=>{
     if(!newComboName.trim()||!newComboBladeId) return;
     const bp=ALL_PRODUCTS.find(p=>p.blade.id===newComboBladeId);
-    const rp=ALL_PRODUCTS.find(p=>p.ratchet.id===newComboRatchetId);
-    const isIR=rp?.ratchet.integrated;
+    const isIntegratedRatchetBlade=bp?.blade.integratedRatchet;
+    const rp=isIntegratedRatchetBlade?bp:ALL_PRODUCTS.find(p=>p.ratchet.id===newComboRatchetId);
+    const isIR=rp?.ratchet.integrated&&!isIntegratedRatchetBlade;
     const bitp=isIR?rp:ALL_PRODUCTS.find(p=>p.bit.id===newComboBitId);
     const combo={
       id:Date.now(), name:newComboName.trim(),
       blade:{id:newComboBladeId,name:bp?.blade.name||"",source:bp?.name||"",code:bp?.code||""},
-      ratchet:{id:newComboRatchetId,name:isIR?"Turbo（Tr）":rp?.ratchet.name||"（未選）",source:rp?.name||"",code:rp?.code||"",integrated:isIR},
+      ratchet:{id:newComboRatchetId,name:isIntegratedRatchetBlade?"（內建於刀片）":isIR?"Turbo（Tr）":rp?.ratchet.name||"（未選）",source:rp?.name||"",code:rp?.code||"",integrated:isIR||isIntegratedRatchetBlade},
       bit:{id:newComboBitId,name:isIR?"Turbo（Tr）":bitp?.bit.name||"",source:bitp?.name||"",code:bitp?.code||"",integrated:isIR},
     };
     const updated=[...myCombos,combo];
@@ -681,7 +682,9 @@ export default function App() {
                       getName={p=>p.blade?.name||""} getId={p=>p.blade?.id||""} placeholder="搜尋刀片名稱..."/>
                     <div style={{position:"relative"}}>
                       <div style={{fontSize:10,color:"#666",marginBottom:4}}>中層 棘輪</div>
-                      {ALL_PRODUCTS.find(p=>p.ratchet.id===newComboRatchetId)?.ratchet.integrated?(
+                      {ALL_PRODUCTS.find(p=>p.blade.id===newComboBladeId)?.blade.integratedRatchet?(
+                        <div style={{padding:"8px 14px",borderRadius:10,background:"rgba(245,158,11,0.08)",border:"1px solid rgba(245,158,11,0.3)",fontSize:12,color:"#f59e0b"}}>⚠ 棘輪內建於刀片，無法替換</div>
+                      ):ALL_PRODUCTS.find(p=>p.ratchet.id===newComboRatchetId)?.ratchet.integrated?(
                         <div style={{display:"flex",alignItems:"center",gap:8,padding:"8px 14px",borderRadius:10,background:"rgba(34,197,94,0.08)",border:"1px solid rgba(34,197,94,0.3)"}}>
                           <span style={{flex:1,fontSize:13,color:"#fff"}}>Turbo（Tr）</span>
                           <button onClick={()=>{setNewComboRatchetId("");setRatchetSearch("");setNewComboBitId("");}} style={{background:"none",border:"none",color:"#f87171",cursor:"pointer",fontSize:14}}>✕</button>
@@ -714,7 +717,7 @@ export default function App() {
                     </div>
                     <div>
                       <div style={{fontSize:10,color:"#666",marginBottom:4}}>底層 軸心</div>
-                      {ALL_PRODUCTS.find(p=>p.ratchet.id===newComboRatchetId)?.ratchet.integrated?(
+                      {ALL_PRODUCTS.find(p=>p.ratchet.id===newComboRatchetId)?.ratchet.integrated&&!ALL_PRODUCTS.find(p=>p.blade.id===newComboBladeId)?.blade.integratedRatchet?(
                         <div style={{padding:"8px 14px",borderRadius:10,background:"rgba(245,158,11,0.08)",border:"1px solid rgba(245,158,11,0.3)",fontSize:12,color:"#f59e0b"}}>⚠ Turbo 一體式，軸心已自動帶入</div>
                       ):(
                         <SearchableField label="" selectedId={newComboBitId} setId={setNewComboBitId} search={bitSearch} setSearch={setBitSearch}
