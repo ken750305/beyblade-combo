@@ -562,6 +562,7 @@ export default function App() {
   const [inventoryQuery,setInventoryQuery]=useState("");
   const [showOwnedOnly,setShowOwnedOnly]=useState(false);
   const [wishlistExpanded,setWishlistExpanded]=useState(true);
+  const [partsExpanded,setPartsExpanded]=useState(false);
 
   const [ownedProducts,setOwnedProducts]=useState(()=>{
     try{const s=localStorage.getItem("beyblade-owned");return s?new Set(JSON.parse(s)):new Set();}
@@ -1143,6 +1144,40 @@ export default function App() {
       {tab==="myinventory"&&(
         <div style={{maxWidth:680,margin:"0 auto"}}>
           <div style={{fontSize:12,color:"#666",marginBottom:16,textAlign:"center"}}>點名稱可跳到配裝查詢</div>
+          {/* 擁有零件彙整 */}
+          {ownedProducts.size>0&&(
+            <div style={{marginBottom:20,background:"rgba(251,191,36,0.05)",border:"1px solid rgba(251,191,36,0.15)",borderRadius:14,padding:18}}>
+              <div onClick={()=>setPartsExpanded(v=>!v)} style={{display:"flex",alignItems:"center",justifyContent:"space-between",cursor:"pointer"}}>
+                <span style={{fontSize:13,fontWeight:700,color:"#fbbf24"}}>📋 我擁有的零件</span>
+                <span style={{fontSize:12,color:"#f59e0b",transform:partsExpanded?"rotate(180deg)":"rotate(0deg)",transition:"transform 0.2s"}}>▼</span>
+              </div>
+              {partsExpanded&&(
+                <div style={{marginTop:16}}>
+                  {[
+                    {label:"🗡️ 刀刃",parts:[...new Map(sortProducts(ALL_PRODUCTS.filter(p=>ownedProducts.has(p.id))).map(p=>[p.blade.id,{name:p.blade.name,code:p.code,series:p.series}])).values()]},
+                    {label:"⚙️ 固鎖",parts:[...new Map(sortProducts(ALL_PRODUCTS.filter(p=>ownedProducts.has(p.id)&&!p.ratchet.integrated)).map(p=>[p.ratchet.name,{name:p.ratchet.name,code:p.code,series:p.series,tier:RATCHET_TIER[p.ratchet.name]}])).values()]},
+                    {label:"🔵 軸心",parts:[...new Map(sortProducts(ALL_PRODUCTS.filter(p=>ownedProducts.has(p.id)&&!p.bit.integrated)).map(p=>[p.bit.name,{name:p.bit.name,code:p.code,series:p.series,tier:BIT_TIER[BIT_ID_TO_ABBR[p.bit.id]]}])).values()]},
+                  ].map(sec=>(
+                    <div key={sec.label} style={{marginBottom:16}}>
+                      <div style={{fontSize:11,color:"#888",fontWeight:700,letterSpacing:1,marginBottom:8}}>{sec.label}</div>
+                      <div style={{display:"flex",flexWrap:"wrap",gap:6}}>
+                        {sec.parts.length===0?(
+                          <span style={{fontSize:11,color:"#444"}}>（無）</span>
+                        ):sec.parts.map((part,i)=>(
+                          <div key={i} style={{display:"flex",alignItems:"center",gap:4,fontSize:11,background:"rgba(255,255,255,0.07)",padding:"4px 10px",borderRadius:8,border:"1px solid rgba(255,255,255,0.1)"}}>
+                            <span style={{color:"#ccc"}}>{part.name}</span>
+                            {part.tier&&<TierBadge tier={part.tier}/>}
+                            <span style={{color:"#555",fontSize:10}}>({part.code})</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
           {ALL_PRODUCTS.filter(p=>ownedProducts.has(p.id)).length===0?(
             <div style={{textAlign:"center",color:"#333",marginTop:48}}>
               <div style={{fontSize:44,marginBottom:10}}>🐉</div>
@@ -1172,6 +1207,7 @@ export default function App() {
               ))}
             </div>
           )}
+
         </div>
       )}
     </div>
