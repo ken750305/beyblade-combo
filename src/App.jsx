@@ -172,7 +172,7 @@ const ALL_PRODUCTS = [
     blade:{id:"scorpiospear",name:"天蠍長矛",nameEn:"ScorpioSpear",type:"balance",note:"X-Dash時形態切換"},
     ratchet:{id:"0-70",name:"0-70",protrusions:0,height:70},
     bit:{id:"zap",name:"Zap（Z）",type:"balance",desc:"寬平面+圓球，傾斜攻擊直立耐久"} },
-  { id:"UX-15-1", name:"鮫鯊狂鱗", nameEn:"SharkScale", code:"UX-15", series:"UX",
+  { id:"UX-15-1", name:"鮫鯊狂鱗", nameEn:"SharkScale", code:"UX-15-1", series:"UX",
     blade:{id:"sharkscale",name:"鮫鯊狂鱗",nameEn:"SharkScale",type:"attack"},
     ratchet:{id:"4-50",name:"4-50",protrusions:4,height:50},
     bit:{id:"underflat",name:"Under Flat（UF）",type:"attack",desc:"超低平面底，最低重心攻擊"} },
@@ -184,13 +184,13 @@ const ALL_PRODUCTS = [
     blade:{id:"mummycurse",name:"詛咒木乃伊",nameEn:"MummyCurse",type:"defense",note:"主動變形刀片，受攻擊時改變行為"},
     ratchet:{id:"7-55",name:"7-55",protrusions:7,height:55},
     bit:{id:"wedge",name:"Wedge（W）",type:"defense",desc:"楔形底，控制耐久"} },
-  { id:"UX-15-2", name:"暴龍咆哮", nameEn:"TyrannoRoar", code:"UX-15", series:"BX",
+  { id:"UX-15-2", name:"暴龍咆哮", nameEn:"TyrannoRoar", code:"UX-15-2", series:"BX",
     blade:{id:"tyrannoroar2",name:"暴龍咆哮",nameEn:"TyrannoRoar",type:"attack"},
     ratchet:{id:"1-70b",name:"1-70",protrusions:1,height:70},
     bit:{id:"level2",name:"Level（L）",type:"balance",desc:"水平底，平衡穩定型"} },
-  { id:"UX-15-3", name:"惡魔勇氣", nameEn:"HellsBrave", code:"UX-15", series:"CX",
+  { id:"UX-15-3", name:"惡魔勇氣", nameEn:"HellsBrave", code:"UX-15-3", series:"CX",
     blade:{id:"hellsbrave",name:"惡魔勇氣",nameEn:"HellsBrave",type:"attack"},
-    lockChip:{id:"lc-hellsbrave",name:"J"},mainBlade:{id:"mb-hellsbrave",name:"HellsBrave"},assistBlade:{id:"ab-hellsbrave",name:"Assist"},
+    lockChip:{id:"lc-hellsbrave",name:"J型紋章"},mainBlade:{id:"mb-hellsbrave",name:"惡魔勇氣"},assistBlade:{id:"ab-hellsbrave",name:"輔助戰刃B"},
     ratchet:{id:"3-60g",name:"3-60",protrusions:3,height:60},
     bit:{id:"gearflat3",name:"Gear Flat（GF）",type:"attack",desc:"齒輪平面底，高速X-Dash"} },
   { id:"UX-19", name:"子彈獅鷲", nameEn:"BulletGriffon", code:"UX-19", series:"UX",
@@ -1059,7 +1059,7 @@ export default function App() {
       {tab==="tier"&&(
         <div style={{maxWidth:680,margin:"0 auto"}}>
           <div style={{fontSize:11,color:"#666",marginBottom:20,textAlign:"center"}}>資料來源：@RENLIgames</div>
-          {[{title:"⚔️ 刀片 Blade Tier",url:"/IMG_3079.JPG"},{title:"⚙️ 棘輪 Ratchet Tier",url:"/IMG_2188_4K.jpg"},{title:"🔵 軸心 Bit Tier",url:"/IMG_2189_4K.jpg"}].map((img,i)=>(
+          {[{title:"⚔️ 刀片 Blade Tier",url:"/IMG_2187_4K.jpg"},{title:"⚙️ 棘輪 Ratchet Tier",url:"/IMG_2188_4K.jpg"},{title:"🔵 軸心 Bit Tier",url:"/IMG_2189_4K.jpg"}].map((img,i)=>(
             <div key={i} style={{marginBottom:24}}>
               <div style={{fontSize:13,fontWeight:700,color:"#fbbf24",marginBottom:10}}>{img.title}</div>
               <img src={img.url} alt={img.title} style={{width:"100%",height:"auto",borderRadius:12,border:"1px solid rgba(255,255,255,0.1)"}}/>
