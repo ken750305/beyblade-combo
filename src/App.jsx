@@ -1060,7 +1060,7 @@ export default function App() {
       {tab==="tier"&&(
         <div style={{maxWidth:680,margin:"0 auto"}}>
           <div style={{fontSize:11,color:"#666",marginBottom:20,textAlign:"center"}}>資料來源：@RENLIgames</div>
-          {[{title:"⚔️ 刀片 Blade Tier",url:"/IMG_2187_4K.jpg"},{title:"⚙️ 棘輪 Ratchet Tier",url:"/IMG_2188_4K.jpg"},{title:"🔵 軸心 Bit Tier",url:"/IMG_2189_4K.jpg"}].map((img,i)=>(
+          {[{title:"⚔️ 刀片 Blade Tier",url:"/IMG_3079.JPG"},{title:"⚙️ 棘輪 Ratchet Tier",url:"/IMG_2188_4K.jpg"},{title:"🔵 軸心 Bit Tier",url:"/IMG_2189_4K.jpg"}].map((img,i)=>(
             <div key={i} style={{marginBottom:24}}>
               <div style={{fontSize:13,fontWeight:700,color:"#fbbf24",marginBottom:10}}>{img.title}</div>
               <img src={img.url} alt={img.title} style={{width:"100%",height:"auto",borderRadius:12,border:"1px solid rgba(255,255,255,0.1)"}}/>
