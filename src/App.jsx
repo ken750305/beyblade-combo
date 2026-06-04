@@ -91,6 +91,10 @@ const ALL_PRODUCTS = [
     blade:{id:"unicornsting",name:"獨角獸刺心",nameEn:"UnicornSting",type:"balance"},
     ratchet:{id:"5-60b",name:"5-60",protrusions:5,height:60},
     bit:{id:"gearpoint",name:"Gear Point（GP）",type:"stamina",desc:"齒輪點形底，穩定耐久"} },
+  { id:"BX-31", name:"暴龍擊（隨機包Vol.3）", nameEn:"TyrannoBeat", code:"BX-31", series:"BX",
+    blade:{id:"tyrannobeat",name:"暴龍霸擊",nameEn:"TyrannoBeat",type:"attack"},
+    ratchet:{id:"4-70c",name:"4-70",protrusions:4,height:70},
+    bit:{id:"quake",name:"Quake（Q）",type:"attack",desc:"橢圓平面底，不規則彈跳攻擊"} },
   { id:"BX-33", name:"皓戰猛虎", nameEn:"WeissTiger", code:"BX-33", series:"BX",
     blade:{id:"weisstiger",name:"皓戰猛虎",nameEn:"WeissTiger",type:"balance"},
     ratchet:{id:"3-60b",name:"3-60",protrusions:3,height:60},
@@ -168,10 +172,27 @@ const ALL_PRODUCTS = [
     blade:{id:"scorpiospear",name:"天蠍長矛",nameEn:"ScorpioSpear",type:"balance",note:"X-Dash時形態切換"},
     ratchet:{id:"0-70",name:"0-70",protrusions:0,height:70},
     bit:{id:"zap",name:"Zap（Z）",type:"balance",desc:"寬平面+圓球，傾斜攻擊直立耐久"} },
-  { id:"UX-15", name:"鮫鯊狂鱗", nameEn:"SharkScale", code:"UX-15", series:"UX",
+  { id:"UX-15-1", name:"鮫鯊狂鱗", nameEn:"SharkScale", code:"UX-15", series:"UX",
     blade:{id:"sharkscale",name:"鮫鯊狂鱗",nameEn:"SharkScale",type:"attack"},
     ratchet:{id:"4-50",name:"4-50",protrusions:4,height:50},
     bit:{id:"underflat",name:"Under Flat（UF）",type:"attack",desc:"超低平面底，最低重心攻擊"} },
+  { id:"UX-17", name:"隕石龍神", nameEn:"MeteorDragoon", code:"UX-17", series:"UX",
+    blade:{id:"meteordragoon",name:"隕石龍神",nameEn:"MeteorDragoon",type:"attack",note:"左旋攻擊型"},
+    ratchet:{id:"3-70c",name:"3-70",protrusions:3,height:70},
+    bit:{id:"jolt",name:"Jolt（J）",type:"attack",desc:"快速激進移動，類似Hexa操作感"} },
+  { id:"UX-18", name:"詛咒木乃伊（隨機包Vol.8）", nameEn:"MummyCurse", code:"UX-18", series:"UX",
+    blade:{id:"mummycurse",name:"詛咒木乃伊",nameEn:"MummyCurse",type:"defense",note:"主動變形刀片，受攻擊時改變行為"},
+    ratchet:{id:"7-55",name:"7-55",protrusions:7,height:55},
+    bit:{id:"wedge",name:"Wedge（W）",type:"defense",desc:"楔形底，控制耐久"} },
+  { id:"UX-15-2", name:"暴龍咆哮", nameEn:"TyrannoRoar", code:"UX-15", series:"BX",
+    blade:{id:"tyrannoroar2",name:"暴龍咆哮",nameEn:"TyrannoRoar",type:"attack"},
+    ratchet:{id:"1-70b",name:"1-70",protrusions:1,height:70},
+    bit:{id:"level2",name:"Level（L）",type:"balance",desc:"水平底，平衡穩定型"} },
+  { id:"UX-15-3", name:"惡魔勇氣", nameEn:"HellsBrave", code:"UX-15", series:"CX",
+    blade:{id:"hellsbrave",name:"惡魔勇氣",nameEn:"HellsBrave",type:"attack"},
+    lockChip:{id:"lc-hellsbrave",name:"J"},mainBlade:{id:"mb-hellsbrave",name:"HellsBrave"},assistBlade:{id:"ab-hellsbrave",name:"Assist"},
+    ratchet:{id:"3-60g",name:"3-60",protrusions:3,height:60},
+    bit:{id:"gearflat3",name:"Gear Flat（GF）",type:"attack",desc:"齒輪平面底，高速X-Dash"} },
   { id:"UX-19", name:"子彈獅鷲", nameEn:"BulletGriffon", code:"UX-19", series:"UX",
     blade:{id:"bulletgriffon",name:"子彈獅鷲",nameEn:"BulletGriffon",type:"balance",note:"棘輪內建，受擊後分裂",integratedRatchet:true},
     ratchet:{id:"bulletgriffon-r",name:"（內建於刀片）",protrusions:null,height:null,integrated:true},
@@ -202,6 +223,36 @@ const ALL_PRODUCTS = [
     lockChip:{id:"lc-pegasus",name:"Pegasus"},mainBlade:{id:"mb-blast",name:"Blast"},assistBlade:{id:"ab-assault",name:"Assault"},
     ratchet:{id:"turbo",name:"Turbo（Tr）",protrusions:null,height:null,integrated:true},
     bit:{id:"turbo-bit",name:"Turbo（Tr）",type:"attack",desc:"棘輪+Bit合體，高速尖底耐久低速平面攻擊",integrated:true} },
+  { id:"CX-08-01", name:"魔犬烈焰（CX-08 01）", nameEn:"CerberusBlaze", code:"CX-08", series:"CX",
+    blade:{id:"cerberusblaze",name:"魔犬烈焰",nameEn:"CerberusBlaze",type:"attack"},
+    lockChip:{id:"lc-cerberus",name:"Cerberus"},mainBlade:{id:"mb-blaze",name:"Blaze"},assistBlade:{id:"ab-wall-cx08",name:"Wall（W）"},
+    ratchet:{id:"5-80cx08",name:"5-80",protrusions:5,height:80},
+    bit:{id:"wallbound",name:"Wall Bound（WB）",type:"defense",desc:"牆面彈跳底，防守反彈"} },
+  { id:"CX-08-02", name:"巨鯨烈焰（CX-08 02）", nameEn:"WhaleBlaze", code:"CX-08", series:"CX",
+    blade:{id:"whaleblaze",name:"巨鯨烈焰",nameEn:"WhaleBlaze",type:"stamina"},
+    lockChip:{id:"lc-whale",name:"Whale"},mainBlade:{id:"mb-blaze2",name:"Blaze"},assistBlade:{id:"ab-t-cx08",name:"T"},
+    ratchet:{id:"3-85cx08",name:"3-85",protrusions:3,height:85},
+    bit:{id:"hightaper2",name:"High Taper（HT）",type:"stamina",desc:"高錐形底，高重心耐久"} },
+  { id:"CX-08-03", name:"魔犬幽冥（CX-08 03）", nameEn:"CerberusDark", code:"CX-08", series:"CX",
+    blade:{id:"cerberusdark",name:"魔犬幽冥",nameEn:"CerberusDark",type:"defense"},
+    lockChip:{id:"lc-cerberus2",name:"Cerberus"},mainBlade:{id:"mb-dark2",name:"Dark"},assistBlade:{id:"ab-wall2-cx08",name:"Wall（W）"},
+    ratchet:{id:"1-60cx08",name:"1-60",protrusions:1,height:60},
+    bit:{id:"flat7",name:"Flat（F）",type:"attack",desc:"平面底，激進移動"} },
+  { id:"CX-08-04", name:"蒼龍爆刃（CX-08 04）", nameEn:"DranBusterCX", code:"CX-08", series:"CX",
+    blade:{id:"dranbustercx",name:"蒼龍爆刃",nameEn:"DranBusterCX",type:"attack"},
+    lockChip:{id:"lc-dran2",name:"Dran"},mainBlade:{id:"mb-buster",name:"Buster"},assistBlade:{id:"ab-mn-cx08",name:"MN"},
+    ratchet:{id:"5-80cx08b",name:"5-80",protrusions:5,height:80},
+    bit:{id:"metalneedle3",name:"Metal Needle（MN）",type:"defense",desc:"金屬針底，防守耐久"} },
+  { id:"CX-08-05", name:"玄冥戰甲（CX-08 05）", nameEn:"DarkArmor", code:"CX-08", series:"CX",
+    blade:{id:"darkarmor",name:"玄冥戰甲",nameEn:"DarkArmor",type:"defense"},
+    lockChip:{id:"lc-dark",name:"Dark"},mainBlade:{id:"mb-armor",name:"Armor"},assistBlade:{id:"ab-wb-cx08",name:"WB"},
+    ratchet:{id:"7-70cx08",name:"7-70",protrusions:7,height:70},
+    bit:{id:"wallbound2",name:"Wall Bound（WB）",type:"defense",desc:"牆面彈跳底，防守反彈"} },
+  { id:"CX-08-06", name:"蒼穹龍騎士（CX-08 06）", nameEn:"CobaltDrakeCX", code:"CX-08", series:"CX",
+    blade:{id:"cobaltdrakecx",name:"蒼穹龍騎士",nameEn:"CobaltDrakeCX",type:"attack"},
+    lockChip:{id:"lc-cobalt",name:"Cobalt"},mainBlade:{id:"mb-drake",name:"Drake"},assistBlade:{id:"ab-wb2-cx08",name:"WB"},
+    ratchet:{id:"4-55cx08",name:"4-55",protrusions:4,height:55},
+    bit:{id:"wallbound3",name:"Wall Bound（WB）",type:"defense",desc:"牆面彈跳底，防守反彈"} },
   { id:"CX-09", name:"焰神滅世", nameEn:"SolEclipse", code:"CX-09", series:"CX",
     blade:{id:"soleclipse",name:"焰神滅世",nameEn:"SolEclipse",type:"balance"},
     lockChip:{id:"lc-sol",name:"Sol"},mainBlade:{id:"mb-eclipse",name:"Eclipse"},assistBlade:{id:"ab-dual",name:"Dual"},
@@ -257,24 +308,100 @@ function getAllParts() {
   return {blades:Object.values(blades),ratchets:Object.values(ratchets),bits:Object.values(bits)};
 }
 
+// ── 主流配裝資料（來源：台灣 YTR）───────────────────────
+// 括號內為備選，主要為前幾個
+const META_COMBOS = {
+  // 鮫鯊狂鱗（UX-15）
+  sharkscale: {
+    attack:   {ratchets:["4-50","3-60","1-60","1-70"],         bits:["level","rush","lowrush","underflat","kick"]},
+    stamina:  {ratchets:["1-60","3-60","9-60","1-70"],         bits:["loworb","freeball","underneedle","hexa"]},
+  },
+  // 魔導神杖（UX-03）
+  wizardrod: {
+    attack:   {ratchets:["1-60","3-60"],                       bits:["level","rush","lowrush","kick"]},
+    stamina:  {ratchets:["1-60","3-60","9-60"],                bits:["freeball","loworb","ball","underneedle","hexa"]},
+  },
+  // 魔像奇岩（UX-13）
+  golemrock: {
+    attack:   {ratchets:["3-60","1-60","7-70","1-70"],         bits:["rush","lowrush"]},
+    stamina:  {ratchets:["1-60","1-70"],                       bits:["freeball","hexa","underneedle"]},
+  },
+  // 蒼龍爆刃（UX-01）
+  dranbuster: {
+    attack:   {ratchets:["4-50","1-60","3-60","9-60","4-60","5-60"], bits:["lowrush","underflat","rush"]},
+  },
+  // 帝王威能（CX-11）
+  emperormight: {
+    attack:   {ratchets:["1-60","3-60","4-50","7-60"],         bits:["lowrush","underflat","level","rush"]},
+  },
+  // 天馬爆擊（CX-07）
+  blast: {
+    attack:   {ratchets:["1-60","7-60","9-60"],                bits:["rush","lowrush","level"]},
+    stamina:  {ratchets:["1-60","3-60","7-60","9-60"],         bits:["freeball","highneedle","hexa"]},
+  },
+  // 天蠍長矛（UX-14）
+  scorpiospear: {
+    balance:  {ratchets:["1-60","3-60","9-60"],  bits:["level","wall","lowrush","rush","zap","merge"]},
+  },
+  // 龍王閃擊（CX-13）
+  bahamutblitz: {
+    attack:   {ratchets:["1-60","1-50","7-60","5-60","3-60","9-60","8-70"],  bits:["rush","lowrush","level","unite","diskball","diskball2","hexa","hexa2","needle","ignition"]},
+  },
+};
+
+function getMetaScore(bladeId, ratchetName, bitId) {
+  const meta = META_COMBOS[bladeId];
+  if(!meta) return null;
+  let bestScore = 0;
+  for(const style of Object.values(meta)) {
+    const rIdx = style.ratchets.indexOf(ratchetName);
+    const bIdx = style.bits.indexOf(bitId);
+    if(rIdx>=0 && bIdx>=0) {
+      // 越前面分數越高，組合匹配加分
+      const score = 10 - rIdx*0.5 - bIdx*0.5;
+      bestScore = Math.max(bestScore, score);
+    }
+  }
+  return bestScore > 0 ? bestScore : null;
+}
+
 function rateBit(id, bladeType) {
-  const attack={lowrush:5,underflat:5,rush:4,gearflat:4,flat:3,ignition:3,cyclone:3,vortex:3,accel:3,lowflat:3,merge:2,zap:2,hexa:2,hexa2:2,level:2,unite:2,transpoint:2,taper:1,needle:1,point:1,spike:1,ball:1};
-  const defense={needle:5,metalneedle:5,underneedle:5,underneedle2:5,ball:4,freeball:4,spike:4,boundspike:4,boundspike2:4,merge:3,zap:3,hexa:3,hexa2:3,level:3,flat:1,rush:1,lowrush:1};
-  const stamina={taper:5,hightaper:5,point:5,gearpoint:5,spike:4,diskball:4,diskball2:4,elevate:4,ball:3,gearneedle:3,merge:2,zap:2,level:2,flat:1,rush:1,lowrush:1};
-  const balance={merge:5,zap:5,hexa:5,hexa2:5,level:4,unite:4,transpoint:4,glide:4,ball:3,taper:2,rush:2,lowrush:2,flat:2,needle:2};
+  const attack={lowrush:5,underflat:5,ignition:5,rush:5,needle:5,level:5,gearflat:4,flat:4,cyclone:4,vortex:4,accel:3,lowflat:3,merge:2,zap:2,hexa:2,hexa2:2,unite:2,transpoint:2,taper:1,point:1,spike:1,ball:1};
+  const defense={needle:5,metalneedle:5,underneedle:5,underneedle2:5,highneedle:5,freeball:5,ball:4,spike:4,boundspike:4,boundspike2:4,hexa:3,hexa2:3,merge:3,zap:3,level:3,flat:1,rush:1,lowrush:1};
+  const stamina={freeball:5,loworb:5,ball:5,hexa:5,hexa2:5,underneedle:4,highneedle:4,diskball:4,diskball2:4,taper:4,hightaper:4,point:3,merge:2,zap:2,level:2,flat:1,rush:1,lowrush:1};
+  const balance={merge:5,zap:5,hexa:5,hexa2:5,freeball:5,ball:5,level:5,unite:4,transpoint:4,glide:4,taper:2,rush:2,lowrush:2,flat:2,needle:2};
   const map={attack,defense,stamina,balance};
   return (map[bladeType]||balance)[id]||1;
 }
 function rateRatchet(r, bladeType) {
   if(!r||r.protrusions===null) return 0;
+  const isTop=(r.protrusions===1&&r.height===60)||(r.protrusions===3&&r.height===60)||(r.protrusions===9&&r.height===60);
+  if(isTop) return 5;
   if(bladeType==="attack") {
     if(r.height<=50) return 5;
-    if(r.height<=60&&r.protrusions<=3) return 4;
+    if(r.protrusions===7&&r.height===60) return 4;
+    if(r.height===70&&r.protrusions===7) return 4;
     if(r.height<=60) return 3;
+    if(r.height===70) return 3;
     return 2;
   }
-  if(bladeType==="defense") { return r.height>=70?5:r.height>=60?3:2; }
-  if(bladeType==="stamina") { return r.height>=70?4:r.height>=60?3:2; }
+  if(bladeType==="defense") {
+    if(r.protrusions===1&&r.height===70) return 4;
+    if(r.height>=70) return 4;
+    if(r.height>=60) return 3;
+    return 2;
+  }
+  if(bladeType==="stamina") {
+    if(r.protrusions===1&&r.height===70) return 4;
+    if(r.height>=70) return 3;
+    if(r.height>=60) return 2;
+    return 1;
+  }
+  if(bladeType==="balance") {
+    if(r.protrusions===1&&r.height===70) return 4;
+    if(r.height>=60) return 3;
+    return 2;
+  }
   return 3;
 }
 function getRating(score) {
@@ -282,6 +409,12 @@ function getRating(score) {
   if(score>=7) return "A";
   if(score>=5) return "B";
   return "C";
+}
+function getRatingFromMeta(metaScore) {
+  if(metaScore===null) return null;
+  if(metaScore>=9.5) return "S";
+  if(metaScore>=8.5) return "A";
+  return "B";
 }
 
 function getRecommendedCombos(product, allRatchets, allBits, ownedPartIds) {
@@ -318,13 +451,16 @@ function getRecommendedCombos(product, allRatchets, allBits, ownedPartIds) {
   allRatchets.filter(r=>r.protrusions!==null).forEach(r => {
     allBits.forEach(b => {
       if(blade.type==="attack"&&b.type==="defense") return;
-      const score=rateRatchet(r,blade.type)+rateBit(b.id,blade.type);
+      const metaScore=getMetaScore(blade.id,r.name,b.id);
+      const baseScore=rateRatchet(r,blade.type)+rateBit(b.id,blade.type);
+      const score=metaScore!==null?metaScore+10:baseScore; // meta 配裝優先排前
       const key=`${blade.id}-${r.id}-${b.id}`;
       if(seen.has(key)) return;
       seen.add(key);
       const owned={blade:ownedPartIds.has(blade.id),ratchet:ownedPartIds.has(r.id),bit:ownedPartIds.has(b.id)};
-      const style=blade.type==="attack"?(b.type==="attack"?"純攻擊":"攻守平衡"):(b.type==="attack"?"平衡偏攻":"平衡偏守");
-      combos.push({blade,ratchet:r,bit:b,rating:getRating(score),score,style,isIntegratedCard:false,integratedRatchet:false,owned,allOwned:owned.blade&&owned.ratchet&&owned.bit});
+      const style=metaScore!==null?"主流配裝":(blade.type==="attack"?(b.type==="attack"?"純攻擊":"攻守平衡"):(b.type==="attack"?"平衡偏攻":"平衡偏守"));
+      const rating=metaScore!==null?getRatingFromMeta(metaScore):getRating(baseScore);
+      combos.push({blade,ratchet:r,bit:b,rating:rating||"B",score,style,isIntegratedCard:false,integratedRatchet:false,isMeta:metaScore!==null,owned,allOwned:owned.blade&&owned.ratchet&&owned.bit});
     });
   });
 
@@ -362,15 +498,24 @@ function OwnTag({owned}) {
 function ComboCard({combo, index, wishlistParts, toggleWishlist}) {
   const rColor=RATING_COLOR[combo.rating]||"#aaa";
   const ratchetIntegrated=combo.isIntegratedCard||combo.integratedRatchet;
+  const isCXcombo=combo.blade.sourceCode&&ALL_PRODUCTS.find(p=>p.code===combo.blade.sourceCode)?.series==="CX";
+  const cxProduct=isCXcombo?ALL_PRODUCTS.find(p=>p.code===combo.blade.sourceCode):null;
   const rows=[
-    {layer:"上層 刀片",val:combo.blade.name,srcName:combo.blade.source,src:combo.blade.sourceCode,owned:combo.owned.blade,integrated:false,tier:null},
-    {layer:"中層 棘輪",val:combo.isIntegratedCard?"Turbo（Tr）（無法替換）":combo.integratedRatchet?"（內建於刀片，無法替換）":combo.ratchet.name,srcName:ratchetIntegrated?null:combo.ratchet.source,src:ratchetIntegrated?null:combo.ratchet.sourceCode,owned:combo.owned.ratchet,integrated:ratchetIntegrated,tier:RATCHET_TIER[combo.ratchet.name]||null},
-    {layer:"底層 Bit",val:combo.isIntegratedCard?"Turbo（Tr）（無法替換）":combo.bit.name,srcName:combo.isIntegratedCard?null:combo.bit.source,src:combo.isIntegratedCard?null:combo.bit.sourceCode,owned:combo.owned.bit,integrated:combo.isIntegratedCard,tier:BIT_TIER[BIT_ID_TO_ABBR[combo.bit.id]]||null},
+    ...(isCXcombo&&cxProduct?[
+      ...(cxProduct.overBlade?[{layer:"超越戰刃",val:cxProduct.overBlade?.name||"-",srcName:combo.blade.source,src:combo.blade.sourceCode,owned:combo.owned.blade,integrated:false,tier:null,cx:true}]:[]),
+      {layer:"鋼鐵戰刃",val:cxProduct.mainBlade?.name||"-",srcName:combo.blade.source,src:combo.blade.sourceCode,owned:combo.owned.blade,integrated:false,tier:null,cx:true},
+      {layer:"鎖定紋章",val:cxProduct.lockChip?.name||"-",srcName:combo.blade.source,src:combo.blade.sourceCode,owned:combo.owned.blade,integrated:false,tier:null,cx:true},
+      {layer:"輔助戰刃",val:cxProduct.assistBlade?.name||"-",srcName:combo.blade.source,src:combo.blade.sourceCode,owned:combo.owned.blade,integrated:false,tier:null,cx:true},
+    ]:[
+      {layer:"上層 刀片",val:combo.blade.name,srcName:combo.blade.source,src:combo.blade.sourceCode,owned:combo.owned.blade,integrated:false,tier:null,cx:false},
+    ]),
+    {layer:"中層 棘輪",val:combo.isIntegratedCard?"Turbo（Tr）（無法替換）":combo.integratedRatchet?"（內建於刀片，無法替換）":combo.ratchet.name,srcName:ratchetIntegrated?null:combo.ratchet.source,src:ratchetIntegrated?null:combo.ratchet.sourceCode,owned:combo.owned.ratchet,integrated:ratchetIntegrated,tier:RATCHET_TIER[combo.ratchet.name]||null,cx:false},
+    {layer:"底層 Bit",val:combo.isIntegratedCard?"Turbo（Tr）（無法替換）":combo.bit.name,srcName:combo.isIntegratedCard?null:combo.bit.source,src:combo.isIntegratedCard?null:combo.bit.sourceCode,owned:combo.owned.bit,integrated:combo.isIntegratedCard,tier:BIT_TIER[BIT_ID_TO_ABBR[combo.bit.id]]||null,cx:false},
   ];
   return (
     <div style={{background:combo.allOwned?"rgba(34,197,94,0.06)":"rgba(255,255,255,0.04)",border:`1px solid ${combo.isIntegratedCard?"rgba(251,191,36,0.25)":combo.allOwned?"rgba(34,197,94,0.35)":"rgba(255,255,255,0.1)"}`,borderRadius:16,padding:18,position:"relative"}}>
       <div style={{position:"absolute",top:14,right:14,width:34,height:34,borderRadius:"50%",background:rColor,color:"#000",fontWeight:900,display:"flex",alignItems:"center",justifyContent:"center",fontSize:15}}>{combo.rating}</div>
-      <div style={{fontSize:11,color:combo.isIntegratedCard?"#fbbf24":"#777",marginBottom:12,fontWeight:700,letterSpacing:1}}>
+      <div style={{fontSize:11,color:combo.isMeta?"#f97316":combo.isIntegratedCard?"#fbbf24":"#777",marginBottom:12,fontWeight:700,letterSpacing:1}}>
         {combo.isIntegratedCard?"🔒 原裝組合":`組合 #${index} · ${combo.style}`}
         {combo.allOwned&&!combo.isIntegratedCard&&<span style={{color:"#34d399",marginLeft:8}}>● 現在就能組</span>}
       </div>
@@ -772,7 +917,7 @@ export default function App() {
                 {partQuery&&<button onClick={()=>setPartQuery("")} style={{position:"absolute",right:14,top:"50%",transform:"translateY(-50%)",background:"none",border:"none",color:"#888",cursor:"pointer",fontSize:18}}>✕</button>}
               </div>
               <div style={{display:"flex",gap:8,marginBottom:16,flexWrap:"wrap"}}>
-                {[["ALL","全部"],["上層 刀片","🗡️ 刀片"],["中層 棘輪","⚙️ 固鎖"],["底層 Bit","🔵 軸心"]].map(([val,label])=>(
+                {[["ALL","全部"],["上層 刀片","🗡️ 刀片"],["中層 棘輪","⚙️ 固鎖"],["底層 Bit","🔵 軸心"],["鎖定紋章","🔰 紋章"],["鋼鐵戰刃","⚔️ 主刃"],["輔助戰刃","🛡️ 輔刃"]].map(([val,label])=>(
                   <button key={val} onClick={()=>setPartLayerFilter(val)} style={{padding:"5px 14px",borderRadius:99,fontSize:12,cursor:"pointer",fontWeight:700,background:partLayerFilter===val?"#fbbf24":"rgba(255,255,255,0.07)",color:partLayerFilter===val?"#000":"#aaa",border:partLayerFilter===val?"none":"1px solid rgba(255,255,255,0.12)"}}>{label}</button>
                 ))}
               </div>
@@ -786,10 +931,14 @@ export default function App() {
                 const q=partQuery.toLowerCase();
                 const results=[];
                 ALL_PRODUCTS.forEach(p=>{
+                  const isCXp=p.series==="CX";
                   const layers=[
                     {layer:"上層 刀片",name:p.blade.name,nameEn:p.blade.nameEn||"",type:p.blade.type,desc:null,integrated:false},
                     {layer:"中層 棘輪",name:(p.ratchet.integrated&&p.id==="CX-07")?"Turbo（Tr）":p.ratchet.name,nameEn:"",type:null,desc:null,integrated:!!p.ratchet.integrated},
                     {layer:"底層 Bit",name:(p.bit.integrated&&p.id==="CX-07")?"Turbo（Tr）":p.bit.name,nameEn:"",type:p.bit.type,desc:p.bit.desc,integrated:!!p.bit.integrated},
+                    ...(isCXp&&p.lockChip?[{layer:"鎖定紋章",name:p.lockChip.name,nameEn:"",type:null,desc:"CX 鎖定芯",integrated:false}]:[]),
+                    ...(isCXp&&p.mainBlade?[{layer:"鋼鐵戰刃",name:p.mainBlade.name,nameEn:"",type:null,desc:"CX 主刀片",integrated:false}]:[]),
+                    ...(isCXp&&p.assistBlade?[{layer:"輔助戰刃",name:p.assistBlade.name,nameEn:"",type:null,desc:"CX 輔助刀片",integrated:false}]:[]),
                   ];
                   const seen=new Set();
                   layers.forEach(layer=>{
@@ -918,6 +1067,7 @@ export default function App() {
           ))}
         </div>
       )}
+
 
       {/* ══ 陀螺查詢 ══ */}
       {tab==="inventory"&&(
