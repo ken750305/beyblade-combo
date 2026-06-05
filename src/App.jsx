@@ -495,6 +495,11 @@ function OwnTag({owned}) {
   return <span style={{display:"inline-block",padding:"1px 7px",borderRadius:99,fontSize:10,fontWeight:700,background:owned?"rgba(34,197,94,0.15)":"rgba(239,68,68,0.12)",color:owned?"#34d399":"#f87171",border:`1px solid ${owned?"#34d399":"#f87171"}`,marginLeft:6}}>{owned?"✓ 已有":"✕ 待收集"}</span>;
 }
 
+function getTierColor(tier){
+  if(tier==="X") return "#fbbf24";
+  if(tier==="S+"||tier==="S") return "#d1d5db";
+  return null;
+}
 function ComboCard({combo, index, wishlistParts, toggleWishlist}) {
   const rColor=RATING_COLOR[combo.rating]||"#aaa";
   const ratchetIntegrated=combo.isIntegratedCard||combo.integratedRatchet;
@@ -1105,12 +1110,12 @@ export default function App() {
                         {layer:"鎖定芯",name:p.lockChip?.name||"-",color:"#c084fc"},
                         ...(p.expandBlade?[{layer:"覆蓋刀片",name:p.overBlade?.name||"-",color:"#f472b6"},{layer:"金屬刀片",name:p.mainBlade?.name||"-",color:"#f472b6"}]:[{layer:"主刀片",name:p.mainBlade?.name||"-",color:"#f472b6"}]),
                         {layer:"輔助刀片",name:p.assistBlade?.name||"-",color:"#f472b6"},
-                        {layer:"棘輪",name:p.ratchet.integrated?"Turbo（Tr）":p.ratchet.name,color:p.ratchet.integrated?"#f59e0b":null},
-                        {layer:"底層 Bit",name:p.bit.integrated?"Turbo（Tr）":p.bit.name,color:p.bit.integrated?"#f59e0b":null},
+                        {layer:"棘輪",name:p.ratchet.integrated?"Turbo（Tr）":p.ratchet.name,color:p.ratchet.integrated?"#f59e0b":getTierColor(RATCHET_TIER[p.ratchet.name])},
+                        {layer:"底層 Bit",name:p.bit.integrated?"Turbo（Tr）":p.bit.name,color:p.bit.integrated?"#f59e0b":getTierColor(BIT_TIER[BIT_ID_TO_ABBR[p.bit.id]])},
                       ]:[
                         {layer:"上層 刀片",name:p.blade.name,color:null},
-                        {layer:"中層 棘輪",name:p.ratchet.integrated?"（內建）":p.ratchet.name,color:p.ratchet.integrated?"#f59e0b":null},
-                        {layer:"底層 Bit",name:p.bit.integrated?"Turbo（Tr）":p.bit.name,color:p.bit.integrated?"#f59e0b":null},
+                        {layer:"中層 棘輪",name:p.ratchet.integrated?"（內建）":p.ratchet.name,color:p.ratchet.integrated?"#f59e0b":getTierColor(RATCHET_TIER[p.ratchet.name])},
+                        {layer:"底層 Bit",name:p.bit.integrated?"Turbo（Tr）":p.bit.name,color:p.bit.integrated?"#f59e0b":getTierColor(BIT_TIER[BIT_ID_TO_ABBR[p.bit.id]])},
                       ]).map(row=>(
                         <div key={row.layer} style={{display:"flex",alignItems:"flex-start",gap:8}}>
                           <span style={{fontSize:10,color:"#555",width:64,flexShrink:0,paddingTop:2}}>{row.layer}</span>
@@ -1155,8 +1160,8 @@ export default function App() {
                 <div style={{marginTop:16}}>
                   {[
                     {label:"🗡️ 刀刃",parts:[...new Map(sortProducts(ALL_PRODUCTS.filter(p=>ownedProducts.has(p.id))).map(p=>[p.blade.id,{name:p.blade.name,code:p.code,series:p.series}])).values()]},
-                    {label:"⚙️ 固鎖",parts:[...new Map(sortProducts(ALL_PRODUCTS.filter(p=>ownedProducts.has(p.id)&&!p.ratchet.integrated)).map(p=>[p.ratchet.name,{name:p.ratchet.name,code:p.code,series:p.series,tier:RATCHET_TIER[p.ratchet.name]}])).values()]},
-                    {label:"🔵 軸心",parts:[...new Map(sortProducts(ALL_PRODUCTS.filter(p=>ownedProducts.has(p.id)&&!p.bit.integrated)).map(p=>[p.bit.name,{name:p.bit.name,code:p.code,series:p.series,tier:BIT_TIER[BIT_ID_TO_ABBR[p.bit.id]]}])).values()]},
+                    {label:"⚙️ 固鎖",parts:[...new Map(sortProducts(ALL_PRODUCTS.filter(p=>ownedProducts.has(p.id)&&!p.ratchet.integrated)).map(p=>[p.ratchet.name,{name:p.ratchet.name,code:p.code,series:p.series,tier:RATCHET_TIER[p.ratchet.name]}])).values()].sort((a,b)=>{const o={"X":0,"S+":1,"S":2};return (o[a.tier]??9)-(o[b.tier]??9);})},
+                    {label:"🔵 軸心",parts:[...new Map(sortProducts(ALL_PRODUCTS.filter(p=>ownedProducts.has(p.id)&&!p.bit.integrated)).map(p=>[p.bit.name,{name:p.bit.name,code:p.code,series:p.series,tier:BIT_TIER[BIT_ID_TO_ABBR[p.bit.id]]}])).values()].sort((a,b)=>{const o={"X":0,"S+":1,"S":2};return (o[a.tier]??9)-(o[b.tier]??9);})},
                   ].map(sec=>(
                     <div key={sec.label} style={{marginBottom:16}}>
                       <div style={{fontSize:11,color:"#888",fontWeight:700,letterSpacing:1,marginBottom:8}}>{sec.label}</div>
@@ -1164,8 +1169,11 @@ export default function App() {
                         {sec.parts.length===0?(
                           <span style={{fontSize:11,color:"#444"}}>（無）</span>
                         ):sec.parts.map((part,i)=>(
-                          <div key={i} style={{display:"flex",alignItems:"center",gap:4,fontSize:11,background:"rgba(255,255,255,0.07)",padding:"4px 10px",borderRadius:8,border:"1px solid rgba(255,255,255,0.1)"}}>
-                            <span style={{color:"#ccc"}}>{part.name}</span>
+                          <div key={i} style={{display:"flex",alignItems:"center",gap:4,fontSize:11,
+                            background:part.tier==="X"?"rgba(251,191,36,0.12)":part.tier==="S+"||part.tier==="S"?"rgba(180,180,180,0.1)":"rgba(255,255,255,0.07)",
+                            padding:"4px 10px",borderRadius:8,
+                            border:part.tier==="X"?"1px solid rgba(251,191,36,0.4)":part.tier==="S+"||part.tier==="S"?"1px solid rgba(180,180,180,0.3)":"1px solid rgba(255,255,255,0.1)"}}>
+                            <span style={{color:part.tier==="X"?"#fbbf24":part.tier==="S+"||part.tier==="S"?"#d1d5db":"#ccc",fontWeight:part.tier==="X"||part.tier==="S+"||part.tier==="S"?700:400}}>{part.name}</span>
                             {part.tier&&<TierBadge tier={part.tier}/>}
                             <span style={{color:"#555",fontSize:10}}>({part.code})</span>
                           </div>
@@ -1195,12 +1203,12 @@ export default function App() {
                       <span style={{fontSize:11,color:"#fbbf24",fontWeight:700}}>{p.code}</span>
                       <SeriesBadge series={p.series}/>
                     </div>
-                    <div style={{display:"flex",gap:8}}>
+                    <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
                       <span style={{fontSize:11,color:"#888"}}>{p.blade.name}</span>
                       <span style={{color:"#555"}}>·</span>
-                      <span style={{fontSize:11,color:"#888"}}>{p.ratchet.integrated?"Turbo":p.ratchet.name}</span>
+                      <span style={{fontSize:11,color:p.ratchet.integrated?"#f59e0b":getTierColor(RATCHET_TIER[p.ratchet.name])||"#888",fontWeight:getTierColor(RATCHET_TIER[p.ratchet.name])?"700":"400"}}>{p.ratchet.integrated?"Turbo":p.ratchet.name}</span>
                       <span style={{color:"#555"}}>·</span>
-                      <span style={{fontSize:11,color:"#888"}}>{p.bit.integrated?"Turbo":p.bit.name}</span>
+                      <span style={{fontSize:11,color:p.bit.integrated?"#f59e0b":getTierColor(BIT_TIER[BIT_ID_TO_ABBR[p.bit.id]])||"#888",fontWeight:getTierColor(BIT_TIER[BIT_ID_TO_ABBR[p.bit.id]])?"700":"400"}}>{p.bit.integrated?"Turbo":p.bit.name}</span>
                     </div>
                   </div>
                 </div>
