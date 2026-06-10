@@ -21,15 +21,112 @@ const BIT_TIER = {
 };
 const BIT_ID_TO_ABBR = {
   lowrush:"LR",rush:"R",ball:"B",hexa:"H",hexa2:"H",elevate:"E",level:"L",kick:"K",
-  underneedle:"UN",underneedle2:"UN",freeball:"FB",diskball:"J",diskball2:"J",loworb:"LO",taper:"T",underflat:"UF",underflat2:"UF",
+  underneedle:"UN",underneedle2:"UN",freeball:"FB",diskball:"DB",diskball2:"DB",loworb:"LO",taper:"T",underflat:"UF",underflat2:"UF",
   orb:"O",point:"P",unite:"U",lowflat:"LF",lowflat2:"LF",orbsuction:"OP",wall:"W",flat:"F",flat0:"F",flat2:"F",flat3:"F",flat4:"F",flat5:"F",flat6:"F",
-  gearball:"WB",gearball2:"WB",gearunite:"GU",transtaper:"TK",gearflat:"GR",gearflat2:"GR",gearflat3:"GR",gearflat4:"GR",gearflat5:"GR",yielding:"Y",
+  gearball:"WB",gearball2:"WB",gearunite:"GU",transtaper:"TK",gearflat:"GR",gearflat2:"GR",gearflat3:"GR",gearunite2:"GU",loworb2:"LO",lowrush2:"LR",lowrush3:"LR",gearflat4:"GR",gearflat5:"GR",yielding:"Y",
   highneedle:"HN",ignition:"I",ignition2:"I",gearpoint:"GP",zap:"Z",transpoint:"TP",wallwedge:"WW",accel:"A",accel2:"A",cyclone:"C",
   vortex:"V",vortex2:"V",hightaper:"HT",gearball3:"GB",glide:"G",gearflat6:"GF",spike:"S",spike2:"S",
   needle:"N",needle2:"N",needle3:"N",gearneedle:"GN",merge:"M",metalneedle:"MN",metalneedle2:"MN",boundspike:"BS",boundspike2:"BS",needlerush:"RA",
   "turbo-bit":"Tr",diskball3:"D",highball:"B",gearball4:"WB",lowrush2:"LR",lowrush3:"LR",lowrush4:"LR",lowrush5:"LR",lowrush6:"LR",
   rush2:"R",rush3:"R",rush4:"R",accel3:"A",orb2:"O",
 };
+
+// ── 刀片 Tier 資料（來源：@RENLIgames / stan-yao）──────────
+const BLADE_TIER = {
+  // X
+  "UX-03":"X",    // 魔導神杖
+  "CX-07":"X",    // 天馬爆擊
+  "UX-15-1":"X",  // 鮫鯊狂鱗
+  "UX-17":"X",    // 隕石龍神（左）
+  // S+
+  "BX-23":"S+",
+  "BX-49":"S+",   // 蒼龍突擊
+  "UX-16":"S+",   // 時鐘幻象   // 鳳凰飛翼
+  "BX-34":"S+",   // 蒼穹龍騎士（左）
+  "UX-19":"S+",   // 子彈獅鷲
+  // S
+  "CX-13":"S",    // 龍王閃擊
+  "CX-14":"S",    // 騎士堡壘
+  "UX-08":"S",    // 霜輝銀狼
+  "UX-14":"S",    // 天蠍長矛
+  "UX-18":"S",    // 詛咒木乃伊
+  // A+
+  "CX-11":"A+",
+  "CX-11-01":"A+", // 帝王威能特別版
+  "CX-17-01":"A+", // 獨角極變藍   // 帝王威能
+  "CX-12":"A+",   // 鳳凰閃焰
+  "UX-09":"A+",   // 武士星劍
+  "UX-11":"A+",   // 衝擊龍神
+  // A
+  "BX-31":"A",
+  "BX-31-01":"A",  // 暴龍霸擊紅    // 暴龍霸擊
+  "BX-45":"A",    // 武士校刀
+  "CX-15":"A",    // 邪神狂怒
+  "UX-01":"A",    // 蒼龍爆刃
+  "UX-10":"A",    // 騎士圓甲
+  // B+
+  "BX-36":"B+",   // 巨鯨怒濤
+  "CX-01":"B+",   // 蒼龍勇氣
+  "CX-08-01":"B+",// 魔犬烈焰
+  "CX-08-02":"B+",// 巨鯨烈焰
+  "CX-09":"B+",   // 焰神滅世
+  "UX-13":"B+",   // 魔像奇岩
+  // B
+  "BX-14":"B",    // 隨機包
+  "CX-02":"B",    // 魔導至尊
+  "CX-05":"B",    // 惡魔獵魂
+  "UX-15-2":"B",  // 暴龍咆哮
+  // C+
+  "BX-44":"C+",   // 三角強襲
+  "CX-03":"C+",   // 英仙幽冥
+  "CX-10":"C+",   // 銀狼狩獵
+  // C
+  "BX-01":"C",    // 蒼龍神劍
+  "BX-02":"C",    // 惡魔紅鐮
+  "BX-04":"C",    // 騎士重盾
+  "BX-20":"C",    // 蒼龍利刃
+  "BX-21":"C",    // 惡魔鎖鏈
+  "UX-07":"C",    // 鳳凰尾翼
+  // D+
+  "BX-03":"D+",   // 魔導幻箭
+  "BX-26":"D+",   // 獨角獸刺心
+  "BX-38":"D+",   // 赫燃天鳳
+  "UX-02":"D+",   // 惡魔戰槌
+  "UX-06":"D+",   // 雄獅巔峰
+  // D
+  "BX-33":"D",    // 皓戰猛虎
+  "UX-12":"D",    // 幽靈元魂
+  // E+
+  "BX-13":"E+",   // 騎士長槍
+  "UX-10":"E+",   // 騎士圓甲（另一版本）
+  // E
+  "BX-15":"E",    // 雄獅獵爪
+  "BX-19":"E",    // 戰犀獸角
+};
+
+const BLADE_TIER_COLOR = {
+  "X":{bg:"rgba(255,215,0,0.2)",color:"#fbbf24",border:"rgba(255,215,0,0.5)"},
+  "S+":{bg:"rgba(180,180,180,0.2)",color:"#d1d5db",border:"rgba(180,180,180,0.4)"},
+  "S":{bg:"rgba(180,180,180,0.15)",color:"#d1d5db",border:"rgba(180,180,180,0.3)"},
+  "A+":{bg:"rgba(239,68,68,0.2)",color:"#f87171",border:"rgba(239,68,68,0.4)"},
+  "A":{bg:"rgba(239,68,68,0.15)",color:"#f87171",border:"rgba(239,68,68,0.3)"},
+  "B+":{bg:"rgba(59,130,246,0.2)",color:"#60a5fa",border:"rgba(59,130,246,0.4)"},
+  "B":{bg:"rgba(59,130,246,0.15)",color:"#60a5fa",border:"rgba(59,130,246,0.3)"},
+  "C+":{bg:"rgba(234,179,8,0.2)",color:"#fde047",border:"rgba(234,179,8,0.4)"},
+  "C":{bg:"rgba(234,179,8,0.15)",color:"#fde047",border:"rgba(234,179,8,0.3)"},
+  "D+":{bg:"rgba(34,197,94,0.2)",color:"#4ade80",border:"rgba(34,197,94,0.4)"},
+  "D":{bg:"rgba(34,197,94,0.15)",color:"#4ade80",border:"rgba(34,197,94,0.3)"},
+  "E+":{bg:"rgba(168,85,247,0.2)",color:"#c084fc",border:"rgba(168,85,247,0.4)"},
+  "E":{bg:"rgba(168,85,247,0.15)",color:"#c084fc",border:"rgba(168,85,247,0.3)"},
+};
+
+function BladeTierBadge({productId}){
+  const tier=BLADE_TIER[productId];
+  if(!tier) return null;
+  const c=BLADE_TIER_COLOR[tier]||BLADE_TIER_COLOR["E"];
+  return <span style={{fontSize:10,fontWeight:900,padding:"1px 6px",borderRadius:4,background:c.bg,color:c.color,border:`1px solid ${c.border}`,marginLeft:4}}>{tier}</span>;
+}
+
 const TIER_COLOR = {
   X:{bg:"rgba(255,215,0,0.2)",color:"#fbbf24",border:"rgba(255,215,0,0.5)"},
   S:{bg:"rgba(180,180,180,0.2)",color:"#d1d5db",border:"rgba(180,180,180,0.4)"},
@@ -91,10 +188,14 @@ const ALL_PRODUCTS = [
     blade:{id:"unicornsting",name:"獨角獸刺心",nameEn:"UnicornSting",type:"balance"},
     ratchet:{id:"5-60b",name:"5-60",protrusions:5,height:60},
     bit:{id:"gearpoint",name:"Gear Point（GP）",type:"stamina",desc:"齒輪點形底，穩定耐久"} },
-  { id:"BX-31", name:"暴龍擊（隨機包Vol.3）", nameEn:"TyrannoBeat", code:"BX-31", series:"BX",
+  { id:"BX-31", name:"暴龍霸擊", nameEn:"TyrannoBeat", code:"BX-31", series:"BX",
     blade:{id:"tyrannobeat",name:"暴龍霸擊",nameEn:"TyrannoBeat",type:"attack"},
     ratchet:{id:"4-70c",name:"4-70",protrusions:4,height:70},
     bit:{id:"quake",name:"Quake（Q）",type:"attack",desc:"橢圓平面底，不規則彈跳攻擊"} },
+  { id:"BX-31-01", name:"暴龍霸擊（紅）", nameEn:"TyrannoBeat Red", code:"BX-31-01", series:"BX",
+    blade:{id:"tyrannobeat2",name:"暴龍霸擊",nameEn:"TyrannoBeat",type:"attack"},
+    ratchet:{id:"1-60j",name:"1-60",protrusions:1,height:60},
+    bit:{id:"rush3",name:"Rush（R）",type:"attack",desc:"平面底，高頻X-Dash攻擊"} },
   { id:"BX-33", name:"皓戰猛虎", nameEn:"WeissTiger", code:"BX-33", series:"BX",
     blade:{id:"weisstiger",name:"皓戰猛虎",nameEn:"WeissTiger",type:"balance"},
     ratchet:{id:"3-60b",name:"3-60",protrusions:3,height:60},
@@ -115,10 +216,14 @@ const ALL_PRODUCTS = [
     blade:{id:"tricerapress",name:"三角強襲",nameEn:"TriceraPress",type:"defense"},
     ratchet:{id:"m-85",name:"M-85",protrusions:null,height:85},
     bit:{id:"boundspike",name:"Bound Spike（BS）",type:"defense",desc:"彈跳尖刺底，反擊防守"} },
-  { id:"BX-45", name:"武士校刀", nameEn:"SamuraiCalibur", code:"BX-45", series:"BX",
-    blade:{id:"samuraicalibur",name:"武士校刀",nameEn:"SamuraiCalibur",type:"balance"},
+  { id:"BX-45", name:"武士魂斬", nameEn:"SamuraiCalibur", code:"BX-45", series:"BX",
+    blade:{id:"samuraicalibur",name:"武士魂斬",nameEn:"SamuraiCalibur",type:"balance"},
     ratchet:{id:"6-70",name:"6-70",protrusions:6,height:70},
     bit:{id:"merge",name:"Merge（M）",type:"balance",desc:"橡膠平面+尖底，傾斜攻擊直立耐久"} },
+  { id:"BX-49", name:"蒼龍突擊", nameEn:"DranRush", code:"BX-49", series:"BX",
+    blade:{id:"dranrush",name:"蒼龍突擊",nameEn:"DranRush",type:"attack"},
+    ratchet:{id:"3-60h",name:"3-60",protrusions:3,height:60},
+    bit:{id:"lowrush2",name:"Low Rush（LR）",type:"attack",desc:"低版Rush，更低重心強衝擊"} },
   // UX
   { id:"UX-01", name:"蒼龍爆刃", nameEn:"DranBuster", code:"UX-01", series:"UX",
     blade:{id:"dranbuster",name:"蒼龍爆刃",nameEn:"DranBuster",type:"attack"},
@@ -131,7 +236,7 @@ const ALL_PRODUCTS = [
   { id:"UX-03", name:"魔導神杖", nameEn:"WizardRod", code:"UX-03", series:"UX",
     blade:{id:"wizardrod",name:"魔導神杖",nameEn:"WizardRod",type:"stamina"},
     ratchet:{id:"5-70",name:"5-70",protrusions:5,height:70},
-    bit:{id:"diskball",name:"Disk Ball（J）",type:"stamina",desc:"碟形球底，圓盤穩定耐久"} },
+    bit:{id:"diskball",name:"Disk Ball（DB）",type:"stamina",desc:"碟形球底，圓盤穩定耐久"} },
   { id:"UX-05", name:"忍者闇影", nameEn:"ShinobiShadow", code:"UX-05", series:"UX",
     blade:{id:"shinobishadow",name:"忍者闇影",nameEn:"ShinobiShadow",type:"attack"},
     ratchet:{id:"1-80",name:"1-80",protrusions:1,height:80},
@@ -160,7 +265,7 @@ const ALL_PRODUCTS = [
     blade:{id:"impactdrake",name:"衝擊龍神",nameEn:"ImpactDrake",type:"attack"},
     ratchet:{id:"9-60b",name:"9-60",protrusions:9,height:60},
     bit:{id:"lowrush",name:"Low Rush（LR）",type:"attack",desc:"低版Rush，更低重心強衝擊，競技首選"} },
-  { id:"UX-12", name:"幽靈元魂（隨機包Vol.5）", nameEn:"GhostCircle", code:"UX-12", series:"UX",
+  { id:"UX-12", name:"幽靈元魂", nameEn:"GhostCircle", code:"UX-12", series:"UX",
     blade:{id:"ghostcircle",name:"幽靈元魂",nameEn:"GhostCircle",type:"defense"},
     ratchet:{id:"0-80",name:"0-80",protrusions:0,height:80},
     bit:{id:"gearball",name:"Gear Ball（WB）",type:"defense",desc:"齒輪球底，防守穩定"} },
@@ -180,8 +285,8 @@ const ALL_PRODUCTS = [
     blade:{id:"meteordragoon",name:"隕石龍神",nameEn:"MeteorDragoon",type:"attack",note:"左旋攻擊型"},
     ratchet:{id:"3-70c",name:"3-70",protrusions:3,height:70},
     bit:{id:"jolt",name:"Jolt（J）",type:"attack",desc:"快速激進移動，類似Hexa操作感"} },
-  { id:"UX-18", name:"詛咒木乃伊（隨機包Vol.8）", nameEn:"MummyCurse", code:"UX-18", series:"UX",
-    blade:{id:"mummycurse",name:"詛咒木乃伊",nameEn:"MummyCurse",type:"defense",note:"主動變形刀片，受攻擊時改變行為"},
+  { id:"UX-18", name:"古屍詛咒", nameEn:"MummyCurse", code:"UX-18", series:"UX",
+    blade:{id:"mummycurse",name:"古屍詛咒",nameEn:"MummyCurse",type:"defense",note:"主動變形刀片，受攻擊時改變行為"},
     ratchet:{id:"7-55",name:"7-55",protrusions:7,height:55},
     bit:{id:"wedge",name:"Wedge（W）",type:"defense",desc:"楔形底，控制耐久"} },
   { id:"UX-15-2", name:"暴龍咆哮", nameEn:"TyrannoRoar", code:"UX-15-2", series:"BX",
@@ -193,6 +298,10 @@ const ALL_PRODUCTS = [
     lockChip:{id:"lc-hellsbrave",name:"J型紋章"},mainBlade:{id:"mb-hellsbrave",name:"惡魔勇氣"},assistBlade:{id:"ab-hellsbrave",name:"輔助戰刃B"},
     ratchet:{id:"3-60g",name:"3-60",protrusions:3,height:60},
     bit:{id:"gearflat3",name:"Gear Flat（GF）",type:"attack",desc:"齒輪平面底，高速X-Dash"} },
+  { id:"UX-16", name:"時鐘幻象", nameEn:"ClockPhantom", code:"UX-16", series:"UX",
+    blade:{id:"clockphantom",name:"時鐘幻象",nameEn:"ClockPhantom",type:"stamina"},
+    ratchet:{id:"4-60e",name:"4-60",protrusions:4,height:60},
+    bit:{id:"loworb2",name:"Low Orb（LO）",type:"stamina",desc:"低球形底，低重心耐久"} },
   { id:"UX-19", name:"子彈獅鷲", nameEn:"BulletGriffon", code:"UX-19", series:"UX",
     blade:{id:"bulletgriffon",name:"子彈獅鷲",nameEn:"BulletGriffon",type:"balance",note:"棘輪內建，受擊後分裂",integratedRatchet:true},
     ratchet:{id:"bulletgriffon-r",name:"（內建於刀片）",protrusions:null,height:null,integrated:true},
@@ -213,7 +322,7 @@ const ALL_PRODUCTS = [
     lockChip:{id:"lc-perseus",name:"Perseus"},mainBlade:{id:"mb-dark",name:"Dark"},assistBlade:{id:"ab-bumper",name:"Bumper"},
     ratchet:{id:"6-80",name:"6-80",protrusions:6,height:80},
     bit:{id:"wall",name:"Wall（W）",type:"defense",desc:"牆形底，防守反彈型"} },
-  { id:"CX-05", name:"惡魔獵魂（隨機包Vol.6）", nameEn:"HellsReaper", code:"CX-05", series:"CX",
+  { id:"CX-05", name:"惡魔獵魂", nameEn:"HellsReaper", code:"CX-05", series:"CX",
     blade:{id:"hellsreaper",name:"惡魔獵魂",nameEn:"HellsReaper",type:"attack"},
     lockChip:{id:"lc-hells",name:"Hells"},mainBlade:{id:"mb-reaper",name:"Reaper"},assistBlade:{id:"ab-turn",name:"Turn"},
     ratchet:{id:"4-70b",name:"4-70",protrusions:4,height:70},
@@ -258,7 +367,7 @@ const ALL_PRODUCTS = [
     lockChip:{id:"lc-sol",name:"Sol"},mainBlade:{id:"mb-eclipse",name:"Eclipse"},assistBlade:{id:"ab-dual",name:"Dual"},
     ratchet:{id:"5-70b",name:"5-70",protrusions:5,height:70},
     bit:{id:"transtaper",name:"Trans Kick（TK）",type:"balance",desc:"變形底，可切換模式"} },
-  { id:"CX-10", name:"銀狼狩獵（隨機包Vol.7）", nameEn:"WolfHunt", code:"CX-10", series:"CX",
+  { id:"CX-10", name:"銀狼狩獵", nameEn:"WolfHunt", code:"CX-10", series:"CX",
     blade:{id:"wolfhunt",name:"銀狼狩獵",nameEn:"WolfHunt",type:"attack"},
     lockChip:{id:"lc-wolf",name:"Wolf"},mainBlade:{id:"mb-hunt",name:"Hunt"},assistBlade:{id:"ab-fang",name:"Fang"},
     ratchet:{id:"0-60",name:"0-60",protrusions:0,height:60},
@@ -268,6 +377,11 @@ const ALL_PRODUCTS = [
     lockChip:{id:"lc-emperor",name:"Emperor"},mainBlade:{id:"mb-might",name:"Might"},assistBlade:{id:"ab-shield",name:"Shield"},
     ratchet:{id:"7-70",name:"7-70",protrusions:7,height:70},
     bit:{id:"orbsuction",name:"Orb Suction（OP）",type:"stamina",desc:"球形吸力底，耐久型"} },
+  { id:"CX-11-01", name:"帝王威能（特別版）", nameEn:"EmperorMight Special", code:"CX-11-01", series:"CX",
+    blade:{id:"emperormight2",name:"帝王威能",nameEn:"EmperorMight",type:"balance"},
+    lockChip:{id:"lc-emperor2",name:"Emperor"},mainBlade:{id:"mb-might2",name:"Might"},assistBlade:{id:"ab-shield2",name:"Shield"},
+    ratchet:{id:"7-70b",name:"7-70",protrusions:7,height:70},
+    bit:{id:"lowrush3",name:"Low Rush（LR）",type:"attack",desc:"低版Rush，更低重心強衝擊"} },
   { id:"CX-12", name:"鳳凰閃焰", nameEn:"PhoenixFlare", code:"CX-12", series:"CX",
     blade:{id:"phoenixflare",name:"鳳凰閃焰",nameEn:"PhoenixFlare",type:"attack"},
     lockChip:{id:"lc-phoenix",name:"Phoenix"},mainBlade:{id:"mb-flare",name:"Flare"},assistBlade:{id:"ab-zillion",name:"Zillion"},
@@ -288,6 +402,11 @@ const ALL_PRODUCTS = [
     lockChip:{id:"lc-ragna",name:"Ragna"},overBlade:{id:"ob-flow",name:"Flow"},mainBlade:{id:"mb-rage",name:"Rage（Metal）"},assistBlade:{id:"ab-erase",name:"Erase"},expandBlade:true,
     ratchet:{id:"4-55b",name:"4-55",protrusions:4,height:55},
     bit:{id:"yielding",name:"Yielding（Y）",type:"stamina",desc:"讓力底，耐久減少衝擊"} },
+  { id:"CX-17-01", name:"獨角極變（藍）", nameEn:"UnicornDelta Blue", code:"CX-17-01", series:"CX",
+    blade:{id:"unicorndelta",name:"獨角極變",nameEn:"UnicornDelta",type:"balance"},
+    lockChip:{id:"lc-unicorn2",name:"Unicorn"},mainBlade:{id:"mb-delta",name:"Delta"},assistBlade:{id:"ab-delta",name:"O"},
+    ratchet:{id:"3-60i",name:"3-60",protrusions:3,height:60},
+    bit:{id:"gearunite2",name:"Gear Unite（GU）",type:"balance",desc:"齒輪組合底，平衡型"} },
   { id:"CX-18", name:"腕龍長鞭", nameEn:"WristDragonWhip", code:"CX-18", series:"CX",
     blade:{id:"wristdragon",name:"腕龍長鞭",nameEn:"WristDragonWhip",type:"attack"},
     lockChip:{id:"lc-wrist",name:"Wrist"},mainBlade:{id:"mb-whip",name:"Whip"},assistBlade:{id:"ab-w",name:"W"},
@@ -1104,6 +1223,7 @@ export default function App() {
                       <span style={{fontWeight:700,fontSize:15,color:owned?"#fff":"#aaa"}}>{p.name}</span>
                       <span style={{fontSize:11,color:"#fbbf24",fontWeight:700}}>{p.code}</span>
                       <SeriesBadge series={p.series}/>
+                      <BladeTierBadge productId={p.id}/>
                     </div>
                     <div style={{display:"flex",flexDirection:"column",gap:4}}>
                       {(isCX?[
@@ -1202,6 +1322,7 @@ export default function App() {
                       <span style={{fontWeight:700,fontSize:15,color:"#fff"}}>{p.name}</span>
                       <span style={{fontSize:11,color:"#fbbf24",fontWeight:700}}>{p.code}</span>
                       <SeriesBadge series={p.series}/>
+                      <BladeTierBadge productId={p.id}/>
                     </div>
                     <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
                       <span style={{fontSize:11,color:"#888"}}>{p.blade.name}</span>
