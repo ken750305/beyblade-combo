@@ -1295,7 +1295,7 @@ export default function App() {
                             border:part.tier==="X"?"1px solid rgba(251,191,36,0.4)":part.tier==="S+"||part.tier==="S"?"1px solid rgba(180,180,180,0.3)":"1px solid rgba(255,255,255,0.1)"}}>
                             <span style={{color:part.tier==="X"?"#fbbf24":part.tier==="S+"||part.tier==="S"?"#d1d5db":"#ccc",fontWeight:part.tier==="X"||part.tier==="S+"||part.tier==="S"?700:400}}>{part.name}</span>
                             {part.tier&&<TierBadge tier={part.tier}/>}
-                            <span style={{color:"#555",fontSize:10}}>({part.productName} {part.code})</span>
+                            <span style={{color:"#555",fontSize:10}}>({part.productName&&part.productName!==part.name?part.productName+" ":""}{part.code})</span>
                           </div>
                         ))}
                       </div>
