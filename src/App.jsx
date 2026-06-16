@@ -18,6 +18,7 @@ const BIT_TIER = {
   "I":"C","GP":"C","Z":"C","TP":"C","WW":"C","A":"C","C":"C",
   "V":"D","HT":"D","GB":"D","DB":"D","G":"D","GF":"D","S":"D",
   "N":"E","GN":"E","M":"E","Tr":"E","BS":"E","MN":"E","RA":"E","Q":"E",
+  "DS":"-","NR":"-",  // 新軸心類型，尚未分級
 };
 const BIT_ID_TO_ABBR = {
   lowrush:"LR",rush:"R",ball:"B",hexa:"H",hexa2:"H",elevate:"E",level:"L",kick:"K",
@@ -29,6 +30,29 @@ const BIT_ID_TO_ABBR = {
   needle:"N",needle2:"N",needle3:"N",gearneedle:"GN",merge:"M",metalneedle:"MN",metalneedle2:"MN",boundspike:"BS",boundspike2:"BS",needlerush:"RA",
   "turbo-bit":"Tr",diskball3:"D",highball:"B",gearball4:"WB",lowrush2:"LR",lowrush3:"LR",lowrush4:"LR",lowrush5:"LR",lowrush6:"LR",
   rush2:"R",rush3:"R",rush4:"R",accel3:"A",orb2:"O",
+  // ── 抽包擴充 ──
+  lowflat3:"LF",lowflat4:"LF",lowflat5:"LF",lowflat6:"LF",lowflat7:"LF",
+  needle4:"N",needle5:"N",needle6:"N",ball2:"B",ball3:"B",ball4:"B",
+  taper2:"T",taper3:"T",taper4:"T",hexa3:"H",hexa4:"H",hexa5:"H",
+  freeball2:"FB",freeball3:"FB",elevate2:"E",elevate3:"E",elevate4:"E",
+  unite2:"U",unite3:"U",unite4:"U",lowflat8:"LF",cyclone2:"C",cyclone3:"C",
+  transpoint2:"TP",transpoint3:"TP",glide2:"G",glide3:"G",
+  metalneedle4:"MN",metalneedle5:"MN",jolt2:"J",jolt3:"J",
+  point2:"P",point3:"P",point4:"P",wedge2:"W",wedge3:"W",wedge4:"W",
+  gearball5:"WB",gearball6:"WB",gearball7:"WB",gearball8:"WB",
+  hightaper3:"HT",hightaper4:"HT",hightaper5:"HT",
+  loworb3:"LO",loworb4:"LO",highneedle2:"HN",highneedle3:"HN",highneedle4:"HN",
+  spike3:"S",spike4:"S",spike5:"S",
+  needlerush2:"RA",needlerush3:"RA",
+  diskball4:"DB",diskball5:"J",
+  level3:"L",level4:"L",level5:"L",
+  underflat3:"UF",underflat4:"UF",
+  vortex3:"V",vortex4:"V",
+  // 新軸心類型
+  deepstrike:"DS",deepstrike2:"DS",
+  netrush:"NR",netrush2:"NR",netrush3:"NR",
+  gearflat7:"GR",gearflat8:"GR",gearball9:"GR",
+  gearrush:"GR",
 };
 
 // ── 刀片 Tier 資料（來源：@RENLIgames / stan-yao）──────────
@@ -73,6 +97,7 @@ const BLADE_TIER = {
   "UX-13":"B+",   // 魔像奇岩
   // B
   "BX-14":"B",    // 隨機包
+  "BX-14-01":"B",  // 鮫鯊鋒鰭(紫)
   "CX-02":"B",    // 魔導至尊
   "CX-05":"B",    // 惡魔獵魂
   "UX-15-2":"B",  // 暴龍咆哮
@@ -412,6 +437,32 @@ const ALL_PRODUCTS = [
     lockChip:{id:"lc-wrist",name:"Wrist"},mainBlade:{id:"mb-whip",name:"Whip"},assistBlade:{id:"ab-w",name:"W"},
     ratchet:{id:"5-70c",name:"5-70",protrusions:5,height:70},
     bit:{id:"needlerush",name:"Needle Rush（RA）",type:"stamina",desc:"針形衝刺底，耐久型"} },
+
+  // ══ 抽包：BX-14 隨機強化組 Vol.01 ══
+  { id:"BX-14-01", name:"鮫鯊鋒鰭(紫)", nameEn:"SharkEdge Purple", code:"BX-14-01", series:"BX",
+    blade:{id:"sharkedgepurple",name:"鮫鯊鋒鰭",nameEn:"SharkEdge",type:"attack"},
+    ratchet:{id:"3-60j",name:"3-60",protrusions:3,height:60},
+    bit:{id:"lowflat3",name:"Low Flat（LF）",type:"attack",desc:"低重心平面底，X-Dash 機動"} },
+  { id:"BX-14-02", name:"鮫鯊鋒鰭(黃)", nameEn:"SharkEdge Yellow", code:"BX-14-02", series:"BX",
+    blade:{id:"sharkedgeyellow",name:"鮫鯊鋒鰭",nameEn:"SharkEdge",type:"attack"},
+    ratchet:{id:"4-80c",name:"4-80",protrusions:4,height:80},
+    bit:{id:"needle4",name:"Needle（N）",type:"defense",desc:"針形底，防守定點型"} },
+  { id:"BX-14-03", name:"蒼龍神劍(黑)", nameEn:"DranSword Black", code:"BX-14-03", series:"BX",
+    blade:{id:"dranswordblack",name:"蒼龍神劍",nameEn:"DranSword",type:"attack"},
+    ratchet:{id:"3-80d",name:"3-80",protrusions:3,height:80},
+    bit:{id:"ball2",name:"Ball（B）",type:"balance",desc:"球形底，平衡型"} },
+  { id:"BX-14-04", name:"惡魔紅鐮(綠)", nameEn:"HellsScythe Green", code:"BX-14-04", series:"BX",
+    blade:{id:"hellsscythegreen",name:"惡魔紅鐮",nameEn:"HellsScythe",type:"balance"},
+    ratchet:{id:"4-80d",name:"4-80",protrusions:4,height:80},
+    bit:{id:"lowflat4",name:"Low Flat（LF）",type:"attack",desc:"低重心平面底，X-Dash 機動"} },
+  { id:"BX-14-05", name:"騎士重盾(青)", nameEn:"KnightShield Cyan", code:"BX-14-05", series:"BX",
+    blade:{id:"knightshieldcyan",name:"騎士重盾",nameEn:"KnightShield",type:"defense"},
+    ratchet:{id:"4-60f",name:"4-60",protrusions:4,height:60},
+    bit:{id:"lowflat5",name:"Low Flat（LF）",type:"attack",desc:"低重心平面底，X-Dash 機動"} },
+  { id:"BX-14-06", name:"魔導幻箭(紅)", nameEn:"WizardArrow Red", code:"BX-14-06", series:"BX",
+    blade:{id:"wizardarrowred",name:"魔導幻箭",nameEn:"WizardArrow",type:"stamina"},
+    ratchet:{id:"3-60k",name:"3-60",protrusions:3,height:60},
+    bit:{id:"taper2",name:"Taper（T）",type:"stamina",desc:"錐形底，旋轉耐久型"} },
 ];
 
 // ── 工具函式 ──────────────────────────────────────────────
