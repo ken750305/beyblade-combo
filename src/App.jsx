@@ -21,7 +21,7 @@ const BIT_TIER = {
   "DS":"-","NR":"-",  // 新軸心類型，尚未分級
 };
 const BIT_ID_TO_ABBR = {
-  lowrush:"LR",rush:"R",ball:"B",hexa:"H",hexa2:"H",elevate:"E",level:"L",kick:"K",
+  lowrush:"LR",rush:"R",ball:"B",hexa:"H",hexa2:"H",elevate:"E",level:"L",level2:"L",kick:"K",
   underneedle:"UN",underneedle2:"UN",freeball:"FB",diskball:"DB",diskball2:"DB",loworb:"LO",taper:"T",underflat:"UF",underflat2:"UF",
   orb:"O",point:"P",unite:"U",lowflat:"LF",lowflat2:"LF",orbsuction:"OP",wall:"W",flat:"F",flat0:"F",flat2:"F",flat3:"F",flat4:"F",flat5:"F",flat6:"F",
   gearball:"WB",gearball2:"WB",gearunite:"GU",transtaper:"TK",gearflat:"GR",gearflat2:"GR",gearflat3:"GR",gearunite2:"GU",loworb2:"LO",lowrush2:"LR",lowrush3:"LR",gearflat4:"GR",gearflat5:"GR",yielding:"Y",
@@ -30,6 +30,9 @@ const BIT_ID_TO_ABBR = {
   needle:"N",needle2:"N",needle3:"N",gearneedle:"GN",merge:"M",metalneedle:"MN",metalneedle2:"MN",boundspike:"BS",boundspike2:"BS",needlerush:"RA",
   "turbo-bit":"Tr",diskball3:"D",highball:"B",gearball4:"WB",lowrush2:"LR",lowrush3:"LR",lowrush4:"LR",lowrush5:"LR",lowrush6:"LR",
   rush2:"R",rush3:"R",rush4:"R",accel3:"A",orb2:"O",
+  // ── 補漏 ──
+  flat7:"F",hightaper2:"HT",jolt:"J",metalneedle3:"MN",quake:"Q",
+  wallbound:"WB",wallbound2:"WB",wallbound3:"WB",wedge:"W",
   // ── 抽包擴充 ──
   lowflat3:"LF",lowflat4:"LF",lowflat5:"LF",lowflat6:"LF",lowflat7:"LF",
   needle4:"N",needle5:"N",needle6:"N",ball2:"B",ball3:"B",ball4:"B",
