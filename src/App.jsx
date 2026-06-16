@@ -98,7 +98,7 @@ const BLADE_TIER = {
   // B
   "BX-14":"B",    // 隨機包
   "BX-14-01":"B",  // 鮫鯊鋒鰭(紫)
-  "BXH-10":"X",    // 空力天馬
+  "UX-00":"X",     // 空力天馬
   "CX-02":"B",    // 魔導至尊
   "CX-05":"B",    // 惡魔獵魂
   "UX-15-2":"B",  // 暴龍咆哮
@@ -439,12 +439,12 @@ const ALL_PRODUCTS = [
     ratchet:{id:"5-70c",name:"5-70",protrusions:5,height:70},
     bit:{id:"needlerush",name:"Needle Rush（RA）",type:"stamina",desc:"針形衝刺底，耐久型"} },
 
-  // ══ 空力天馬 ══
-  { id:"BXH-10", name:"空力天馬", nameEn:"AeroPegasus", code:"BXH-10", series:"BX",
+  // ══ 空力天馬 UX-00 ══
+  { id:"UX-00", name:"空力天馬(藍)", nameEn:"AeroPegasus Blue", code:"UX-00", series:"UX",
     blade:{id:"aeropegasus",name:"空力天馬",nameEn:"AeroPegasus",type:"attack"},
     ratchet:{id:"3-70d",name:"3-70",protrusions:3,height:70},
     bit:{id:"accel",name:"Accel（A）",type:"attack",desc:"加速底，快速機動攻擊"} },
-  { id:"BXG-24", name:"空力天馬(紅)", nameEn:"AeroPegasus Red", code:"BXG-24", series:"BX",
+  { id:"UX-00-red", name:"空力天馬(紅)", nameEn:"AeroPegasus Red", code:"UX-00", series:"UX",
     blade:{id:"aeropegasusred",name:"空力天馬",nameEn:"AeroPegasus",type:"attack"},
     ratchet:{id:"3-70e",name:"3-70",protrusions:3,height:70},
     bit:{id:"accel2",name:"Accel（A）",type:"attack",desc:"加速底，快速機動攻擊"} },
