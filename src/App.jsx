@@ -1599,9 +1599,9 @@ export default function App() {
               {partsExpanded&&(
                 <div style={{marginTop:16}}>
                   {[
-                    {label:"🗡️ 刀刃",parts:[...new Map(sortProducts(ALL_PRODUCTS.filter(p=>ownedProducts.has(p.id))).map(p=>[p.blade.id,{name:p.blade.name,code:p.code,productName:p.name,series:p.series}])).values()]},
-                    {label:"⚙️ 固鎖",parts:[...new Map(sortProducts(ALL_PRODUCTS.filter(p=>ownedProducts.has(p.id)&&!p.ratchet.integrated)).map(p=>[p.ratchet.name,{name:p.ratchet.name,code:p.code,productName:p.name,series:p.series,tier:RATCHET_TIER[p.ratchet.name]}])).values()].sort((a,b)=>{const o={"X":0,"S+":1,"S":2};return (o[a.tier]??9)-(o[b.tier]??9);})},
-                    {label:"🔵 軸心",parts:[...new Map(sortProducts(ALL_PRODUCTS.filter(p=>ownedProducts.has(p.id)&&!p.bit.integrated)).map(p=>[p.bit.name,{name:p.bit.name,code:p.code,productName:p.name,series:p.series,tier:BIT_TIER[BIT_ID_TO_ABBR[p.bit.id]]}])).values()].sort((a,b)=>{const o={"X":0,"S+":1,"S":2};return (o[a.tier]??9)-(o[b.tier]??9);})},
+                    {label:"🗡️ 刀刃",parts:(()=>{const owned=sortProducts(ALL_PRODUCTS.filter(p=>ownedProducts.has(p.id)));const c=owned.reduce((a,p)=>{a[p.blade.id]=(a[p.blade.id]||0)+1;return a;},{});return [...new Map(owned.map(p=>[p.blade.id,{name:p.blade.name,code:p.code,productName:p.name,series:p.series,count:c[p.blade.id]}])).values()];})()},
+                    {label:"⚙️ 固鎖",parts:(()=>{const owned=sortProducts(ALL_PRODUCTS.filter(p=>ownedProducts.has(p.id)&&!p.ratchet.integrated));const c=owned.reduce((a,p)=>{a[p.ratchet.name]=(a[p.ratchet.name]||0)+1;return a;},{});return [...new Map(owned.map(p=>[p.ratchet.name,{name:p.ratchet.name,code:p.code,productName:p.name,series:p.series,tier:RATCHET_TIER[p.ratchet.name],count:c[p.ratchet.name]}])).values()].sort((a,b)=>{const o={"X":0,"S+":1,"S":2};return (o[a.tier]??9)-(o[b.tier]??9);});})()},
+                    {label:"🔵 軸心",parts:(()=>{const owned=sortProducts(ALL_PRODUCTS.filter(p=>ownedProducts.has(p.id)&&!p.bit.integrated));const c=owned.reduce((a,p)=>{a[p.bit.name]=(a[p.bit.name]||0)+1;return a;},{});return [...new Map(owned.map(p=>[p.bit.name,{name:p.bit.name,code:p.code,productName:p.name,series:p.series,tier:BIT_TIER[BIT_ID_TO_ABBR[p.bit.id]],count:c[p.bit.name]}])).values()].sort((a,b)=>{const o={"X":0,"S+":1,"S":2};return (o[a.tier]??9)-(o[b.tier]??9);});})()},
                   ].map(sec=>(
                     <div key={sec.label} style={{marginBottom:16}}>
                       <div style={{fontSize:11,color:"#888",fontWeight:700,letterSpacing:1,marginBottom:8}}>{sec.label}</div>
@@ -1617,6 +1617,7 @@ export default function App() {
                             border:part.tier==="X"?"1px solid rgba(251,191,36,0.4)":part.tier==="S+"||part.tier==="S"?"1px solid rgba(180,180,180,0.3)":"1px solid rgba(255,255,255,0.1)"}}>
                             {imgUrl&&<img src={imgUrl} alt="" loading="lazy" style={{width:24,height:24,objectFit:"contain",borderRadius:4,background:"rgba(255,255,255,0.06)",flexShrink:0}}/>}
                             <span style={{color:part.tier==="X"?"#fbbf24":part.tier==="S+"||part.tier==="S"?"#d1d5db":"#ccc",fontWeight:part.tier==="X"||part.tier==="S+"||part.tier==="S"?700:400}}>{part.name}</span>
+                            {part.count>1&&<span style={{fontSize:11,fontWeight:700,color:"#fbbf24",background:"rgba(251,191,36,0.18)",padding:"1px 6px",borderRadius:6}}>×{part.count}</span>}
                             {part.tier&&<TierBadge tier={part.tier}/>}
                             <span style={{color:"#555",fontSize:10}}>({part.productName&&part.productName!==part.name?part.productName+" ":""}{part.code})</span>
                           </div>
